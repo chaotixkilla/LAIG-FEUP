@@ -1,0 +1,243 @@
+<SCENE>
+
+<!-- Initial values -->
+<INITIALS>
+    <frustum near="0.1" far="500"/>                 
+    <translation x="-1" y="1" z="0" />               
+    <rotation axis="x" angle="0" />                
+    <rotation axis="y" angle="0" />                
+    <rotation axis="z" angle="0" />                
+    <scale sx="0.25" sy="0.25" sz="0.25" />         
+    <reference length="5" />                        
+</INITIALS>
+
+
+<!-- Illumination and clear colour -->
+<ILLUMINATION>
+    <ambient r="0.2" g="0.2" b="0.2" a="1" />       
+    <background r="0" g="0" b="0" a="1" />          
+</ILLUMINATION>
+
+
+<!-- Lights -->
+<LIGHTS>	
+	<LIGHT id="light0">                                    
+        <enable value ="1" />                   	       
+        <position  x="0" y="10" z="0" w="1" />       	   
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />        	 
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />      
+    </LIGHT>
+	
+	<LIGHT id="light1">                                    
+        <enable value ="1" />                   	      
+        <position x="30" y="10" z="0" w="1" />       	   
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />       
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />       
+    </LIGHT>
+	
+	<LIGHT id="light2">                                   
+        <enable value ="1" />                   	       
+        <position x="0" y="10" z="20" w="1" />       		   
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />      
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />       
+    </LIGHT>
+
+    <LIGHT id="light3">                                   
+        <enable value ="1" />                   	       
+        <position x="30" y="10" z="20" w="1" />       			
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />           	
+        <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />       
+        <specular r="0.6" g="0.6" b="0.6" a="1.0" />      
+    </LIGHT>
+    
+</LIGHTS>
+
+<!-- Textures -->
+<TEXTURES>
+    <!-- Game Board -->
+    <TEXTURE id="game_board">
+        <file path="images/GoRoGo_board.jpg" />
+        <amplif_factor s="5" t="5" />
+    </TEXTURE>
+
+    <!-- Light Wood -->
+    <TEXTURE id="light_wood">
+        <file path="images/light_wood.jpg" />
+        <amplif_factor s="5" t="5" />
+    </TEXTURE>
+</TEXTURES>
+
+
+<MATERIALS>
+    <!-- A default material -->
+    <MATERIAL id="defaultMaterial">                                  
+        <shininess value="1" />
+        <specular r="0.0" g="0.0" b="0.0" a="1" />        
+        <diffuse r="0.4" g="0.4" b="0.4" a="1" />       
+        <ambient r="0.4" g="0.4" b="0.4" a="1" />         
+        <emission r="0.0" g="0.0" b="0.0" a="1" />        
+    </MATERIAL>
+
+</MATERIALS>
+
+<ANIMATIONS>
+
+</ANIMATIONS>
+
+<!-- The leaves -->
+<LEAVES>
+</LEAVES>
+
+
+<!-- The nodes -->
+<NODES>
+
+    <ROOT id="root" />     
+
+    <!-- The root node -->
+    <NODE id="root">       
+        <MATERIAL id="defaultMaterial" />         
+        <TEXTURE id="null" />  
+
+        <DESCENDANTS>
+            <NODEREF id="game_board" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <!-- Generic cube -->
+    <NODE id="cube">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="-2.5" y="0" z="-2.5"/>
+
+        <DESCENDANTS>
+            <NODEREF id="cube_face1" />
+            <NODEREF id="cube_face2" />
+            <NODEREF id="cube_face3" />
+            <NODEREF id="cube_face4" />
+            <NODEREF id="cube_face5" />
+            <NODEREF id="cube_face6" />
+        </DESCENDANTS>
+    </NODE>
+
+    <!-- A cube face -->
+    <NODE id="cube_face1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="5" z="0" />
+        <ROTATION axis="x" angle="-180" />
+
+        <DESCENDANTS>
+            <LEAF  type="rectangle" args="0 5 5 0" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <!-- A cube face -->
+    <NODE id="cube_face2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="0" z="5" />
+
+        <DESCENDANTS>
+            <LEAF  type="rectangle" args="0 5 5 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <!-- A cube face -->
+    <NODE id="cube_face3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <ROTATION axis="x" angle="90" />
+
+        <DESCENDANTS>
+            <LEAF  type="rectangle" args="0 5 5 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <!-- A cube face -->
+    <NODE id="cube_face4">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="5" z="5" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF  type="rectangle" args="0 5 5 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <!-- A cube face -->
+    <NODE id="cube_face5">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="5" y="0" z="5" />
+        <ROTATION axis="y" angle="90" />
+
+        <DESCENDANTS>
+            <LEAF  type="rectangle" args="0 5 5 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <!-- A cube face -->
+    <NODE id="cube_face6">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <ROTATION axis="y" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF  type="rectangle" args="0 5 5 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <!-- Complete game board -->
+    <NODE id="game_board">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <DESCENDANTS>
+            <NODEREF id="board"/>
+            <NODEREF id="game_surface"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <!-- Wood edges around the board -->
+    <NODE id="board">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="light_wood"/>
+
+        <SCALE sx="1" sy="0.075" sz="1"/>
+
+        <DESCENDANTS>
+            <NODEREF id="cube"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <!-- Board playing surface -->
+    <NODE id="game_surface">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="game_board"/>
+
+        <TRANSLATION x="0" y="0.38" z="0"/>
+        <SCALE sx="0.8" sy="1" sz="0.8"/>
+        <ROTATION axis="x" angle="-90"/>
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="-2.5 2.5 2.5 -2.5"/>
+        </DESCENDANTS>
+    </NODE>
+
+</NODES>
+
+</SCENE>
