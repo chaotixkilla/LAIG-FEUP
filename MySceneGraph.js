@@ -1340,8 +1340,13 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
             //ADDED shader flag
             var selectableFlag = false;
             if(this.reader.hasAttribute(children[i], 'selectable')){
-                var selectableFlag = this.reader.getString(children[i], 'selectable');
-            } 
+                selectableFlag = this.reader.getString(children[i], 'selectable');
+            }
+
+            var pickableFlag = false;
+            if(this.reader.hasAttribute(children[i], 'pickable')){
+                pickableFlag = this.reader.getString(children[i], 'pickable');
+            }
 
             this.log("Processing node "+nodeID);
 
@@ -1350,6 +1355,9 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
             if (selectableFlag != false){
                 this.nodes[nodeID].selectable = selectableFlag;
                 this.selectableNodes.push(nodeID);
+            }
+            if(pickableFlag != false){
+                this.nodes[nodeID].pickable = pickableFlag;
             }
 
             //
@@ -1611,7 +1619,7 @@ MySceneGraph.generateRandomString = function(length) {
  * @param {number} argS Current S scaling factor of the texture of the node being processed.
  * @param {number} argT Current T scaling factor of the texture of the node being processed.
  */
-MySceneGraph.prototype.esbetacl = function(argnode, argmat, argtex, argS, argT) {
+MySceneGraph.prototype.esbetacl = function(argnode, argmat, argtex, argS, argT, i) {
 
     var material = argmat;
     var textura  = argtex;
@@ -1641,10 +1649,15 @@ MySceneGraph.prototype.esbetacl = function(argnode, argmat, argtex, argS, argT) 
         this.scene.setActiveShader(this.scene.shader);
     }
 
+    if(argnode.pickable){
+        //console.log(argnode);
+        this.scene.registerForPick(i+1, argnode);
+        i++;
+    }
 
     //nodes
     for(var i = 0; i < argnode.children.length; i++){
-        this.esbetacl(this.nodes[argnode.children[i]], material, textura, ampS, ampT);    
+        this.esbetacl(this.nodes[argnode.children[i]], material, textura, ampS, ampT, i);
     }
 
     if (this.scene.selectableNodes == argnode.nodeID && argnode.children.length != 0) {
@@ -1677,5 +1690,5 @@ MySceneGraph.prototype.esbetacl = function(argnode, argmat, argtex, argS, argT) 
 MySceneGraph.prototype.displayScene = function() {
 	//this.log("Graph should be rendered here...");
 
-    this.esbetacl(this.nodes[this.idRoot], null, null, null, null);
+    this.esbetacl(this.nodes[this.idRoot], null, null, null, null, 0);
 }

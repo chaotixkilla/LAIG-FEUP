@@ -103,10 +103,21 @@
         <TEXTURE id="null" />  
 
         <DESCENDANTS>
-            <NODEREF id="game_board" />
+            <NODEREF id="boards" />
         </DESCENDANTS>
 
     </NODE>
+
+    <NODE id="dummy" pickable="true">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="cube" />
+        </DESCENDANTS>
+
+    </NODE>
+
 
     <!-- Generic cube -->
     <NODE id="cube">
@@ -198,6 +209,50 @@
 
         <DESCENDANTS>
             <LEAF  type="rectangle" args="0 5 5 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="boards">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <DESCENDANTS>
+            <NODEREF id="board1"/>
+            <NODEREF id="board2"/>
+            <NODEREF id="board3"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="board1" pickable="true">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="0" y="0" z="7" />
+
+        <DESCENDANTS>
+            <NODEREF id="game_board"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="board2" pickable="true">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="7" y="0" z="0" />
+
+        <DESCENDANTS>
+            <NODEREF id="game_board"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="board3" pickable="true">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="14" y="0" z="0" />
+
+        <DESCENDANTS>
+            <NODEREF id="game_board"/>
         </DESCENDANTS>
     </NODE>
 

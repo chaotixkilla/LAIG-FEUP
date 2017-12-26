@@ -44,6 +44,8 @@ XMLscene.prototype.init = function(application) {
 
     this.setUpdatePeriod(16);
     this.lastUpdateTime = 0;
+
+    this.setPickEnabled(true);
 }
 
 XMLscene.prototype.updateTimeFactor = function(date){
@@ -114,9 +116,31 @@ XMLscene.prototype.onGraphLoaded = function()
 }
 
 /**
+ * picking
+ */
+XMLscene.prototype.logPicking = function ()
+{
+    if (this.pickMode == false) {
+        if (this.pickResults != null && this.pickResults.length > 0) {
+            for (var i=0; i< this.pickResults.length; i++) {
+                var obj = this.pickResults[i][0]; // o objeto seleccionado
+                if (obj)
+                {
+                    var customId = this.pickResults[i][1]; // o ID do objeto seleccionado
+                    console.log("Picked object: " + obj + ", with pick id " + customId);
+                }
+            }
+            this.pickResults.splice(0,this.pickResults.length);
+        }
+    }
+}
+
+/**
  * Displays the scene.
  */
 XMLscene.prototype.display = function() {
+    this.logPicking();
+    this.clearPickRegistration();
     // ---- BEGIN Background, camera and axis setup
     
     // Clear image and depth buffer everytime we update the scene
