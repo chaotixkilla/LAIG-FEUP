@@ -18,6 +18,7 @@ class GoRoGo{
 		this.currentTileID = 0;
 
 		this.addPiecesToPlayers();
+		this.placeInitialPieces();
 	}
 
 	addPiecesToPlayers(){
@@ -25,8 +26,8 @@ class GoRoGo{
 			this.player1Pieces.push(new Piece(this.scene, 1, i));
 			this.allPieces.push(this.player1Pieces[i]);
 		}
-		this.player1Pieces.push(new Piece(this.scene, 3, i), new Piece(this.scene, 3, i+1), new Piece(this.scene, 3, i+2));
-		this.allPieces.push(new Piece(this.scene, 3, i), new Piece(this.scene, 3, i+1), new Piece(this.scene, 3, i+2));
+		this.player1Pieces.push(new Piece(this.scene, 3, i), new Piece(this.scene, 3, i+1));
+		this.allPieces.push(new Piece(this.scene, 3, i), new Piece(this.scene, 3, i+1));
 
 		for(var j = 0; j < 10; j++){
 			this.player2Pieces.push(new Piece(this.scene, 2, i+j+3));
@@ -34,6 +35,24 @@ class GoRoGo{
 		}
 		this.player2Pieces.push(new Piece(this.scene, 3, i+j+3), new Piece(this.scene, 3, i+j+4));
 		this.allPieces.push(new Piece(this.scene, 3, i+j+3), new Piece(this.scene, 3, i+j+4));
+	}
+
+	placeInitialPieces(){
+		this.mainBoard.clearTiles();
+
+		console.log('SIZE = ' + this.player1AuxBoard.length);
+
+		for(var i = 0; i < this.player1AuxBoard.boardMatrix.length; i++){
+			for(var j = 0; j < this.player1AuxBoard.boardMatrix[i].length; j++){
+				this.bindPieceToTile(this.player1AuxBoard.boardMatrix[i][j], this.allPieces[i*j]);
+			}
+		}
+	}
+
+	bindPieceToTile(tile, piece){
+		tile.placedPiece = piece;
+		tile.occupied = true;
+		piece.tile = tile;
 	}
 
 	display(){

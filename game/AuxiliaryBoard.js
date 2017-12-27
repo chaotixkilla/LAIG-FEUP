@@ -32,6 +32,9 @@ class AuxiliaryBoard extends Board{
 					this.scene.clearPickRegistration();
 				}
 				this.boardMatrix[i][j].display();
+				if(this.boardMatrix[i][j].occupied){
+					this.boardMatrix[i][j].placedPiece.display();
+				}
 				this.scene.popMatrix();
 			}
 		}
