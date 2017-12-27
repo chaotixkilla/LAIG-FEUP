@@ -6,7 +6,7 @@ class Piece{
 
 		this.tile = null;
 
-		this.piece = new MyCylinder(this.scene, "0.25 0.20 0.20 20 20 1 1");
+		this.piece = new MyCylinder(this.scene, "0.15 0.20 0.20 20 20 1 1");
 
 		this.blackMaterial = new CGFappearance(this.scene);
  	    this.blackMaterial.setShininess(1);
@@ -32,13 +32,16 @@ class Piece{
    		this.hengeMaterial.setEmission(0, 0, 0, 1);
    		this.hengeMaterial.loadTexture("./scenes/images/grey_rock.jpg");
 
-   		this.materials = [this.blackMaterial, this.whiteMaterial, this.hengeMaterial];
+   		this.materials = [this.whiteMaterial, this.blackMaterial, this.hengeMaterial];
    		this.allTypes = ['white', 'black', 'henge'];
 	}
 
 	display(){
 		this.scene.pushMatrix();
+			this.scene.translate(0, 0.4, 0);
+			this.scene.rotate(-Math.PI/2, 1, 0, 0);
 			this.materials[this.type-1].apply();
+			//console.log(this.materials[this.type-1]);
 			this.piece.display();
 		this.scene.popMatrix();
 	}

@@ -19,7 +19,7 @@ class Tile{
 	    this.material.setDiffuse(0.5, 0.5, 0.5, 1);
     	this.material.setAmbient(0, 0, 0, 1);
    		this.material.setEmission(0, 0, 0, 1);
-   		this.material.loadTexture("./scenes/images/black_rock.jpg");
+   		this.material.loadTexture("./scenes/images/dark_rock.jpg");
 
 		this.woodMaterial = new CGFappearance(this.scene);
  	    this.woodMaterial.setShininess(1);

@@ -40,13 +40,18 @@ class GoRoGo{
 	placeInitialPieces(){
 		this.mainBoard.clearTiles();
 
-		console.log('SIZE = ' + this.player1AuxBoard.length);
-
 		for(var i = 0; i < this.player1AuxBoard.boardMatrix.length; i++){
 			for(var j = 0; j < this.player1AuxBoard.boardMatrix[i].length; j++){
-				this.bindPieceToTile(this.player1AuxBoard.boardMatrix[i][j], this.allPieces[i*j]);
+				this.bindPieceToTile(this.player1AuxBoard.boardMatrix[i][j], this.allPieces[this.player1AuxBoard.boardMatrix[i].length * i + j]);
 			}
 		}
+
+        for(var i = 0; i < this.player2AuxBoard.boardMatrix.length; i++){
+            for(var j = 0; j < this.player2AuxBoard.boardMatrix[i].length; j++){
+                this.bindPieceToTile(this.player2AuxBoard.boardMatrix[i][j], this.allPieces[12 + this.player2AuxBoard.boardMatrix[i].length * i + j]);
+                console.log(this.allPieces[12 + this.player2AuxBoard.boardMatrix[i].length * i + j]);
+            }
+        }
 	}
 
 	bindPieceToTile(tile, piece){
