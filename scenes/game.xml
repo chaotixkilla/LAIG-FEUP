@@ -86,6 +86,12 @@
         <file path="images/grey_rock.jpg" />
         <amplif_factor s="0.25" t="0.25" />
     </TEXTURE>
+
+    <!-- Wooden Floor -->
+    <TEXTURE id="wood_floor">
+        <file path="images/wood_floor.jpg" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
 </TEXTURES>
 
 
@@ -121,6 +127,8 @@
         <TEXTURE id="null" />  
 
         <DESCENDANTS>
+            <NODEREF id="dummy"/>
+            <NODEREF id="floor"/>
             <NODEREF id="GoRoGo_board" />
             <!--
             <NODEREF id="black_piece" />
@@ -236,9 +244,24 @@
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="GoRoGo_board">
+    <!-- Floor -->
+    <NODE id="floor">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="wood_floor" />
+
+        <TRANSLATION x="0" y="0" z="20" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF  type="rectangle" args="0 20 30 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="GoRoGo_board" pickable="true">
         <MATERIAL id="defaultMaterial"/>
         <TEXTURE id="null"/>
+
+        <TRANSLATION x="15" y="2.5" z="10" />
 
         <DESCENDANTS>
             <NODEREF id="game_board"/>

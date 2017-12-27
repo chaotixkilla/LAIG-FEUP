@@ -16,7 +16,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
 			 'primitives/MyRectangle.js', 'primitives/MyTriangle.js', 'primitives/MyCylinder.js',
 			 'primitives/MySphere.js', 'primitives/MyCircle.js', 'primitives/MyCylinderAux.js', 'primitives/Patch.js',
 			 'animations/Animation.js', 'animations/LinearAnimation.js', 'animations/CircularAnimation.js',
-			 'animations/BezierAnimation.js', 'animations/ComboAnimation.js',
+			 'animations/BezierAnimation.js', 'animations/ComboAnimation.js', 'game/Tile.js',
 
 main=function()
 {

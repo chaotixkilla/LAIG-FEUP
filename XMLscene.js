@@ -46,6 +46,8 @@ XMLscene.prototype.init = function(application) {
     this.lastUpdateTime = 0;
 
     this.setPickEnabled(true);
+
+    this.testTile = new Tile(this, 1, 3, 3);
 }
 
 XMLscene.prototype.updateTimeFactor = function(date){
