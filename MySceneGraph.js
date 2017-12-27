@@ -1651,9 +1651,9 @@ MySceneGraph.prototype.esbetacl = function(argnode, argmat, argtex, argS, argT, 
 
     if(argnode.pickable){
         //console.log(i);
-        if(i > 0){
+        //if(i > 0){
             this.scene.registerForPick(i, argnode);
-        }
+        //}
         i++;
     }
 
@@ -1693,5 +1693,6 @@ MySceneGraph.prototype.displayScene = function() {
 	//this.log("Graph should be rendered here...");
 
     this.esbetacl(this.nodes[this.idRoot], null, null, null, null, 0);
-    
+    this.scene.testBoard.display();
+    this.scene.testAuxBoard.display();
 }

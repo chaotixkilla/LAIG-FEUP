@@ -66,7 +66,7 @@
     <!-- Light Wood -->
     <TEXTURE id="light_wood">
         <file path="images/light_wood.jpg" />
-        <amplif_factor s="5" t="5" />
+        <amplif_factor s="3" t="3" />
     </TEXTURE>
 
     <!-- Black Piece Texture -->
@@ -127,19 +127,20 @@
         <TEXTURE id="null" />  
 
         <DESCENDANTS>
-            <NODEREF id="dummy"/>
+            <!--NODEREF id="dummy"/-->
             <NODEREF id="floor"/>
             <NODEREF id="GoRoGo_board" />
             <!--
             <NODEREF id="black_piece" />
             <NODEREF id="white_piece" />
             <NODEREF id="henge_piece" />
-            -->
             <NODEREF id="board_place" />
+            -->
         </DESCENDANTS>
 
     </NODE>
 
+    <!--
     <NODE id="dummy" pickable="true">
         <MATERIAL id="defaultMaterial" />
         <TEXTURE id="null" />
@@ -148,7 +149,7 @@
             <LEAF type="rectangle" args="0 0 0 0" />
         </DESCENDANTS>
 
-    </NODE>
+    </NODE>-->
 
 
     <!-- Generic cube -->
@@ -257,11 +258,11 @@
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="GoRoGo_board" pickable="true">
+    <NODE id="GoRoGo_board">
         <MATERIAL id="defaultMaterial"/>
         <TEXTURE id="null"/>
 
-        <TRANSLATION x="15" y="2.5" z="10" />
+        <!--TRANSLATION x="15" y="2.5" z="10" /-->
 
         <DESCENDANTS>
             <NODEREF id="game_board"/>
@@ -284,7 +285,7 @@
         <MATERIAL id="defaultMaterial" />
         <TEXTURE id="light_wood"/>
 
-        <SCALE sx="1" sy="0.075" sz="1"/>
+        <SCALE sx="1.2" sy="0.075" sz="1.2"/>
 
         <DESCENDANTS>
             <NODEREF id="cube"/>
