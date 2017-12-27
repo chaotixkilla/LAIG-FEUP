@@ -47,9 +47,7 @@ XMLscene.prototype.init = function(application) {
 
     this.setPickEnabled(true);
 
-    this.testBoard = new Board(this, 5, 5);
-    this.testAuxBoard = new AuxiliaryBoard(this, 1);
-    //this.testTile = new Tile(this, 1, 3, 3);
+    this.game = new GoRoGo(this);
 }
 
 XMLscene.prototype.updateTimeFactor = function(date){

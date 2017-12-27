@@ -31,7 +31,7 @@ class Board{
 				this.scene.pushMatrix();
 				this.scene.translate(this.distanceBetweenTiles*(-2) + j * this.distanceBetweenTiles, 0, this.distanceBetweenTiles*(-2) + i * this.distanceBetweenTiles);
 				if(true){
-					this.scene.registerForPick(this.boardMatrix.length * i + j + 1, this.boardMatrix[i][j]);
+					this.scene.registerForPick(this.boardMatrix[i].length * i + j + 1, this.boardMatrix[i][j]);
 				}
 				this.boardMatrix[i][j].display();
 				this.scene.popMatrix();
