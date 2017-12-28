@@ -110,7 +110,10 @@ class GoRoGo{
  	}
 
  	makePlay(tile, piece){
- 		this.bindPieceToTile(tile, piece);
+ 		if(!tile.occupied){
+ 			this.bindPieceToTile(tile, piece);
+ 		}
+ 		return;
  	}
 
  	pickTile(index){
@@ -126,8 +129,38 @@ class GoRoGo{
   		if(this.currentState == 1){
   			pickedTile.selected = true;
   			this.removeHighlights();
-  			this.makePlay(pickedTile, this.allPieces[24]);
+  			this.currentState++;
+  			this.bindPieceToTile(pickedTile, this.allPieces[24]);
+  			this.currentPlayer++;
+  			this.currentPlayState = 0;
   		}
+
+  		if(this.currentState == 2){
+  			if(this.currentPlayState == 0){
+  				if(this.currentPlayer % 2 == 0){
+  					console.log("Player 1 playing");
+  					this.makeSelectable(this.player1AuxBoard);
+  					pickedTile.selected = true;
+  					this.currentPlayer++;
+  					this.currentPlayState++;
+  				}
+  				else{
+  					console.log("Player 2 playing");
+  					this.makeSelectable(this.player2AuxBoard);
+  					pickedTile.selected = true;
+  					this.currentPlayer++;
+  					this.currentPlayState++;
+  				}
+  			}
+  			else if(this.currentPlayState == 1){
+  				console.log("Place the selected piece on the board");
+  				this.makeSelectable(this.mainBoard);
+  				pickedTile.selected = true;
+  				this.currentPlayState--;
+  			}
+  		}
+
+  		console.log(pickedTile);
   	}
 
   	highlightPossibleMoves(){
@@ -150,8 +183,9 @@ class GoRoGo{
 
   	firstTurn(){
   		this.highlightPossibleMoves();
- 		this.currentState = 1;
  		this.makeSelectable(this.mainBoard);
+ 		this.currentState = 1;
+ 		this.currentPlayer = 0;
   	}
 
  	startGame(){
