@@ -21,7 +21,12 @@ class Board{
 	clearTiles(){
 		for(var i = 0; i < this.x; i++){
 			for(var j = 0; j < this.y; j++){
+				if(this.boardMatrix[i][j].placedPiece != null){
+					this.boardMatrix[i][j].placedPiece.tile = null;
+				}
 				this.boardMatrix[i][j].placedPiece = null;
+				this.boardMatrix[i][j].selected = false;
+				this.boardMatrix[i][j].highlighed = false;
 			}
 		}
 	}

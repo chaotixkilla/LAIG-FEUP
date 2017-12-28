@@ -8,6 +8,8 @@ class GoRoGo{
 		this.player2Graveyard = new AuxiliaryBoard(scene, 3);
 		this.player2AuxBoard = new AuxiliaryBoard(scene, 4);
 
+		this.firstPiece = new Piece(this.scene, 3, 24);
+
 		this.boards = [this.mainBoard, this.player1Graveyard, this.player1AuxBoard, this.player2Graveyard, this.player2AuxBoard];
 
 		this.player1Pieces = [];
@@ -17,16 +19,21 @@ class GoRoGo{
 
 		this.allPieces = [];
 
-		this.currentTileID = 0;
+		this.states = ['Waiting for a game to start', 'First play (the henge piece left)', 'Game being played', 'Game finished', 'Replaying a game'];
+		this.playPieceStates = ['Piece picked up', 'Piece waiting to be placed'];
 
-		this.addPiecesToPlayers();
-		this.placeInitialPieces();
+		this.currentState = 0;
+		this.currentPlayState = -1;
+		this.currentPlayer = -1;
+		this.currentPickableBoard = null;
 
 		this.playTime = 0;
 		this.timeoutTime = 10;
 		this.timeout = false;
 		this.gameMode = 0;
 
+		this.addPiecesToPlayers();
+		this.placeInitialPieces();
 	}
 
 	addPiecesToPlayers(){
@@ -35,18 +42,28 @@ class GoRoGo{
 			this.allPieces.push(this.player1Pieces[i]);
 		}
 		this.player1Pieces.push(new Piece(this.scene, 3, i), new Piece(this.scene, 3, i+1));
-		this.allPieces.push(new Piece(this.scene, 3, i), new Piece(this.scene, 3, i+1));
+		this.allPieces.push(this.player1Pieces[10], this.player1Pieces[11]);
 
 		for(var j = 0; j < 10; j++){
 			this.player2Pieces.push(new Piece(this.scene, 2, i+j+3));
 			this.allPieces.push(this.player2Pieces[j]);
 		}
 		this.player2Pieces.push(new Piece(this.scene, 3, i+j+3), new Piece(this.scene, 3, i+j+4));
-		this.allPieces.push(new Piece(this.scene, 3, i+j+3), new Piece(this.scene, 3, i+j+4));
+		this.allPieces.push(this.player2Pieces[10], this.player2Pieces[11]);
+
+		this.allPieces.push(this.firstPiece);
+	}
+
+	clearEntireBoard(){
+		this.mainBoard.clearTiles();
+		this.player1Graveyard.clearTiles();
+		this.player1AuxBoard.clearTiles();
+		this.player2Graveyard.clearTiles();
+		this.player2AuxBoard.clearTiles();
 	}
 
 	placeInitialPieces(){
-		this.mainBoard.clearTiles();
+		this.clearEntireBoard();
 
 		for(var i = 0; i < this.player1AuxBoard.boardMatrix.length; i++){
 			for(var j = 0; j < this.player1AuxBoard.boardMatrix[i].length; j++){
@@ -57,7 +74,6 @@ class GoRoGo{
         for(var i = 0; i < this.player2AuxBoard.boardMatrix.length; i++){
             for(var j = 0; j < this.player2AuxBoard.boardMatrix[i].length; j++){
                 this.bindPieceToTile(this.player2AuxBoard.boardMatrix[i][j], this.allPieces[12 + this.player2AuxBoard.boardMatrix[i].length * i + j]);
-                console.log(this.allPieces[12 + this.player2AuxBoard.boardMatrix[i].length * i + j]);
             }
         }
 	}
@@ -86,32 +102,67 @@ class GoRoGo{
  		this.currentPickableBoard = board;
  	}
 
+ 	checkPieceOwner(piece){
+ 		if(piece.id > 11){
+ 			return 1;
+ 		}
+ 		return 0;
+ 	}
+
+ 	makePlay(tile, piece){
+ 		this.bindPieceToTile(tile, piece);
+ 	}
+
  	pickTile(index){
   		var pickedTileID = index-1;
 		for(var i = 0; i < this.currentPickableBoard.boardMatrix.length; i++){
 			for(var j = 0; j < this.currentPickableBoard.boardMatrix[i].length; j++){
 				if(this.currentPickableBoard.boardMatrix[i][j].id == pickedTileID){
-					var currentTile = this.currentPickableBoard.boardMatrix[i][j];
+					var pickedTile = this.currentPickableBoard.boardMatrix[i][j];
  				}
  			}
   		}
- 		if(this.currentPlayState == 0){
- 			currentTile.selected = true;
- 			this.currentPlayState++;
- 		}
- 		else if(this.currentPlayState == 1){
- 			this.makeSelectable(this.mainBoard);
- 		}
+
+  		if(this.currentState == 1){
+  			pickedTile.selected = true;
+  			this.removeHighlights();
+  			this.makePlay(pickedTile, this.allPieces[24]);
+  		}
+  	}
+
+  	highlightPossibleMoves(){
+  		for(var i = 0; i < this.mainBoard.boardMatrix.length; i++){
+			for(var j = 0; j < this.mainBoard.boardMatrix[i].length; j++){
+				this.mainBoard.boardMatrix[i][j].highlighed = true;
+ 			}
+  		}
+  	}
+
+  	removeHighlights(){
+  		for(var i = 0; i < this.mainBoard.boardMatrix.length; i++){
+			for(var j = 0; j < this.mainBoard.boardMatrix[i].length; j++){
+				if(this.mainBoard.boardMatrix[i][j].highlighed){
+					this.mainBoard.boardMatrix[i][j].highlighed = false;
+				}
+ 			}
+  		}
+  	}
+
+  	firstTurn(){
+  		this.highlightPossibleMoves();
+ 		this.currentState = 1;
+ 		this.makeSelectable(this.mainBoard);
   	}
 
  	startGame(){
-		alert("Game Started");
-		this.makeSelectable(this.player1AuxBoard);
-  		this.currentPlayState = 0;
-
+		/*
 		alert("getPrologRequest test call, brace yourselves");
 		this.getPrologRequest("getInitialBoard", null, null, 8081);
 		alert("k done proceed");
+		*/
+ 		this.placeInitialPieces();
+ 		this.firstTurn();
+
 	}
 
 	display(){

@@ -36,6 +36,7 @@ class Piece{
  		this.redMaterial.setDiffuse(0.7,0,0,1);
  		this.redMaterial.setSpecular(0.7,0,0,1);
  		this.redMaterial.setAmbient(0.7,0.1,0.1,1);
+ 		this.redMaterial.loadTexture("./scenes/images/white_rock.jpg");
 
    		this.materials = [this.whiteMaterial, this.blackMaterial, this.hengeMaterial];
    		this.allTypes = ['white', 'black', 'henge'];

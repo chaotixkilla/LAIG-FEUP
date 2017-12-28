@@ -9,7 +9,6 @@ class Tile{
 		this.occupied = false;
 		this.placedPiece = null;
 
-		this.isOnMainBoard = false;
 		this.selected = false;
 		this.highlighed = false;
 
@@ -34,6 +33,11 @@ class Tile{
  		this.redMaterial.setSpecular(0.7,0,0,1);
  		this.redMaterial.setAmbient(0.7,0.1,0.1,1);
 
+ 		this.greenMaterial = new CGFappearance(this.scene);
+ 		this.greenMaterial.setDiffuse(0,0.7,0,1);
+ 		this.greenMaterial.setSpecular(0,0.7,0,1);
+ 		this.greenMaterial.setAmbient(0.1,0.7,0.1,1);
+
 		this.tile = new MyCylinder(this.scene, "0.01 0.08 0.08 20 20 1 1");
 	}
 
@@ -46,6 +50,9 @@ class Tile{
 			}
 			else if(this.selected && !this.occupied){
 				this.redMaterial.apply();
+			}
+			else if(this.highlighed){
+				this.greenMaterial.apply();
 			}
 			else{
 				this.material.apply();
