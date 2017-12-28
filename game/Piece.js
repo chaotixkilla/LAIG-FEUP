@@ -45,7 +45,12 @@ class Piece{
 		this.scene.pushMatrix();
 			this.scene.translate(0, 0.4, 0);
 			this.scene.rotate(-Math.PI/2, 1, 0, 0);
-			this.materials[this.type-1].apply();
+			if(this.tile.selected){
+				this.redMaterial.apply();
+			}
+			else{
+				this.materials[this.type-1].apply();
+			}
 			this.piece.display();
 		this.scene.popMatrix();
 	}

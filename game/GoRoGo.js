@@ -8,6 +8,8 @@ class GoRoGo{
 		this.player2Graveyard = new AuxiliaryBoard(scene, 3);
 		this.player2AuxBoard = new AuxiliaryBoard(scene, 4);
 
+		this.boards = [this.mainBoard, this.player1Graveyard, this.player1AuxBoard, this.player2Graveyard, this.player2AuxBoard];
+
 		this.player1Pieces = [];
 		this.player1Score = 0;
 		this.player2Pieces = [];
@@ -74,27 +76,49 @@ class GoRoGo{
 		piece.tile = tile;
 	}
 
+	unbindPieceToTile(tile, piece){
+		tile.placedPiece = null;
+		tile.occupied = false;
+		piece.tile = null;
+	}
+
+	makeSelectable(board){
+		for(var i = 0; i < this.boards.length; i++){
+			if(this.boards[i] == board){
+				board.makeSelectable();
+			}
+			else{
+				this.boards[i].makeUnselectable();
+			}
+		}
+		this.currentPickableBoard = board;
+	}
+
 	startGame(){
-		this.mainBoard.makeSelectable();
-		//this.player1AuxBoard.makeSelectable();
+		this.makeSelectable(this.player1AuxBoard);
 		this.currentPlayState = 0;
-		this.currentPickableBoard = this.mainBoard;
 	}
 
 	pickTile(index){
 		var pickedTileID = index-1;
-		if(this.currentPlayState == 0){
-			for(var i = 0; i < this.currentPickableBoard.boardMatrix.length; i++){
-				for(var j = 0; j < this.currentPickableBoard.boardMatrix[i].length; j++){
-					if(this.currentPickableBoard.boardMatrix[i][j].id == pickedTileID){
-						console.log('TILE SELECCIONADA: X =' + (i+1) + ' Y = ' + (j+1));
-					}
+		for(var i = 0; i < this.currentPickableBoard.boardMatrix.length; i++){
+			for(var j = 0; j < this.currentPickableBoard.boardMatrix[i].length; j++){
+				if(this.currentPickableBoard.boardMatrix[i][j].id == pickedTileID){
+					var currentTile = this.currentPickableBoard.boardMatrix[i][j];
 				}
 			}
+		}
+		if(this.currentPlayState == 0){
+			currentTile.selected = true;
+			this.currentPlayState++;
+		}
+		else if(this.currentPlayState == 1){
+			this.makeSelectable(this.mainBoard);
 		}
 	}
 
 	display(){
+		//console.log(this.currentPlayState);
 		this.mainBoard.display();
 		this.player1Graveyard.display();
 		this.player1AuxBoard.display();
