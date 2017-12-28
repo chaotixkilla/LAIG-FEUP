@@ -32,6 +32,11 @@ class Piece{
    		this.hengeMaterial.setEmission(0, 0, 0, 1);
    		this.hengeMaterial.loadTexture("./scenes/images/grey_rock.jpg");
 
+   		this.redMaterial = new CGFappearance(this.scene);
+ 		this.redMaterial.setDiffuse(0.7,0,0,1);
+ 		this.redMaterial.setSpecular(0.7,0,0,1);
+ 		this.redMaterial.setAmbient(0.7,0.1,0.1,1);
+
    		this.materials = [this.whiteMaterial, this.blackMaterial, this.hengeMaterial];
    		this.allTypes = ['white', 'black', 'henge'];
 	}
@@ -41,7 +46,6 @@ class Piece{
 			this.scene.translate(0, 0.4, 0);
 			this.scene.rotate(-Math.PI/2, 1, 0, 0);
 			this.materials[this.type-1].apply();
-			//console.log(this.materials[this.type-1]);
 			this.piece.display();
 		this.scene.popMatrix();
 	}

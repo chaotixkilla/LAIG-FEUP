@@ -7,6 +7,7 @@ class Board{
 		this.boardMatrix = [];
 
 		this.currentTileID = 0;
+		this.selectable = false;
 
 		for(var i = 0; i < this.x; i++){
 			this.boardMatrix.push([]);
@@ -25,15 +26,29 @@ class Board{
 		}
 	}
 
+	makeSelectable(){
+		this.selectable = true;
+	}
+
+	makeUnselectable(){
+		this.selectable = false;
+	}
+
 	display(){
 		for(var i = 0; i < this.boardMatrix.length; i++){
 			for(var j = 0; j < this.boardMatrix[i].length; j++){
 				this.scene.pushMatrix();
 				this.scene.translate(this.distanceBetweenTiles*(-2) + j * this.distanceBetweenTiles, 0, this.distanceBetweenTiles*(-2) + i * this.distanceBetweenTiles);
-				if(true){
+				if(this.selectable){
 					this.scene.registerForPick(this.boardMatrix[i].length * i + j + 1, this.boardMatrix[i][j]);
 				}
+				else{
+					this.scene.clearPickRegistration();
+				}
 				this.boardMatrix[i][j].display();
+				if(this.boardMatrix[i][j].occupied){
+					this.boardMatrix[i][j].placedPiece.display();
+				}
 				this.scene.popMatrix();
 			}
 		}

@@ -29,6 +29,11 @@ class Tile{
    		this.woodMaterial.setEmission(0, 0, 0, 1);
    		this.woodMaterial.loadTexture("./scenes/images/light_wood.jpg");
 
+   		this.redMaterial = new CGFappearance(this.scene);
+ 		this.redMaterial.setDiffuse(0.7,0,0,1);
+ 		this.redMaterial.setSpecular(0.7,0,0,1);
+ 		this.redMaterial.setAmbient(0.7,0.1,0.1,1);
+
 		this.tile = new MyCylinder(this.scene, "0.01 0.08 0.08 20 20 1 1");
 	}
 
@@ -36,8 +41,11 @@ class Tile{
 		this.scene.pushMatrix();
 			this.scene.translate(0, this.z, 0);
 			this.scene.rotate(-Math.PI/2, 1, 0, 0);
-			if(this.selected){
-				this.woodMaterial.apply();
+			if(this.selected && this.occupied){
+				this.placedPiece.redMaterial.apply();
+			}
+			else if(this.selected && !this.occupied){
+				this.redMaterial.apply();
 			}
 			else{
 				this.material.apply();

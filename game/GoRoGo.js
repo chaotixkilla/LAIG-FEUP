@@ -15,10 +15,17 @@ class GoRoGo{
 
 		this.allPieces = [];
 
-		this.currentTileID = 0;
+		this.states = ['Waiting for a game to start', 'Game being played', 'Game finished', 'Replaying sa game'];
+		this.playPieceStates = ['Piece picked up', 'Piece waiting to be placed'];
+
+		this.currentState = 1;
+		this.currentPlayState = -1;
+		this.currentPlayer = 0;
+		this.currentPickableBoard = null;
 
 		this.addPiecesToPlayers();
 		this.placeInitialPieces();
+		this.startGame();
 	}
 
 	addPiecesToPlayers(){
@@ -27,18 +34,26 @@ class GoRoGo{
 			this.allPieces.push(this.player1Pieces[i]);
 		}
 		this.player1Pieces.push(new Piece(this.scene, 3, i), new Piece(this.scene, 3, i+1));
-		this.allPieces.push(new Piece(this.scene, 3, i), new Piece(this.scene, 3, i+1));
+		this.allPieces.push(this.player1Pieces[10], this.player1Pieces[11]);
 
 		for(var j = 0; j < 10; j++){
 			this.player2Pieces.push(new Piece(this.scene, 2, i+j+3));
 			this.allPieces.push(this.player2Pieces[j]);
 		}
 		this.player2Pieces.push(new Piece(this.scene, 3, i+j+3), new Piece(this.scene, 3, i+j+4));
-		this.allPieces.push(new Piece(this.scene, 3, i+j+3), new Piece(this.scene, 3, i+j+4));
+		this.allPieces.push(this.player2Pieces[10], this.player2Pieces[11]);
+	}
+
+	clearEntireBoard(){
+		this.mainBoard.clearTiles();
+		this.player1Graveyard.clearTiles();
+		this.player1AuxBoard.clearTiles();
+		this.player2Graveyard.clearTiles();
+		this.player2AuxBoard.clearTiles();
 	}
 
 	placeInitialPieces(){
-		this.mainBoard.clearTiles();
+		this.clearEntireBoard();
 
 		for(var i = 0; i < this.player1AuxBoard.boardMatrix.length; i++){
 			for(var j = 0; j < this.player1AuxBoard.boardMatrix[i].length; j++){
@@ -49,7 +64,6 @@ class GoRoGo{
         for(var i = 0; i < this.player2AuxBoard.boardMatrix.length; i++){
             for(var j = 0; j < this.player2AuxBoard.boardMatrix[i].length; j++){
                 this.bindPieceToTile(this.player2AuxBoard.boardMatrix[i][j], this.allPieces[12 + this.player2AuxBoard.boardMatrix[i].length * i + j]);
-                console.log(this.allPieces[12 + this.player2AuxBoard.boardMatrix[i].length * i + j]);
             }
         }
 	}
@@ -58,6 +72,26 @@ class GoRoGo{
 		tile.placedPiece = piece;
 		tile.occupied = true;
 		piece.tile = tile;
+	}
+
+	startGame(){
+		this.mainBoard.makeSelectable();
+		//this.player1AuxBoard.makeSelectable();
+		this.currentPlayState = 0;
+		this.currentPickableBoard = this.mainBoard;
+	}
+
+	pickTile(index){
+		var pickedTileID = index-1;
+		if(this.currentPlayState == 0){
+			for(var i = 0; i < this.currentPickableBoard.boardMatrix.length; i++){
+				for(var j = 0; j < this.currentPickableBoard.boardMatrix[i].length; j++){
+					if(this.currentPickableBoard.boardMatrix[i][j].id == pickedTileID){
+						console.log('TILE SELECCIONADA: X =' + (i+1) + ' Y = ' + (j+1));
+					}
+				}
+			}
+		}
 	}
 
 	display(){
