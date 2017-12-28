@@ -175,7 +175,7 @@ class GoRoGo{
   			}
   		}
 
-  		//console.log(this.currentState);
+  		console.log(this.currentState);
   	}
 
   	highlightPossibleMoves(){
