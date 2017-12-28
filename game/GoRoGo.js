@@ -126,7 +126,6 @@ class GoRoGo{
  	pickTile(index){
 
   		var pickedTileID = index-1;
-
 		for(var i = 0; i < this.currentPickableBoard.boardMatrix.length; i++){
 			for(var j = 0; j < this.currentPickableBoard.boardMatrix[i].length; j++){
 				if(this.currentPickableBoard.boardMatrix[i][j].id == pickedTileID){
@@ -135,52 +134,56 @@ class GoRoGo{
 			}
 		}
 
-  		if(this.currentState == 1){
-  			pickedTile.selected = true;
-  			this.removeHighlights();
-  			this.currentState++;
-  			this.selectedPiece = this.allPieces[24];
-  			this.selectedDestination = pickedTile;
-  			this.bindPieceToTile(this.selectedDestination, this.selectedPiece);
-  			this.currentPlayer++;
-  			this.currentPlayState = 0;
-  		}
+		console.log(this.currentPickableBoard);
 
-  		else if(this.currentState == 2){
-  			if(this.currentPlayState == 0){
-  				if(this.currentPlayer % 2 == 0){
-  					console.log("Player 1 playing");
-  					this.makeSelectable(this.player1AuxBoard);
-  					this.selectedPiece = pickedTile.placedPiece;
-  					pickedTile.selected = true;
-  					this.currentPlayer++;
-  					this.currentPlayState++;
-  				}
-  				else{
-  					console.log("Player 2 playing");
-  					this.makeSelectable(this.player2AuxBoard);
-  					pickedTile.selected = true;
-  					this.selectedPiece = pickedTile.placedPiece;
-  					this.currentPlayer++;
-  					this.currentPlayState++;
-  				}
-  			}
-  			else if(this.currentPlayState == 1){
-  				console.log("Place the selected piece on the board");
-  				this.makeSelectable(this.mainBoard);
-  				this.selectedDestination = pickedTile;
-  				pickedTile.selected = true;
-  				this.currentPlayState++;
-  			}
+		if(this.currentState == 1){
+			pickedTile.selected = true;
+			this.removeHighlights();
+			this.currentState++;
+            this.selectedPiece = this.allPieces[24];
+            this.selectedDestination = pickedTile;
+            this.bindPieceToTile(this.selectedDestination, this.selectedPiece);
+            this.currentPlayer++;
+            this.currentPlayState = 0;
+            if(this.currentPlayer % 2 == 0){
+                console.log("Player 1 playing");
+            	this.makeSelectable(this.player1AuxBoard);
+			}
+			else{
+                console.log("Player 2 playing");
+            	this.makeSelectable(this.player2AuxBoard);
+			}
+		}
 
-  			if(this.currentPlayState == 2){
-  				console.log(this.selectedPiece);
-  				console.log(this.selectedDestination);
-  				this.currentPlayState = 0;
-  			}
-  		}
+		else if(this.currentState == 2){
+			if(this.currentPlayState == 0){
+				this.selectedPiece = pickedTile.placedPiece;
+				this.currentPlayState++;
+                console.log("Place the selected piece on the board");
+				this.makeSelectable(this.mainBoard);
+				this.highlightPossibleMoves();
+			}
+			else if(this.currentPlayState == 1){
+				console.log("Doing play");
+                this.selectedDestination = pickedTile;
+                pickedTile.selected = true;
+                this.currentPlayer++;
+                this.currentPlayState = 0;
+                if(this.currentPlayer % 2 == 0){
+                    console.log("Player 1 playing");
+                    this.makeSelectable(this.player1AuxBoard);
+                }
+                else{
+                    console.log("Player 2 playing");
+                    this.makeSelectable(this.player2AuxBoard);
+                }
+                this.removeHighlights();
+                this.makePlay(this.selectedDestination, this.selectedPiece);
+			}
+		}
 
-  		console.log(this.currentState);
+		console.log(this.selectedPiece);
+		console.log(this.selectedDestination);
   	}
 
   	highlightPossibleMoves(){
