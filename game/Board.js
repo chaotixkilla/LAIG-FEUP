@@ -27,6 +27,7 @@ class Board{
 				this.boardMatrix[i][j].placedPiece = null;
 				this.boardMatrix[i][j].selected = false;
 				this.boardMatrix[i][j].highlighed = false;
+				this.boardMatrix[i][j].occupied = false;
 			}
 		}
 	}

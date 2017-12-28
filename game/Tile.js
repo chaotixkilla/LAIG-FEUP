@@ -46,7 +46,7 @@ class Tile{
 			this.scene.translate(0, this.z, 0);
 			this.scene.rotate(-Math.PI/2, 1, 0, 0);
 			if(this.selected && this.occupied){
-				this.placedPiece.redMaterial.apply();
+				//this.placedPiece.redMaterial.apply();
 			}
 			else if(this.selected && !this.occupied){
 				this.redMaterial.apply();

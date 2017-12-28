@@ -1693,5 +1693,8 @@ MySceneGraph.prototype.displayScene = function() {
 	//this.log("Graph should be rendered here...");
 
     this.esbetacl(this.nodes[this.idRoot], null, null, null, null, 0);
+    this.scene.pushMatrix();
+    //this.scene.translate(10, 0, 10);
     this.scene.game.display();
+    this.scene.popMatrix();
 }
