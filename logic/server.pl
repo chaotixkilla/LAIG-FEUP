@@ -108,6 +108,14 @@ print_header_line(_).
 parse_input(handshake, handshake).
 parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
+test(_,[],N) :- N =< 0.
+test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
+
+parse_input(printBoard(Board), X):-
+	printBoard(Board).
+
+parse_input(printEarlyBoard, X):-
+	printEarlyBoard.
 
 parse_input(start_game, Board):-
 	initialize_board(Board,_,_).
@@ -131,5 +139,3 @@ parse_input(auto_move(Board,CPU,2), Move):-
 parse_input(getInitialBoard, X):-
 	freshboard(X).
 
-test(_,[],N) :- N =< 0.
-test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
