@@ -134,8 +134,6 @@ class GoRoGo{
 			}
 		}
 
-		console.log(this.currentPickableBoard);
-
 		if(this.currentState == 1){
 			pickedTile.selected = true;
 			this.removeHighlights();
@@ -158,6 +156,7 @@ class GoRoGo{
 		else if(this.currentState == 2){
 			if(this.currentPlayState == 0){
 				this.selectedPiece = pickedTile.placedPiece;
+                pickedTile.selected = true;
 				this.currentPlayState++;
                 console.log("Place the selected piece on the board");
 				this.makeSelectable(this.mainBoard);
@@ -177,8 +176,9 @@ class GoRoGo{
                     console.log("Player 2 playing");
                     this.makeSelectable(this.player2AuxBoard);
                 }
-                this.removeHighlights();
                 this.makePlay(this.selectedDestination, this.selectedPiece);
+                console.log(pickedTile.selected);
+                this.removeHighlights();
 			}
 		}
 
@@ -202,8 +202,21 @@ class GoRoGo{
 				if(this.mainBoard.boardMatrix[i][j].highlighed){
 					this.mainBoard.boardMatrix[i][j].highlighed = false;
 				}
+                this.mainBoard.boardMatrix[i][j].selected = false;
  			}
   		}
+
+        for(var i = 0; i < this.player1AuxBoard.boardMatrix.length; i++){
+            for(var j = 0; j < this.player1AuxBoard.boardMatrix[i].length; j++){
+                this.player1AuxBoard.boardMatrix[i][j].selected = false;
+            }
+        }
+
+        for(var i = 0; i < this.player2AuxBoard.boardMatrix.length; i++){
+            for(var j = 0; j < this.player2AuxBoard.boardMatrix[i].length; j++){
+                this.player2AuxBoard.boardMatrix[i][j].selected = false;
+            }
+        }
   	}
 
   	firstTurn(){

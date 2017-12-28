@@ -36,7 +36,6 @@ class Piece{
  		this.redMaterial.setDiffuse(0.7,0,0,1);
  		this.redMaterial.setSpecular(0.7,0,0,1);
  		this.redMaterial.setAmbient(0.7,0.1,0.1,1);
- 		this.redMaterial.loadTexture("./scenes/images/white_rock.jpg");
 
    		this.materials = [this.whiteMaterial, this.blackMaterial, this.hengeMaterial];
    		this.allTypes = ['white', 'black', 'henge'];
@@ -46,12 +45,12 @@ class Piece{
 		this.scene.pushMatrix();
 			this.scene.translate(0, 0.4, 0);
 			this.scene.rotate(-Math.PI/2, 1, 0, 0);
-			/*if(this.tile.selected){
+			if(this.tile.selected){
 				this.redMaterial.apply();
 			}
-			else{*/
+			else{
 				this.materials[this.type-1].apply();
-			//}
+			}
 			this.piece.display();
 		this.scene.popMatrix();
 	}
