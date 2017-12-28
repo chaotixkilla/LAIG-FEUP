@@ -34,6 +34,11 @@ class GoRoGo{
 		this.timeoutTime = 10;
 		this.timeout = false;
 		this.gameMode = 0;
+		this.botDifficulty = 0;
+		this.timeElapsed = 0;
+
+		this.started = false;
+		this.paused = false;
 
 		this.addPiecesToPlayers();
 		this.placeInitialPieces();
@@ -119,9 +124,9 @@ class GoRoGo{
  	}
 
  	pickTile(index){
- 		//console.log(this.currentPickableBoard);
 
- 		var pickedTileID = index-1;
+  		var pickedTileID = index-1;
+
 		for(var i = 0; i < this.currentPickableBoard.boardMatrix.length; i++){
 			for(var j = 0; j < this.currentPickableBoard.boardMatrix[i].length; j++){
 				if(this.currentPickableBoard.boardMatrix[i][j].id == pickedTileID){
@@ -206,6 +211,7 @@ class GoRoGo{
   	}
 
  	startGame(){
+ 		this.started = true;
 		/*
 		alert("getPrologRequest test call, brace yourselves");
 		this.getPrologRequest("getInitialBoard", null, null, 8081);
@@ -235,12 +241,20 @@ class GoRoGo{
 		gameInterface.game.startBtn = gameInterface.game.add(btn, 'Start Game');
 
 		//Game Mode dropdown
-		var dropdown = gameInterface.game.add(this, 'gameMode',
+		var gameModeDropdown = gameInterface.game.add(this, 'gameMode',
 		{'Player X Player' : 0,
 		 'Player X CPU'	   : 1,
 		 'CPU X CPU'	   : 2
 		 }).name('Game Mode');
-		dropdown.__select.selectedIndex = this.gameMode;
+		gameModeDropdown.__select.selectedIndex = this.gameMode;
+
+		//Bot Difficulty dropdown
+		var botDifficultyDropdown = gameInterface.game.add(this, 'botDifficulty',
+		{'Easy'   : 0,
+		 'Medium' : 1,
+		 'Hard'   : 2
+		}).name('Bot Difficulty');
+		botDifficultyDropdown.__select.selectedIndex = this.botDifficulty;
 
 		//Play Timeout checkbox, Timeout Duration slider
 		var timeoutBtn = gameInterface.game.add(this, 'timeout').name('Play Timeout');
@@ -248,18 +262,21 @@ class GoRoGo{
 			if(this.timeout)
 				this.playTime = this.timeoutTime;
 			else
-		
 				this.playTime = 0;
 		}.bind(this));
 		gameInterface.game.add(this, 'timeoutTime').min(10).max(60).step(5).name('Timeout Duration');
+
+		//Time Counter
+		gameInterface.game.add(this, 'timeElapsed').listen().name('Time Elapsed');
+
+		//Pause Game button
+		gameInterface.game.add(this, 'paused').name('Pause');
 
 		//Undo button
 		var ndbtn = {'Undo':function(){
 			this.undo();
 		}.bind(this)};
 		var undoBtn = gameInterface.game.add(ndbtn, 'Undo');
-
-
 	}
 
 	undo(){

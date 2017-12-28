@@ -16,6 +16,9 @@ function XMLscene(interface) {
 	this.sceneStartingTime = startDate.getTime() / 1000;
 
 	this.selectableNodes = "None";
+
+    var date = new Date();
+    this.sceneInitTime = date.getTime();
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -124,6 +127,8 @@ XMLscene.prototype.onGraphLoaded = function()
  */
 XMLscene.prototype.logPicking = function ()
 {
+    if(!this.game.started || this.game.paused) return;
+
     if (this.pickMode == false) {
         if (this.pickResults != null && this.pickResults.length > 0) {
             for (var i=0; i< this.pickResults.length; i++) {
@@ -144,8 +149,11 @@ XMLscene.prototype.logPicking = function ()
  * Displays the scene.
  */
 XMLscene.prototype.display = function() {
+
+    if(this.game.started || !this.game.paused){
     this.logPicking();
     this.clearPickRegistration();
+    }
     // ---- BEGIN Background, camera and axis setup
     
     // Clear image and depth buffer everytime we update the scene
@@ -184,6 +192,29 @@ XMLscene.prototype.display = function() {
                 i++;
             }
         }
+
+//--------------------CENAS DO TIME COUNTER DA INTERFACE--------
+        var newDate = new Date();
+        currTime = newDate.getTime();
+        if(this.initialSceneTime == null){
+            this.initialSceneTime = currTime;
+        }
+
+        if(this.game.started){
+            var newDateElapsedTime = new Date();
+            currTimeElapsed = newDateElapsedTime.getTime();
+
+            if(this.sceneInitTimeElapsed == null){
+                this.sceneInitTimeElapsed = currTimeElapsed;
+            }
+            time = (currTimeElapsed - this.sceneInitTimeElapsed)/1000;
+            this.game.timeElapsed = Math.floor(time);
+        }
+
+        dT = (currTime - this.sceneInitTime)/1000;
+        this.updateTimeFactor(dT);
+//--------------------CENAS DO TIME COUNTER DA INTERFACE--------
+
 
         //ADDED for shaders
 		var currDate = new Date();
