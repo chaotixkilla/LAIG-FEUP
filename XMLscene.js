@@ -115,6 +115,8 @@ XMLscene.prototype.onGraphLoaded = function()
     this.interface.addLightsGroup(this.graph.lights);
 
     this.interface.addSelectableNodes(this.graph.selectableNodes);
+
+    this.game.addGameGUI();
 }
 
 /**
