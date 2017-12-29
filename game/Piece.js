@@ -7,6 +7,8 @@ class Piece{
 		this.tile = null;
 		this.moving = false;
 
+		this.animation = null;
+
 		//this.piece = new MyCylinder(this.scene, "0.15 0.20 0.20 20 20 1 1");
 		this.piece = new MySphere(this.scene, "0.20 20 20");
 

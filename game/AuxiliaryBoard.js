@@ -24,6 +24,10 @@ class AuxiliaryBoard extends Board{
 				}
 				this.boardMatrix[i][j].display();
 				if(this.boardMatrix[i][j].occupied){
+					/*if(this.boardMatrix[i][j].placedPiece.moving){
+						console.log("ENTREI1");
+						this.boardMatrix[i][j].placedPiece.animation.apply();
+					}*/
 					this.boardMatrix[i][j].placedPiece.display();
 				}
 				this.scene.popMatrix();

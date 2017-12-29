@@ -4,41 +4,47 @@ class PieceAnimation{
 		this.start = start;
 		this.destination = destination;
 
-		this.timeSpan = 5;
+		this.piece.animation = this;
+
+		this.timeSpan = 4;
 		this.waitTime = 1;
 
 		this.animationTime = 0;
+		this.iteration = 0.02;
 
 		this.startTime = this.piece.scene.sceneStartingTime;
 
-		this.matrix = mat4.create();
+		//this.matrix = mat4.create();
 
 		this.xStart = this.start.x;
 		this.yStart = this.start.y;
 
 		this.xFinish = this.destination.x;
 		this.yFinish = this.destination.y;
+
+		this.radius = Math.sqrt(Math.pow((this.xFinish - this.xStart), 2) + Math.pow((this.yFinish - this.yStart), 2));
 	}
 
 	isComplete(currTime){
 		return this.animationTime > (this.timeSpan - this.waitTime);
 	}
 
-	update(currTime){
+	/*update(currTime){
 		this.animationTime += currTime;
 		//console.log(this.animationTime);
-		/*if(elapsedTime < this.waitTime){
+		if(elapsedTime < this.waitTime){
 			return;
-		}*/
+		}
 
 		this.matrix = mat4.create();
 
-		/*if(elapsedTime >= this.timeSpan){
+		if(elapsedTime >= this.timeSpan){
 			return;
-		}*/
+		}
 
 		var ratio = this.animationTime/(this.timeSpan - this.waitTime);
 		if(ratio >= 1){
+			this.piece.moving = false;
 			return;
 		}
 		//console.log(ratio);
@@ -47,15 +53,31 @@ class PieceAnimation{
 		var moveY = 0;
 		var moveZ = (this.yFinish - this.yStart) * ratio;
 
-		/*console.log("moveX = " + moveX);
+		console.log("moveX = " + moveX);
 		console.log("moveY = " + moveY);
-		console.log("moveZ = " + moveZ);*/
+		console.log("moveZ = " + moveZ);
 
 		mat4.translate(this.matrix, this.matrix, [moveX, moveY, moveZ]);
 		//console.log(this.matrix);
-	}
+	}*/
 
 	apply(){
-		this.piece.scene.multMatrix(this.matrix);
+		this.animationTime += this.iteration;
+
+		//console.log(this.animationTime);
+
+		var ratio = this.animationTime/(this.timeSpan - this.waitTime);
+		if(ratio >= 1){
+			this.piece.moving = false;
+			/*this.scene.game.unbindPieceToTile(this.start, piece);
+ 			this.scene.game.bindPieceToTile(this.destination, piece);*/
+			return;
+		}
+
+		var moveX = (this.xFinish - this.xStart) * ratio;
+		var moveY = this.radius * 0.25 * Math.sin(Math.PI * (1 - ratio));
+		var moveZ = (this.yFinish - this.yStart) * ratio;
+
+		this.piece.scene.translate(moveX, moveY, moveZ);
 	}
 }
