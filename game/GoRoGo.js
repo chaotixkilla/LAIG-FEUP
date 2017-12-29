@@ -42,6 +42,8 @@ class GoRoGo{
 
 		this.addPiecesToPlayers();
 		this.placeInitialPieces();
+
+		this.prologBoard = "default";
 	}
 
 	addPiecesToPlayers(){
@@ -237,14 +239,13 @@ class GoRoGo{
 
  	startGame(){
  		this.started = true;
-		/*
+		
 		alert("getPrologRequest test call, brace yourselves");
-		this.getPrologRequest("getInitialBoard", null, null, 8081);
+		this.getPrologRequest("getFreshBoard");
 		alert("k done proceed");
-		*/
+		
  		this.placeInitialPieces();
  		this.firstTurn();
-
 	}
 
 	display(){
@@ -308,6 +309,23 @@ class GoRoGo{
 		alert('Play Undoer Simulator');
 	}
 
+	parseBoard(plBoard){
+		console.log('Prolog Board: ' + plBoard);
+
+		function replaceStr(str, find, replace){
+			for(var i= 0; i < find.length; i++){
+				str = str.replace(new RegExp(find[i], 'g'), replace[i]);
+			}
+			return str;
+		}
+
+		var find = ["0", "1", "2"];
+		var replace = ["'0'", "'1'", "'2'"];
+		this.prologBoard = replace(plBoard, find, replace);
+
+		console.log('After parsing prolog board: ' + this.mainBoard);
+	}
+
 	getPrologRequest(requestString, onSuccess, onError, port){
 		
 	  var requestPort = port || 8081;
@@ -317,10 +335,11 @@ class GoRoGo{
 	  request.onload = onSuccess || function(data){
 		var response = data.target.response;
 
-		//ask for initial board
-		if(requestString == "getInitialBoard"){
-		  this.mainBoard = response;
+		if(requestString == "getFreshBoard"){
+			this.prologBoard = response;
+			this.parseBoard(this.prologBoard);
 		}
+
 	  }
 
 	  request.onerror = onError || function(){console.log("Error waiting for response");};
@@ -329,11 +348,6 @@ class GoRoGo{
 	  request.send();
 	}
 
-
-
-
-
-
-
+	
 
 }

@@ -111,31 +111,5 @@ parse_input(quit, goodbye).
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
 
-parse_input(printBoard(Board), X):-
-	printBoard(Board).
-
-parse_input(printEarlyBoard, X):-
-	printEarlyBoard.
-
-parse_input(start_game, Board):-
-	initialize_board(Board,_,_).
-
-parse_input(get_moves(Board,Player), Moves):-
-	valid_moves(Board, Player, Moves).
-
-parse_input(move(Board,Xi,Xf,Yi,Yf,Player), NewBoard):-
-	move(Board,Xi,Yi,Xf,Yf,NewBoard,Player,0,_).
-
-parse_input(auto_move(Board,CPU,1), Move):-
-	valid_moves(Board, CPU, Moves),
-	list_size(Moves, NoMoves),
-	random(0, NoMoves, MoveIndex),
-	nth0(MoveIndex, Moves, Move).
-
-parse_input(auto_move(Board,CPU,2), Move):-
-	valid_moves(Board, CPU, Moves),
-	get_best_move(Board, CPU, Moves, Move).
-
-parse_input(getInitialBoard, X):-
-	freshboard(X).
-
+parse_input(getFreshBoard, X) :-
+	freshBoard(X).
