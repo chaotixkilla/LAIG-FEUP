@@ -126,7 +126,8 @@ class GoRoGo{
  	animatePlay(destination, piece){
         var startingPosition = piece.tile;
 
-
+        var animation = new PieceAnimation(piece, startingPosition, destination);
+        this.scene.graph.animations.push(animation);
 
         this.makePlay(destination, piece);
 	}
@@ -185,7 +186,7 @@ class GoRoGo{
                     this.makeSelectable(this.player2AuxBoard);
                 }
                 this.animatePlay(this.selectedDestination, this.selectedPiece);
-                console.log(pickedTile.selected);
+                //console.log(pickedTile.selected);
                 this.removeHighlights();
 			}
 		}

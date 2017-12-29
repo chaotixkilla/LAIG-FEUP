@@ -5,6 +5,7 @@ class Piece{
 		this.id = id;
 
 		this.tile = null;
+		this.moving = false;
 
 		this.piece = new MyCylinder(this.scene, "0.15 0.20 0.20 20 20 1 1");
 

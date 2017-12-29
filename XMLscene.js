@@ -246,7 +246,17 @@ XMLscene.prototype.display = function() {
 XMLscene.prototype.update = function(currTime){
 	var deltaTime = (currTime - this.lastUpdateTime) / 1000;
 	this.lastUpdateTime = currTime;
-	for(var node in this.graph.nodes){
+	/*for(var node in this.graph.nodes){
 		this.graph.nodes[node].updateAnimation(deltaTime);
-	}
+	}*/
+
+    //console.log(this);
+
+    for(var i = 0; i < this.gameAnimations.length; i++){
+        this.multMatrix(this.gameAnimations[i].matrix);
+        this.gameAnimations[i].update(deltaTime);
+        if(this.gameAnimations[i].isComplete(deltaTime)){
+            this.gameAnimations.splice(i, 1);
+        }
+    }
 }

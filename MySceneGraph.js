@@ -1694,7 +1694,7 @@ MySceneGraph.prototype.displayScene = function() {
 
     this.esbetacl(this.nodes[this.idRoot], null, null, null, null, 0);
     this.scene.pushMatrix();
-    //this.scene.translate(10, 0, 10);
+    this.scene.translate(15, 2.5, 10);
     this.scene.game.display();
     this.scene.popMatrix();
 }

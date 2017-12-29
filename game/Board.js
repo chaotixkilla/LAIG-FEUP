@@ -45,7 +45,7 @@ class Board{
 			for(var j = 0; j < this.boardMatrix[i].length; j++){
 				this.scene.pushMatrix();
 				this.scene.translate(this.distanceBetweenTiles*(-2) + j * this.distanceBetweenTiles, 0, this.distanceBetweenTiles*(-2) + i * this.distanceBetweenTiles);
-				if(this.selectable){
+				if(this.selectable && (this.boardMatrix[i][j].placedPiece == null)){
 					this.scene.registerForPick(this.boardMatrix[i].length * i + j + 1, this.boardMatrix[i][j]);
 				}
 				else{
