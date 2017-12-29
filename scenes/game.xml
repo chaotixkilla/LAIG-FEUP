@@ -135,6 +135,7 @@
             <NODEREF id="screens"/>
             <NODEREF id="pillows"/>
             <NODEREF id="lamps"/>
+            <NODEREF id="teas"/>
             <!--
             <NODEREF id="black_piece" />
             <NODEREF id="white_piece" />
@@ -641,6 +642,9 @@
         <MATERIAL id="defaultMaterial"/>
         <TEXTURE id="null"/>
 
+        <TRANSLATION x="26" y="0" z="36"/>
+        <ROTATION axis="y" angle="25"/>
+
         <DESCENDANTS>
             <NODEREF id="lamp"/>
         </DESCENDANTS>
@@ -657,7 +661,8 @@
             <NODEREF id="lamp_leg3"/>
             <NODEREF id="lamp_leg4"/>
             <NODEREF id="lamp_top_ring"/> 
-           <!-- <NODEREF id="lamp_bot_ring"/> -->
+            <NODEREF id="lamp_bot_ring"/>
+            <NODEREF id="lamp_center"/>
         </DESCENDANTS>
     </NODE>
 
@@ -711,6 +716,19 @@
     <NODE id="lamp_top_ring">
         <MATERIAL id="defaultMaterial"/>
         <TEXTURE id="null"/>
+
+        <TRANSLATION x="0" y="4.75" z="0"/>
+
+        <DESCENDANTS>
+            <NODEREF id="lamp_ring"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="lamp_bot_ring">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="0" y="1" z="0"/>
 
         <DESCENDANTS>
             <NODEREF id="lamp_ring"/>
@@ -782,6 +800,109 @@
             <NODEREF id="cube"/>
         </DESCENDANTS>
     </NODE>
+
+    <NODE id="lamp_center">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="1" y="1" z="1"/>
+        <SCALE sx="0.4" sy="0.75" sz="0.4"/>
+
+        <DESCENDANTS>
+            <NODEREF id="cube"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="teas">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <DESCENDANTS>
+            <NODEREF id="tea1"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="tea1">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="13" y="5" z="24"/>
+        <ROTATION axis="y" angle="25"/>
+
+        <DESCENDANTS>
+            <NODEREF id="tea"/>
+        </DESCENDANTS>
+    </NODE>
+
+
+    <NODE id="tea">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <DESCENDANTS>
+            <NODEREF id="tea_cup"/>
+            <NODEREF id="tea_napkin"/>
+            <NODEREF id="tea_liquid"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="tea_cup">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <DESCENDANTS>
+            <NODEREF id="tea_cup_out_cylinder"/>
+            <NODEREF id="tea_cup_in_cylinder"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="tea_cup_out_cylinder">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <ROTATION axis="x" angle="90"/>
+
+        <DESCENDANTS>
+            <LEAF type="cylinder" args="1 0.4 0.4 20 20 1 0"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="tea_cup_in_cylinder">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <ROTATION axis="x" angle="90"/>
+        <SCALE sx="1" sy="-1" sz="1"/>
+
+        <DESCENDANTS>
+            <LEAF type="cylinder" args="1 0.4 0.4 20 20 1 0"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="tea_napkin">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="0" y="-1" z="0"/>
+        <SCALE sx="0.2" sy="0.001" sz="0.2"/>
+
+        <DESCENDANTS>
+            <NODEREF id="cube"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="tea_liquid">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="0" y="-0.2" z="0"/>
+        <ROTATION axis="x" angle="90"/>
+
+        <DESCENDANTS>
+            <LEAF type="cylinder" args="0.1 0.4 0.4 20 20 0 1"/>
+        </DESCENDANTS>
+    </NODE>
+
 
     </NODES>
 </SCENE>

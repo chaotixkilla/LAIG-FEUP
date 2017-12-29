@@ -7,7 +7,8 @@ class Piece{
 		this.tile = null;
 		this.moving = false;
 
-		this.piece = new MyCylinder(this.scene, "0.15 0.20 0.20 20 20 1 1");
+		//this.piece = new MyCylinder(this.scene, "0.15 0.20 0.20 20 20 1 1");
+		this.piece = new MySphere(this.scene, "0.20 20 20");
 
 		this.blackMaterial = new CGFappearance(this.scene);
  	    this.blackMaterial.setShininess(1);
@@ -44,7 +45,8 @@ class Piece{
 
 	display(){
 		this.scene.pushMatrix();
-			this.scene.translate(0, 0.4, 0);
+			this.scene.translate(0, 0.47, 0);
+			this.scene.scale(0.8, 0.4, 0.8);
 			this.scene.rotate(-Math.PI/2, 1, 0, 0);
 			if(this.tile.selected){
 				this.redMaterial.apply();
