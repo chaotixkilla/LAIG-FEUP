@@ -130,6 +130,7 @@
             <!--NODEREF id="dummy"/-->
             <NODEREF id="floor"/>
             <NODEREF id="GoRoGo_board" />
+            <NODEREF id="walls"/>
             <!--
             <NODEREF id="black_piece" />
             <NODEREF id="white_piece" />
@@ -262,7 +263,7 @@
         <MATERIAL id="defaultMaterial"/>
         <TEXTURE id="null"/>
 
-        <!--TRANSLATION x="15" y="2.5" z="10" /-->
+        <TRANSLATION x="15" y="2.5" z="10" />
 
         <DESCENDANTS>
             <NODEREF id="game_board"/>
@@ -353,6 +354,68 @@
             <LEAF type="cylinder" args="0.01 0.08 0.08 20 20 1 1"/>
         </DESCENDANTS>
     </NODE>
+
+    <NODE id="walls">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="wood_floor"/>
+
+        <DESCENDANTS>
+            <NODEREF id="wall1"/>
+            <NODEREF id="wall2"/> 
+            <NODEREF id="wall3"/> 
+        </DESCENDANTS>
+    </NODE>
+
+
+    <NODE id="wall1">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="0" y="0" z="10" />
+
+        <DESCENDANTS>
+            <NODEREF id="wall"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="wall2">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="30" y="0" z="10" />
+
+        <DESCENDANTS>
+            <NODEREF id="wall"/>
+        </DESCENDANTS>
+    </NODE>
+
+     <NODE id="wall3">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="15" y="0" z="0"/>
+        <SCALE sx="1.5" sy="1" sz="1"/>
+        <ROTATION axis="y" angle="90"/>
+
+        <DESCENDANTS>
+            <NODEREF id="wall"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="wall">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <SCALE sx="0.02" sy="3" sz="4" />
+
+        <DESCENDANTS>
+            <NODEREF id="cube"/>
+        </DESCENDANTS>
+    </NODE>
+
+
+
+
 </NODES>
 
 </SCENE>
