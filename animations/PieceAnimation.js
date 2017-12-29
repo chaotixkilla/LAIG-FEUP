@@ -23,14 +23,9 @@ class PieceAnimation{
 
 		/*this.xFinish = this.destination.x;
 		this.yFinish = this.destination.y;*/
-	
-/*
+
 		this.xFinish = 0;
 		this.yFinish = 0;
-*/
-
-		this.xFinish = this.destination.x;
-		this.yFinish = this.destination.y;
 
 		this.radius = Math.sqrt(Math.pow((this.xFinish - this.xStart), 2) + Math.pow((this.yFinish - this.yStart), 2));
 	}
@@ -83,14 +78,6 @@ class PieceAnimation{
  			this.scene.game.bindPieceToTile(this.destination, piece);*/
 			return;
 		}
-
-<<<<<<< HEAD
-		var moveX = (this.xFinish - this.xStart) * ratio;
-		var moveY = this.radius * 0.25 * Math.sin(Math.PI * (1 - ratio));
-		var moveZ = (this.yFinish - this.yStart) * ratio;
-
-		this.piece.scene.translate(moveX, moveY, moveZ);
-=======
 		//var moveX = (this.xFinish - this.xStart) * ratio;
 		var moveX = (this.xStart - this.xFinish) * ratio;
 		var moveY = this.radius * 0.25 * Math.sin(Math.PI * (1 - ratio));
@@ -105,6 +92,5 @@ class PieceAnimation{
 		this.piece.scene.translate(-this.xStart, moveY, -this.yStart);
 		this.piece.scene.translate(moveX, moveY, moveZ);
 		//this.piece.scene.popMatrix();
->>>>>>> 874269977c0fac7e878f6d7daaabe5c0d04d0991
 	}
 }
