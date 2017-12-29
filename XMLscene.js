@@ -51,6 +51,7 @@ XMLscene.prototype.init = function(application) {
     this.setPickEnabled(true);
 
     this.game = new GoRoGo(this);
+    this.gameAnimations = [];
 }
 
 XMLscene.prototype.updateTimeFactor = function(date){

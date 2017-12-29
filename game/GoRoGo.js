@@ -123,6 +123,14 @@ class GoRoGo{
  		this.bindPieceToTile(tile, piece);
  	}
 
+ 	animatePlay(destination, piece){
+        var startingPosition = piece.tile;
+
+
+
+        this.makePlay(destination, piece);
+	}
+
  	pickTile(index){
 
   		var pickedTileID = index-1;
@@ -176,7 +184,7 @@ class GoRoGo{
                     console.log("Player 2 playing");
                     this.makeSelectable(this.player2AuxBoard);
                 }
-                this.makePlay(this.selectedDestination, this.selectedPiece);
+                this.animatePlay(this.selectedDestination, this.selectedPiece);
                 console.log(pickedTile.selected);
                 this.removeHighlights();
 			}
