@@ -129,8 +129,11 @@ class GoRoGo{
         var startingPosition = piece.tile;
 
         var animation = new PieceAnimation(piece, startingPosition, destination);
-        this.scene.graph.animations.push(animation);
+        this.scene.gameAnimations.push(animation);
+        piece.moving = true;
 
+        //console.log("HERE");
+        
         this.makePlay(destination, piece);
 	}
 
