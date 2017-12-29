@@ -133,6 +133,8 @@
             <NODEREF id="walls"/>
             <NODEREF id="tables"/>
             <NODEREF id="screens"/>
+            <NODEREF id="pillows"/>
+            <NODEREF id="lamps"/>
             <!--
             <NODEREF id="black_piece" />
             <NODEREF id="white_piece" />
@@ -583,6 +585,203 @@
         </DESCENDANTS>
     </NODE>  
 
-</NODES>
+    <NODE id="pillows">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
 
+        <DESCENDANTS>
+            <NODEREF id="pillow1"/>
+            <NODEREF id="pillow2"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="pillow1">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="15" y="0.5" z="12"/>
+
+        <DESCENDANTS>
+            <NODEREF id="pillow"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="pillow2">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="14" y="0.5" z="27"/>
+
+        <DESCENDANTS>
+            <NODEREF id="pillow"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="pillow">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <SCALE sx="1" sy="0.3" sz="1"/>
+
+        <DESCENDANTS>
+            <LEAF type="sphere" args="2 20 20" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="lamps">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <DESCENDANTS>
+            <NODEREF id="lamp1"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="lamp1">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <DESCENDANTS>
+            <NODEREF id="lamp"/>
+        </DESCENDANTS>
+    </NODE>
+
+
+    <NODE id="lamp">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <DESCENDANTS>
+            <NODEREF id="lamp_leg1"/>
+            <NODEREF id="lamp_leg2"/>
+            <NODEREF id="lamp_leg3"/>
+            <NODEREF id="lamp_leg4"/>
+            <NODEREF id="lamp_top_ring"/> 
+           <!-- <NODEREF id="lamp_bot_ring"/> -->
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="lamp_leg1">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <SCALE sx="0.05" sy="1" sz="0.05"/>
+
+        <DESCENDANTS>
+            <NODEREF id="cube"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="lamp_leg2">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="2" y="0" z="0"/>
+        <SCALE sx="0.05" sy="1" sz="0.05"/>
+
+        <DESCENDANTS>
+            <NODEREF id="cube"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="lamp_leg3">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="0" y="0" z="2"/>
+        <SCALE sx="0.05" sy="1" sz="0.05"/>
+
+        <DESCENDANTS>
+            <NODEREF id="cube"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="lamp_leg4">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="2" y="0" z="2"/>
+        <SCALE sx="0.05" sy="1" sz="0.05"/>
+
+        <DESCENDANTS>
+            <NODEREF id="cube"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="lamp_top_ring">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <DESCENDANTS>
+            <NODEREF id="lamp_ring"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="lamp_ring">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <DESCENDANTS>
+            <NODEREF id="lamp_ring_side1"/>
+            <NODEREF id="lamp_ring_side2"/>
+            <NODEREF id="lamp_ring_side3"/>
+            <NODEREF id="lamp_ring_side4"/>
+        </DESCENDANTS>
+    </NODE>
+
+     <NODE id="lamp_ring_side1">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="0" y="0" z="-0.25"/>
+        <ROTATION axis="x" angle="90"/>
+        <SCALE sx="0.05" sy="0.5" sz="0.05"/>
+
+        <DESCENDANTS>
+            <NODEREF id="cube"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="lamp_ring_side2">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="2" y="0" z="-0.25"/>
+        <ROTATION axis="x" angle="90"/>
+        <SCALE sx="0.05" sy="0.5" sz="0.05"/>
+
+        <DESCENDANTS>
+            <NODEREF id="cube"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="lamp_ring_side3">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="-0.25" y="0" z="0"/>
+        <ROTATION axis="y" angle="90"/>
+        <ROTATION axis="x" angle="90"/>
+        <SCALE sx="0.05" sy="0.5" sz="0.05"/>
+
+        <DESCENDANTS>
+            <NODEREF id="cube"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="lamp_ring_side4">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="-0.25" y="0" z="2"/>
+        <ROTATION axis="y" angle="90"/>
+        <ROTATION axis="x" angle="90"/>
+        <SCALE sx="0.05" sy="0.5" sz="0.05"/>
+
+        <DESCENDANTS>
+            <NODEREF id="cube"/>
+        </DESCENDANTS>
+    </NODE>
+
+    </NODES>
 </SCENE>
