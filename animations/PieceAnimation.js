@@ -16,8 +16,18 @@ class PieceAnimation{
 
 		//this.matrix = mat4.create();
 
-		this.xStart = this.start.x;
-		this.yStart = this.start.y;
+		//this.xStart = this.start.x;
+		//this.yStart = this.start.y;
+		this.xStart = 0.685;
+		this.yStart = 2.6;
+
+		/*this.xFinish = this.destination.x;
+		this.yFinish = this.destination.y;*/
+	
+/*
+		this.xFinish = 0;
+		this.yFinish = 0;
+*/
 
 		this.xFinish = this.destination.x;
 		this.yFinish = this.destination.y;
@@ -74,10 +84,27 @@ class PieceAnimation{
 			return;
 		}
 
+<<<<<<< HEAD
 		var moveX = (this.xFinish - this.xStart) * ratio;
 		var moveY = this.radius * 0.25 * Math.sin(Math.PI * (1 - ratio));
 		var moveZ = (this.yFinish - this.yStart) * ratio;
 
 		this.piece.scene.translate(moveX, moveY, moveZ);
+=======
+		//var moveX = (this.xFinish - this.xStart) * ratio;
+		var moveX = (this.xStart - this.xFinish) * ratio;
+		var moveY = this.radius * 0.25 * Math.sin(Math.PI * (1 - ratio));
+		var moveZ = (this.yStart - this.yFinish) * ratio;
+		//var moveZ = (this.yFinish - this.yStart) * ratio;
+
+		console.log("moveX = " + moveX);
+		console.log("moveY = " + moveY);
+		console.log("moveZ = " + moveZ);
+
+		//this.piece.scene.pushMatrix();
+		this.piece.scene.translate(-this.xStart, moveY, -this.yStart);
+		this.piece.scene.translate(moveX, moveY, moveZ);
+		//this.piece.scene.popMatrix();
+>>>>>>> 874269977c0fac7e878f6d7daaabe5c0d04d0991
 	}
 }
