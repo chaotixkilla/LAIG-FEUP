@@ -250,8 +250,6 @@ XMLscene.prototype.update = function(currTime){
 		this.graph.nodes[node].updateAnimation(deltaTime);
 	}*/
 
-    console.log(this.gameAnimations);
-
     for(var i = 0; i < this.gameAnimations.length; i++){
         this.gameAnimations[i].apply();
         if(this.gameAnimations[i].isComplete()){

@@ -193,9 +193,6 @@ class GoRoGo{
                 this.removeHighlights();
 			}
 		}
-
-		console.log(this.selectedPiece);
-		console.log(this.selectedDestination);
   	}
 
   	highlightPossibleMoves(){
