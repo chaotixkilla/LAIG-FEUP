@@ -184,8 +184,8 @@ checkBoardSurroundings(Board, Row, 1, CurrPlayer, Return) :- checkBoardLeft(Boar
 checkBoardSurroundings(Board, Row, Col, CurrPlayer, Return) :- checkBoardMiddle(Board, Row, Col, CurrPlayer, Return).
 
 checkBoardMiddle(Board, Row, Col, CurrPlayer, Return) :-
-	nth1(1, CurrPlayer, PlayerName),
-	selectPiece(PlayerName, 1, CurrPlayerPiece),
+	%%nth1(1, CurrPlayer, PlayerName),
+	%%selectPiece(PlayerName, 1, CurrPlayerPiece),
 	
 	Row > 1, Row < 5,
 	Col > 1, Col < 5,
@@ -199,11 +199,11 @@ checkBoardMiddle(Board, Row, Col, CurrPlayer, Return) :-
 	getPiece(Board, RowDown, Col, BottomPiece),
 	getPiece(Board, Row, ColLeft, LeftPiece),
 	getPiece(Board, Row, ColRight, RightPiece),
-	checkSurroundingPiecesMid(CurrPlayerPiece, UpperPiece, BottomPiece, LeftPiece, RightPiece, Return).
+	checkSurroundingPiecesMid(CurrPlayer, UpperPiece, BottomPiece, LeftPiece, RightPiece, Return).
 	
 checkBoardLeft(Board, Row, 1, CurrPlayer, Return) :-
-	nth1(1, CurrPlayer, PlayerName),
-	selectPiece(PlayerName, 1, CurrPlayerPiece),
+	%nth1(1, CurrPlayer, PlayerName),
+	%selectPiece(PlayerName, 1, CurrPlayerPiece),
 	
 	RowUp is Row + 1,
 	RowDown is Row - 1, !,
@@ -211,11 +211,11 @@ checkBoardLeft(Board, Row, 1, CurrPlayer, Return) :-
 	getPiece(Board, RowUp, 1, UpperPiece),
 	getPiece(Board, RowDown, 1, BottomPiece),
 	getPiece(Board, Row, 2, RightPiece),
-	checkSurroundingPiecesSides(CurrPlayerPiece, UpperPiece, BottomPiece, RightPiece, Return).
+	checkSurroundingPiecesSides(CurrPlayer, UpperPiece, BottomPiece, RightPiece, Return).
 	
 checkBoardRight(Board, Row, 5, CurrPlayer, Return) :-
-	nth1(1, CurrPlayer, PlayerName),
-	selectPiece(PlayerName, 1, CurrPlayerPiece),
+	%nth1(1, CurrPlayer, PlayerName),
+	%selectPiece(PlayerName, 1, CurrPlayerPiece),
 	
 	RowUp is Row + 1,
 	RowDown is Row - 1, !,
@@ -223,11 +223,11 @@ checkBoardRight(Board, Row, 5, CurrPlayer, Return) :-
 	getPiece(Board, RowUp, 5, UpperPiece),
 	getPiece(Board, RowDown, 5, BottomPiece),
 	getPiece(Board, Row, 4, LeftPiece),
-	checkSurroundingPiecesSides(CurrPlayerPiece, UpperPiece, BottomPiece, LeftPiece, Return).
+	checkSurroundingPiecesSides(CurrPlayer, UpperPiece, BottomPiece, LeftPiece, Return).
 	
 checkBoardTop(Board, 1, Col, CurrPlayer, Return) :-
-	nth1(1, CurrPlayer, PlayerName),
-	selectPiece(PlayerName, 1, CurrPlayerPiece),
+	%nth1(1, CurrPlayer, PlayerName),
+	%selectPiece(PlayerName, 1, CurrPlayerPiece),
 	
 	ColLeft is Col - 1,
 	ColRight is Col + 1,
@@ -235,11 +235,11 @@ checkBoardTop(Board, 1, Col, CurrPlayer, Return) :-
 	getPiece(Board, 1, ColLeft, LeftPiece),
 	getPiece(Board, 1, ColRight, RightPiece),
 	getPiece(Board, 2, Col, BottomPiece),
-	checkSurroundingPiecesSides(CurrPlayerPiece, LeftPiece, RightPiece, BottomPiece, Return).
+	checkSurroundingPiecesSides(CurrPlayer, LeftPiece, RightPiece, BottomPiece, Return).
 	
 checkBoardBot(Board, 5, Col, CurrPlayer, Return) :-
-	nth1(1, CurrPlayer, PlayerName),
-	selectPiece(PlayerName, 1, CurrPlayerPiece),
+	%nth1(1, CurrPlayer, PlayerName),
+	%selectPiece(PlayerName, 1, CurrPlayerPiece),
 	
 	ColLeft is Col - 1,
 	ColRight is Col + 1,
@@ -247,39 +247,39 @@ checkBoardBot(Board, 5, Col, CurrPlayer, Return) :-
 	getPiece(Board, 1, ColLeft, LeftPiece),
 	getPiece(Board, 1, ColRight, RightPiece),
 	getPiece(Board, 4, Col, TopPiece),
-	checkSurroundingPiecesSides(CurrPlayerPiece, LeftPiece, RightPiece, TopPiece, Return).
+	checkSurroundingPiecesSides(CurrPlayer, LeftPiece, RightPiece, TopPiece, Return).
 	
 checkBoardTopLeft(Board, 1, 1, CurrPlayer, Return) :-
-	nth1(1, CurrPlayer, PlayerName),
-	selectPiece(PlayerName, 1, CurrPlayerPiece),
+	%nth1(1, CurrPlayer, PlayerName),
+	%selectPiece(PlayerName, 1, CurrPlayerPiece),
 	
 	getPiece(Board, 1, 2, RightPiece),
 	getPiece(Board, 2, 1, BottomPiece),
-	checkSurroundingPiecesCorner(CurrPlayerPiece, RightPiece, BottomPiece, Return).
+	checkSurroundingPiecesCorner(CurrPlayer, RightPiece, BottomPiece, Return).
 	
 checkBoardTopRight(Board, 1, 5, CurrPlayer, Return) :-
-	nth1(1, CurrPlayer, PlayerName),
-	selectPiece(PlayerName, 1, CurrPlayerPiece),
+	%nth1(1, CurrPlayer, PlayerName),
+	%selectPiece(PlayerName, 1, CurrPlayerPiece),
 	
 	getPiece(Board, 1, 4, LeftPiece),
 	getPiece(Board, 2, 5, BottomPiece),
-	checkSurroundingPiecesCorner(CurrPlayerPiece, LeftPiece, BottomPiece, Return).
+	checkSurroundingPiecesCorner(CurrPlayer, LeftPiece, BottomPiece, Return).
 	
 checkBoardBotLeft(Board, 5, 1, CurrPlayer, Return) :-
-	nth1(1, CurrPlayer, PlayerName),
-	selectPiece(PlayerName, 1, CurrPlayerPiece),
+	%nth1(1, CurrPlayer, PlayerName),
+	%selectPiece(PlayerName, 1, CurrPlayerPiece),
 	
 	getPiece(Board, 5, 2, RightPiece),
 	getPiece(Board, 4, 1, UpperPiece),
-	checkSurroundingPiecesCorner(CurrPlayerPiece, RightPiece, UpperPiece, Return).
+	checkSurroundingPiecesCorner(CurrPlayer, RightPiece, UpperPiece, Return).
 	
 checkBoardBotRight(Board, 5, 5, CurrPlayer, Return) :-
-	nth1(1, CurrPlayer, PlayerName),
-	selectPiece(PlayerName, 1, CurrPlayerPiece),
+	%nth1(1, CurrPlayer, PlayerName),
+	%selectPiece(PlayerName, 1, CurrPlayerPiece),
 	
 	getPiece(Board, 5, 4, LeftPiece),
 	getPiece(Board, 4, 5, UpperPiece),
-	checkSurroundingPiecesCorner(CurrPlayerPiece, LeftPiece, UpperPiece, Return).
+	checkSurroundingPiecesCorner(CurrPlayer, LeftPiece, UpperPiece, Return).
 	
 getOpponentName('white', 'black').
 getOpponentName('black', 'white').	

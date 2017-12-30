@@ -284,16 +284,26 @@ class GoRoGo{
 		this.player2AuxBoard.display();
 	}
 
+	isOnCorner(row, col){
+		return (row == 0 && col == 0) || (row == 0 && col == 4) || (row == 4 && col == 0) || (row == 4 && col == 4);
+	}
+
 	resolveBoard(){
 		for(var i = 0; i < this.mainBoard.boardMatrix.length; i++){
 			for(var j = 0; j < this.mainBoard.boardMatrix[i].length; j++){
-				if(this.mainBoard.boardMatrix[i][j].placedPiece != null){
-					var currentPiece = this.mainBoard.boardMatrix[i][j].placedPiece.type;
+				var currentTile = this.mainBoard.boardMatrix[i][j];
+
+				//piece at current location
+				if(currentTile.placedPiece != null){
+					var currentPiece = currentTile.placedPiece.type;
 				}
-				if(this.mainBoard.boardMatrix[i][j].placedPiece == null){
+				else{
 					var currentPiece = 0;
 				}
-				console.log(currentPiece);
+				
+				if(this.isOnCorner(i, j)){
+					console.log(i + j);
+				}
 			}
 		}
 	}
