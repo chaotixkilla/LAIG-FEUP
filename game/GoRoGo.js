@@ -266,7 +266,7 @@ class GoRoGo{
 //CurrPlayerPiece, RightPiece, BottomPiece){
 
 		alert("getPrologRequest: checkEatingPiecesMiddle");
-		this.checkEatingPiecesMiddle('[[0,2,0,0,0],[2,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]', 1, 1, 1, 1, 1, 1, 1);		
+		this.checkEatingPiecesMiddle('[[0,2,0,0,0],[2,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]',1,1,1,1,1,1,1);		
 //Board, Row, Col, Piece, UpperPiece, BottomPiece, LeftPiece, RightPiece){
 //'[[0,2,0,0,0],[2,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]';
 
@@ -440,7 +440,7 @@ class GoRoGo{
 	}
 
 	checkEatingPiecesMiddle(Board, Row, Col, Piece, UpperPiece, BottomPiece, LeftPiece, RightPiece){
-		var requestString = 'checkEatingPiecesMiddle(' + Board + ',' + Row + ',' + Col + ',' + Piece + ',' + UpperPiece + ',' + BottomPiece + ',' + LeftPiece + ',' + RightPiece + ',' + ')';
+		var requestString = 'checkEatingPiecesMiddle(' + Board + ',' + Row + ',' + Col + ',' + Piece + ',' + UpperPiece + ',' + BottomPiece + ',' + LeftPiece + ',' + RightPiece + ')';
 		this.getPrologRequest(requestString);
 	}
 

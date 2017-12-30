@@ -135,7 +135,7 @@ parse_input(checkSurroundingPiecesSides(CurrPlayerPiece, UpperPiece, BottomPiece
 parse_input(checkSurroundingPiecesCorner(CurrPlayerPiece, RightPiece, BottomPiece), Return):-
 	checkSurroundingPiecesCorner(CurrPlayerPiece, RightPiece, BottomPiece, Return).
 
-parse_input(checkEatingPiecesMiddle(Board, Row, Col, Piece, UpperPiece, BottomPiece, LeftPiece, RightPiece, PiecesEaten), BoardOut):-
+parse_input(checkEatingPiecesMiddle(Board, Row, Col, Piece, UpperPiece, BottomPiece, LeftPiece, RightPiece), PiecesEaten):-
 	checkEatingPiecesMiddle(Board, Row, Col, Piece, UpperPiece, BottomPiece, LeftPiece, RightPiece, BoardOut, PiecesEaten).
 
 parse_input(checkEatingPiecesSides(Board, Row, Col, Piece, LeftPiece, RightPiece, BottomPiece), PiecesEaten):-
