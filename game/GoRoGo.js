@@ -44,6 +44,7 @@ class GoRoGo{
 		this.placeInitialPieces();
 
 		this.prologBoard = "default";
+		this.prologAnswer = null;
 	}
 
 	addPiecesToPlayers(){
@@ -238,12 +239,19 @@ class GoRoGo{
   	}
 
   	highlightPossibleMoves(){
-  		for(var i = 0; i < this.mainBoard.boardMatrix.length; i++){
-			for(var j = 0; j < this.mainBoard.boardMatrix[i].length; j++){
-				if(!this.mainBoard.boardMatrix[i][j].occupied){
+  		if(this.currentState == 2){
+  			for(var i = 0; i < this.mainBoard.boardMatrix.length; i++){
+				for(var j = 0; j < this.mainBoard.boardMatrix[i].length; j++){
+				/*if(!this.mainBoard.boardMatrix[i][j].occupied){
 					this.mainBoard.boardMatrix[i][j].highlighed = true;
-				}
- 			}
+				}*/
+					this.checkBoard(this.prologBoard, this.mainBoard.boardMatrix[i][j].x, this.mainBoard.boardMatrix[i][j].y, this.selectedPiece.type);
+					console.log(this.prologAnswer);
+					if(this.prologAnswer != "0" && !this.mainBoard.boardMatrix[i][j].occupied){
+						this.mainBoard.boardMatrix[i][j].highlighed = true;
+					}
+ 				}
+  			}
   		}
   	}
 
@@ -280,45 +288,7 @@ class GoRoGo{
  	startGame(){
  		this.started = true;
 
-		alert("getPrologRequest: getFreshBoard");
 		this.getFreshBoard();
-
-		//alert("getPrologRequest: startGamePVP");
-		//this.startGamePVP();
-		
-		//alert("getPrologRequest: askPlay");
-		//askPlay(this.prologBoard, 'black', [], HengePieces, 'human', 0);
-		
-		alert("getPrologRequest: checkSurroundingPiecesMid");
-		this.checkSurroundingPiecesMid(1, 2, 2, 2, 2);
-//CurrPlayerPiece, UpperPiece, BottomPiece, LeftPiece, RightPiece){
-
-		alert("getPrologRequest: checkSurroundingPiecesSides");
-		this.checkSurroundingPiecesSides(1, 2, 2, 2);	
-//CurrPlayerPiece, UpperPiece, BottomPiece, RightPiece){
-
-		alert("getPrologRequest: checkSurroundingPiecesCorner");
-		this.checkSurroundingPiecesCorner(1, 2, 2);
-//CurrPlayerPiece, RightPiece, BottomPiece){
-
-		alert("getPrologRequest: checkEatingPiecesMiddle");
-		this.checkEatingPiecesMiddle('[[0,2,0,0,0],[2,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]',1,1,1,1,1,1,1);		
-//Board, Row, Col, Piece, UpperPiece, BottomPiece, LeftPiece, RightPiece){
-//'[[0,2,0,0,0],[2,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]';
-
-		alert("getPrologRequest: checkEatingPiecesSides");
-		this.checkEatingPiecesSides('[[0,2,0,0,0],[2,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]',1,1,1,1,1,1);
-//Board, Row, Col, Piece, LeftPiece, RightPiece, BottomPiece){
-
-		alert("getPrologRequest: checkEatingPiecesCorner");
-		this.checkEatingPiecesCorner('[[0,2,0,0,0],[2,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]',1,1,1,1,1);
-	//Board, Row, Col, Piece, RightPiece, BottomPiece){
-
-		alert("getPrologRequest: checkBoard");
-		this.checkBoard('[[0,2,0,0,0],[2,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]',1,1,1);
-//Board, Row, Col, CurrPlayer).
-
-
  		this.placeInitialPieces();
  		this.firstTurn();
 	}
@@ -538,6 +508,7 @@ class GoRoGo{
 		}
 
 		if(requestString.substring(0, 22) == "checkBoardSurroundings"){
+			
 			console.log("checkBoardSurroundings response: " + response);
 		}
 
@@ -570,7 +541,8 @@ class GoRoGo{
 			console.log("checkEatingPiecesCorner response: " + response);
 		}
 
-		if(requestString.substring(0, ) == "checkBoard"){
+		if(requestString.substring(0, 10) == "checkBoard"){
+			this.prologAnswer = response;
 			console.log("checkBoard response: " + response);
 		}
 

@@ -164,13 +164,18 @@ readPieceType(_) :- write('Wrong piece type, please try again!'), nl, !, fail.
 %checks board
 checkBoard(Board, Row, Col, CurrPlayer, Return) :-
 	coords(Row), coords(Col), !,
-	checkBoardSpot(Board, Row, Col), !,
-	checkBoardSurroundings(Board, Row, Col, CurrPlayer, Return).
+	checkBoardSpot(Board, Row, Col, Return1), !,
+	checkBoardSurroundings(Board, Row, Col, CurrPlayer, Return2),
+	(
+		(Return1 == 1, Return2 == 1) -> Return is 1;
+		Return is 0
+	).
 	
-checkBoardSpot(Board, Row, Col) :-
-	getPiece(Board, Row, Col, 0).
+checkBoardSpot(Board, Row, Col, Return) :-
+	getPiece(Board, Row, Col, 0),
+	Return is 1.
 
-checkBoardSpot(_, _, _)	:- write('That coordinate is already occupied by a piece, try again!'), nl, !, fail.
+checkBoardSpot(_, _, _, 0)	:- write('That coordinate is already occupied by a piece, try again!'), nl.
 	
 checkBoardSurroundings(Board, 1, 1, CurrPlayer, Return) :- checkBoardTopLeft(Board, 1, 1, CurrPlayer, Return).
 checkBoardSurroundings(Board, 5, 1, CurrPlayer, Return) :- checkBoardBotLeft(Board, 5, 1, CurrPlayer, Return).
