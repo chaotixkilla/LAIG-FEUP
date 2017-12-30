@@ -19,6 +19,7 @@ function XMLscene(interface) {
 
     var date = new Date();
     this.sceneInitTime = date.getTime();
+    this.currTime = 0;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -196,10 +197,15 @@ XMLscene.prototype.display = function() {
         }
 
 //--------------------CENAS DO TIME COUNTER DA INTERFACE--------
-        var newDate = new Date();
-        currTime = newDate.getTime();
+       if(!this.game.paused){
+
+        if(this.currTime == 0){
+            var newDate = new Date();
+            this.currTime = newDate.getTime();
+        }
+
         if(this.initialSceneTime == null){
-            this.initialSceneTime = currTime;
+            this.initialSceneTime = this.currTime;
         }
 
         if(this.game.started){
@@ -213,8 +219,10 @@ XMLscene.prototype.display = function() {
             this.game.timeElapsed = Math.floor(time);
         }
 
-        dT = (currTime - this.sceneInitTime)/1000;
+        dT = (this.currTime - this.sceneInitTime)/1000;
         this.updateTimeFactor(dT);
+
+        }
 //--------------------CENAS DO TIME COUNTER DA INTERFACE--------
 
 
