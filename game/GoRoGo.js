@@ -326,6 +326,18 @@ class GoRoGo{
 		console.log('After parsing prolog board: ' + this.mainBoard);
 	}
 
+	checkGameOver(plBoard, Name1, Pieces1, HengePieces1, PlayerType1, Score1, Name2, Pieces2, HengePieces2, PlayerType2, Score2){
+
+	var requestString = 'checkGameOver(' + this.prologBoard + ',' + '-1,[' 
+		+ Name1 + ',' + Pieces1 + ',' + HengePieces1 + ',' + PlayerType1 + ',' + Score1 + '],['
+		+ Name2 + ',' + Pieces2 + ',' + HengePieces2 + ',' + PlayerType2 + ',' + Score2 + '])';
+
+	this.getPrologRequest(requestString);
+	}
+
+
+
+
 	getPrologRequest(requestString, onSuccess, onError, port){
 		
 	  var requestPort = port || 8081;
@@ -340,6 +352,11 @@ class GoRoGo{
 			this.parseBoard(this.prologBoard);
 		}
 
+		if(requestString.substring(0, 10) == "checkPlays"){
+			this.prologBoard = response;
+			console.log('Checking if game is over...');
+			this.parseBoard(this.prologBoard);
+		}
 	  }
 
 	  request.onerror = onError || function(){console.log("Error waiting for response");};
