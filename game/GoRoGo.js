@@ -243,9 +243,6 @@ class GoRoGo{
 
 		alert("getPrologRequest: getFreshBoard");
 		this.getFreshBoard();
-		
-		//alert("getPrologRequest: checkBoardSurroundings");
-		//this.checkBoardSurroundings();
 
 		//alert("getPrologRequest: startGamePVP");
 		//this.startGamePVP();
@@ -270,6 +267,13 @@ class GoRoGo{
 //Board, Row, Col, Piece, UpperPiece, BottomPiece, LeftPiece, RightPiece){
 //'[[0,2,0,0,0],[2,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]';
 
+		alert("getPrologRequest: checkEatingPiecesSides");
+		this.checkEatingPiecesSides('[[0,2,0,0,0],[2,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]',1,1,1,1,1,1);
+//Board, Row, Col, Piece, LeftPiece, RightPiece, BottomPiece){
+
+		alert("getPrologRequest: checkEatingPiecesCorner");
+		this.checkEatingPiecesCorner('[[0,2,0,0,0],[2,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]',1,1,1,1,1);
+	//Board, Row, Col, Piece, RightPiece, BottomPiece){
 
 
  		this.placeInitialPieces();
@@ -411,18 +415,6 @@ class GoRoGo{
 		this.getPrologRequest(requestString);
 	}
 
-	/*
-	checkBoardSurroundings(){
-
-		console.log("HERE");
-		var plBoard = '[[0,2,0,0,0],[2,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]';
-		var requestString = 'checkBoardSurroundings(' + plBoard + ',1,1,1)'; 
-		console.log('' + requestString);
-
-		this.getPrologRequest(requestString);
-	}
-	*/
-
 	checkSurroundingPiecesMid(CurrPlayerPiece, UpperPiece, BottomPiece, LeftPiece, RightPiece){
 
 		var requestString = 'checkSurroundingPiecesMid(' + CurrPlayerPiece + ',' + UpperPiece + ',' + BottomPiece + ',' + LeftPiece + ',' + RightPiece + ')';
@@ -445,7 +437,7 @@ class GoRoGo{
 	}
 
 	checkEatingPiecesSides(Board, Row, Col, Piece, LeftPiece, RightPiece, BottomPiece){
-		var requestString = 'checkEatingPiecesSides(' + Board + ',' + Row + ',' + Col + ',' + Piece + ',' + UpperPiece + ',' + BottomPiece + ',' + LeftPiece + ',' + RightPiece + ')' ;
+		var requestString = 'checkEatingPiecesSides(' + Board + ',' + Row + ',' + Col + ',' + Piece + ',' + LeftPiece + ',' + RightPiece + ',' + BottomPiece + ')';
 		this.getPrologRequest(requestString);
 	}
 
