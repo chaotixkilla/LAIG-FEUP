@@ -123,6 +123,47 @@ class GoRoGo{
  		var startingPosition = piece.tile;
  		this.unbindPieceToTile(startingPosition, piece);
  		this.bindPieceToTile(tile, piece);
+ 		this.updatePrologBoard();
+ 		//this.boardToString(this.mainBoard);
+ 	}
+
+ 	boardToString(board){
+ 		var str = "[";
+ 		for(var i = 0; i < board.boardMatrix.length; i++){
+ 			str += "[";
+ 			for(var j = 0; j < board.boardMatrix[i].length; j++){
+ 				if(board.boardMatrix[i][j].placedPiece == null){
+ 					str += "0";
+ 				}
+ 				else{
+ 					if(board.boardMatrix[i][j].placedPiece.type == 3){
+ 						str += "3";
+ 					}
+ 					if(board.boardMatrix[i][j].placedPiece.type == 2){
+ 						str += "2";
+ 					}
+ 					if(board.boardMatrix[i][j].placedPiece.type == 1){
+ 						str += "1";
+ 					}
+ 				}
+ 				if(j < board.boardMatrix[i].length-1){
+ 					str += ",";
+ 				}
+ 			}
+ 			str += "]";
+ 			if(i < board.boardMatrix.length-1){
+ 				str += ",";
+ 			}
+ 		}
+ 		str += "]";
+
+ 		return str;
+ 	}
+
+ 	updatePrologBoard(){
+ 		console.log("before: " + this.prologBoard);
+ 		this.prologBoard = this.boardToString(this.mainBoard);
+ 		console.log("after: " + this.prologBoard);
  	}
 
  	animatePlay(destination, piece){
@@ -131,11 +172,8 @@ class GoRoGo{
         var animation = new PieceAnimation(piece, startingPosition, destination);
         this.scene.gameAnimations.push(animation);
         piece.moving = true;
-
-        //console.log("HERE");
         
         this.makePlay(destination, piece);
-        this.resolveBoard();
 	}
 
  	pickTile(index){
@@ -166,6 +204,8 @@ class GoRoGo{
                 console.log("Player 2 playing");
             	this.makeSelectable(this.player2AuxBoard);
 			}
+			//this.boardToString(this.mainBoard);
+			//this.updatePrologBoard();
 		}
 
 		else if(this.currentState == 2){
@@ -192,7 +232,6 @@ class GoRoGo{
                     this.makeSelectable(this.player2AuxBoard);
                 }
                 this.animatePlay(this.selectedDestination, this.selectedPiece);
-                //console.log(pickedTile.selected);
                 this.removeHighlights();
 			}
 		}
@@ -294,26 +333,6 @@ class GoRoGo{
 
 	isOnCorner(row, col){
 		return (row == 0 && col == 0) || (row == 0 && col == 4) || (row == 4 && col == 0) || (row == 4 && col == 4);
-	}
-
-	resolveBoard(){
-		for(var i = 0; i < this.mainBoard.boardMatrix.length; i++){
-			for(var j = 0; j < this.mainBoard.boardMatrix[i].length; j++){
-				var currentTile = this.mainBoard.boardMatrix[i][j];
-
-				//piece at current location
-				if(currentTile.placedPiece != null){
-					var currentPiece = currentTile.placedPiece.type;
-				}
-				else{
-					var currentPiece = 0;
-				}
-				
-				if(this.isOnCorner(i, j)){
-					console.log(i + j);
-				}
-			}
-		}
 	}
 
 	addGameGUI(){
@@ -499,7 +518,7 @@ class GoRoGo{
 		if(requestString == "getFreshBoard"){
 			game.prologBoard = response;
 			console.log("getFreshBoard response: " + response);
-			game.parseBoard(game.prologBoard);
+			//game.parseBoard(game.prologBoard);
 		}
 
 		if(requestString == "startGamePVP"){
@@ -509,13 +528,13 @@ class GoRoGo{
 		if(requestString.substring(0, 10) == "checkPlays"){
 			game.prologBoard = response;
 			console.log("checkPlays response: " + response);
-			game.parseBoard(game.prologBoard);
+			//game.parseBoard(game.prologBoard);
 		}
 
 		if(requestString.substring(0, 7) == "askPlay"){
 			game.prologBoard = response;
 			console.log("askPlay response: " + response);
-			game.parseBoard(game.prologBoard);
+			//game.parseBoard(game.prologBoard);
 		}
 
 		if(requestString.substring(0, 22) == "checkBoardSurroundings"){
