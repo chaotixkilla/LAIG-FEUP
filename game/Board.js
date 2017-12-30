@@ -43,6 +43,8 @@ class Board{
 	display(){
 		for(var i = 0; i < this.boardMatrix.length; i++){
 			for(var j = 0; j < this.boardMatrix[i].length; j++){
+				this.boardMatrix[i][j].realX = -1.37 + j*this.distanceBetweenTiles;
+				this.boardMatrix[i][j].realY = -1.37 + i*this.distanceBetweenTiles;
 				this.scene.pushMatrix();
 				this.scene.translate(this.distanceBetweenTiles*(-2) + j * this.distanceBetweenTiles, 0, this.distanceBetweenTiles*(-2) + i * this.distanceBetweenTiles);
 				if(this.selectable && (this.boardMatrix[i][j].placedPiece == null)){
@@ -54,7 +56,6 @@ class Board{
 				this.boardMatrix[i][j].display();
 				if(this.boardMatrix[i][j].occupied){
 					if(this.boardMatrix[i][j].placedPiece.moving){
-						console.log("ENTREI2");
 						this.boardMatrix[i][j].placedPiece.animation.apply();
 					}
 					this.boardMatrix[i][j].placedPiece.display();

@@ -18,8 +18,8 @@ class PieceAnimation{
 
 		//this.xStart = this.start.x;
 		//this.yStart = this.start.y;
-		this.xStart = 0.685;
-		this.yStart = 2.6;
+		this.xStart = - (this.start.realX - this.destination.realX);
+		this.yStart = - (this.start.realY - this.destination.realY);
 
 		/*this.xFinish = this.destination.x;
 		this.yFinish = this.destination.y;*/
@@ -84,13 +84,14 @@ class PieceAnimation{
 		var moveZ = (this.yStart - this.yFinish) * ratio;
 		//var moveZ = (this.yFinish - this.yStart) * ratio;
 
-		console.log("moveX = " + moveX);
+		/*console.log("moveX = " + moveX);
 		console.log("moveY = " + moveY);
-		console.log("moveZ = " + moveZ);
+		console.log("moveZ = " + moveZ);*/
 
 		//this.piece.scene.pushMatrix();
 		this.piece.scene.translate(-this.xStart, moveY, -this.yStart);
 		this.piece.scene.translate(moveX, moveY, moveZ);
+		this.piece.scene.rotate(Math.PI/16, 1, 0, 0);
 		//this.piece.scene.popMatrix();
 	}
 }
