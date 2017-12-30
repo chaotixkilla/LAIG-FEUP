@@ -239,12 +239,38 @@ class GoRoGo{
 
  	startGame(){
  		this.started = true;
-		
+
 		alert("getPrologRequest: getFreshBoard");
 		this.getFreshBoard();
-		alert("getPrologRequest: startGame");
-		this.sta
 		
+		//alert("getPrologRequest: checkBoardSurroundings");
+		//this.checkBoardSurroundings();
+
+		//alert("getPrologRequest: startGamePVP");
+		//this.startGamePVP();
+		
+		//alert("getPrologRequest: askPlay");
+		//askPlay(this.prologBoard, 'black', [], HengePieces, 'human', 0);
+		
+		alert("getPrologRequest: checkSurroundingPiecesMid");
+		this.checkSurroundingPiecesMid(1, 2, 2, 2, 2);
+//CurrPlayerPiece, UpperPiece, BottomPiece, LeftPiece, RightPiece){
+
+		alert("getPrologRequest: checkSurroundingPiecesSides");
+		this.checkSurroundingPiecesSides(1, 2, 2, 2);	
+//CurrPlayerPiece, UpperPiece, BottomPiece, RightPiece){
+
+		alert("getPrologRequest: checkSurroundingPiecesCorner");
+		this.checkSurroundingPiecesCorner(1, 2, 2);
+//CurrPlayerPiece, RightPiece, BottomPiece){
+
+		alert("getPrologRequest: checkEatingPiecesMiddle");
+		this.checkEatingPiecesMiddle('[[0,2,0,0,0],[2,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]', 1, 1, 1, 1, 1, 1, 1);		
+//Board, Row, Col, Piece, UpperPiece, BottomPiece, LeftPiece, RightPiece){
+//'[[0,2,0,0,0],[2,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]';
+
+
+
  		this.placeInitialPieces();
  		this.firstTurn();
 	}
@@ -371,10 +397,73 @@ class GoRoGo{
 		this.getPrologRequest(requestString);
 	}
 
+	/*
+	checkBoardSurroundings(){
+
+		console.log("HERE");
+		var plBoard = '[[0,2,0,0,0],[2,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]';
+		var requestString = 'checkBoardSurroundings(' + plBoard + ',1,1,1)'; 
+		console.log('' + requestString);
+
+		this.getPrologRequest(requestString);
+	}
+	*/
+
+	checkSurroundingPiecesMid(CurrPlayerPiece, UpperPiece, BottomPiece, LeftPiece, RightPiece){
+
+		var requestString = 'checkSurroundingPiecesMid(' + CurrPlayerPiece + ',' + UpperPiece + ',' + BottomPiece + ',' + LeftPiece + ',' + RightPiece + ')';
+		this.getPrologRequest(requestString);
+	}
+
+	checkSurroundingPiecesSides(CurrPlayerPiece, UpperPiece, BottomPiece, RightPiece){
+		var requestString = 'checkSurroundingPiecesSides(' + CurrPlayerPiece + ',' + UpperPiece + ',' + BottomPiece + ',' + RightPiece + ')';
+		this.getPrologRequest(requestString);
+	}
+
+	checkSurroundingPiecesCorner(CurrPlayerPiece, RightPiece, BottomPiece){
+		var requestString = 'checkSurroundingPiecesCorner(' + CurrPlayerPiece + ',' + RightPiece + ',' + BottomPiece + ')';
+		this.getPrologRequest(requestString);
+	}
+
+	checkEatingPiecesMiddle(Board, Row, Col, Piece, UpperPiece, BottomPiece, LeftPiece, RightPiece){
+		var requestString = 'checkEatingPiecesMiddle(' + Board + ',' + Row + ',' + Col + ',' + Piece + ',' + UpperPiece + ',' + BottomPiece + ',' + LeftPiece + ',' + RightPiece + ',' + ')';
+		this.getPrologRequest(requestString);
+	}
+
+	checkEatingPiecesSides(Board, Row, Col, Piece, LeftPiece, RightPiece, BottomPiece){
+		var requestString = 'checkEatingPiecesSides(' + Board + ',' + Row + ',' + Col + ',' + Piece + ',' + UpperPiece + ',' + BottomPiece + ',' + LeftPiece + ',' + RightPiece + ')' ;
+		this.getPrologRequest(requestString);
+	}
+
+	checkEatingPiecesCorner(Board, Row, Col, Piece, RightPiece, BottomPiece){
+		var requestString = 'checkEatingPiecesCorner(' + Board + ',' + Row + ',' + Col + ',' + Piece + ',' + RightPiece + ',' + BottomPiece + ')';
+		this.getPrologRequest(requestString);
+	}
+
+	checkBoardSurroundings(CurrPlayerPiece, UpperPiece, BottomPiece, LeftPiece, RightPiece, Board, Row, Col, Piece){
+			console.log("getPrologRequest: ~checkBoardSurroundings ~");
+			console.log("PiecesMid");
+			checkSurroundingPiecesMid(CurrPlayerPiece, UpperPiece, BottomPiece, LeftPiece, RightPiece);
+			console.log("PiecesSides");
+			checkSurroundingPiecesSides(CurrPlayerPiece, UpperPiece, BottomPiece, RightPiece);
+			console.log("PiecesCorner");
+			checkSurroundingPiecesCorner(CurrPlayerPiece, RightPiece, BottomPiece);
+			console.log("EatingPiecesMiddle");
+			checkEatingPiecesMiddle(Board, Row, Col, Piece, UpperPiece, BottomPiece, LeftPiece, RightPiece);
+			console.log("EatingPiecesSides");
+			checkEatingPiecesSides(Board, Row, Col, Piece, LeftPiece, RightPiece, BottomPiece);
+			console.log("EatingPiecesCorner");
+			checkEatingPiecesCorner(Board, Row, Col, Piece, RightPiece, BottomPiece);
+			console.log("End of ~checkBoardSurroundings~");
+	}
+
+
+
 //------------------------- PROLOG PREDICATES ----------------------------
 
 	getPrologRequest(requestString, onSuccess, onError, port){
-		
+
+	  var game = this;
 	  var requestPort = port || 8081;
 	  var request = new XMLHttpRequest();
 	  request.open('GET', 'http://localhost:'+requestPort+'/'+requestString, true);
@@ -383,24 +472,58 @@ class GoRoGo{
 		var response = data.target.response;
 
 		if(requestString == "getFreshBoard"){
-			this.prologBoard = response;
-			this.parseBoard(this.prologBoard);
+			game.prologBoard = response;
+			console.log("getFreshBoard response: " + response);
+			game.parseBoard(game.prologBoard);
 		}
 
 		if(requestString == "startGamePVP"){
-			this.prologBoard = response;
-			this.parseBoard(this.prologBoard);
+			console.log("startGamePVP response: " + response);
 		}
 
 		if(requestString.substring(0, 10) == "checkPlays"){
-			this.prologBoard = response;
-			console.log('Checking if game is over...');
-			this.parseBoard(this.prologBoard);
+			game.prologBoard = response;
+			console.log("checkPlays response: " + response);
+			game.parseBoard(game.prologBoard);
 		}
 
 		if(requestString.substring(0, 7) == "askPlay"){
-			this.prologBoard = response;
-			this.parseBoard(this.prologBoard);
+			game.prologBoard = response;
+			console.log("askPlay response: " + response);
+			game.parseBoard(game.prologBoard);
+		}
+
+		if(requestString.substring(0, 22) == "checkBoardSurroundings"){
+			console.log("checkBoardSurroundings response: " + response);
+		}
+
+		if(requestString.substring(0, 27) == "checkSurroundingPiecesSides"){
+			console.log("checkSurroundingPiecesSides response: " + response);
+		}
+
+
+		if(requestString.substring(0, 28) == "checkSurroundingPiecesCorner"){
+			console.log("checkSurroundingPiecesCorner response: " + response);
+		}
+
+
+		if(requestString.substring(0, 23) == "checkEatingPiecesMiddle"){
+			console.log("checkEatingPiecesMiddle response: " + response);
+		}
+
+
+		if(requestString.substring(0, 25) == "checkSurroundingPiecesMid"){
+			console.log("checkSurroundingPiecesMid response: " + response);
+		}
+
+
+		if(requestString.substring(0, 22) == "checkEatingPiecesSides"){
+			console.log("checkEatingPiecesSides response: " + response);
+		}
+
+
+		if(requestString.substring(0, 23) == "checkEatingPiecesCorner"){
+			console.log("checkEatingPiecesCorner response: " + response);
 		}
 
 	  }

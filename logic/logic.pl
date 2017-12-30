@@ -8,7 +8,7 @@ gameLoop(_, _, [_, _, _, _, _], [_, 0, _, _, _]) :- gameOverMenu('White', 'Out o
 %first round henge placing
 gameLoop(Board, -1, [Name1, Pieces1, HengePieces1, human, Score1], [Name2, Pieces2, HengePieces2, PlayerType2, Score2]) :-
 
-	clearScreen,
+	%clearScreen,
 	printBoard(Board),
 	write('White player has to place the last henge piece available'), nl,
 	
@@ -28,7 +28,7 @@ gameLoop(Board, -1, [Name1, Pieces1, HengePieces1, human, Score1], [Name2, Piece
 	
 gameLoop(Board, -1, [Name1, Pieces1, HengePieces1, bot, Score1], [Name2, Pieces2, HengePieces2, PlayerType2, Score2]) :-
 
-	clearScreen,
+	%clearScreen,
 	printBoard(Board),
 	write('White player has to place the last henge piece available'), nl,
 	
@@ -40,7 +40,7 @@ gameLoop(Board, -1, [Name1, Pieces1, HengePieces1, bot, Score1], [Name2, Pieces2
 
 %gameloop predicate
 gameLoop(Board, Counter, [Name1, Pieces1, HengePieces1, PlayerType1, Score1], [Name2, Pieces2, HengePieces2, PlayerType2, Score2]) :-
-	clearScreen,
+	%clearScreen,
 	printBoard(Board),
 	
 	write('Press ENTER to continue'),
@@ -165,6 +165,7 @@ readPieceType(_) :- write('Wrong piece type, please try again!'), nl, !, fail.
 checkBoard(Board, Row, Col, CurrPlayer, Return) :-
 	coords(Row), coords(Col), !,
 	checkBoardSpot(Board, Row, Col), !,
+	write(Board),
 	checkBoardSurroundings(Board, Row, Col, CurrPlayer, Return).
 	
 checkBoardSpot(Board, Row, Col) :-

@@ -114,11 +114,37 @@ test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
 parse_input(getFreshBoard, Return) :-
 	freshBoard(Return).
 
-parse_input(startGamePVP, Return) :-
+
+parse_input(startGamePVP) :-
 	startGamePVP.
 
 parse_input(askPlay(BoardIn, [Name, Pieces, HengePieces, bot, Score]), BoardOut) :-
 	askPlay(BoardIn, [Name, Pieces, HengePieces, bot, Score], BoardOut, [NameOut, PiecesOut, HengePiecesOut, bot, ScoreOut]).
+
+parse_input(checkBoardSurroundings(BoardIn, Row, Col, CurrPlayer), Return) :-
+	checkBoardSurroundings(BoardIn, Row, Col, CurrPlayer, Return).
+
+
+%Martirio para fazer checkBoardSurroundings
+parse_input(checkSurroundingPiecesMid(CurrPlayerPiece, UpperPiece, BottomPiece, LeftPiece, RightPiece), Return):-
+	checkSurroundingPiecesMid(CurrPlayerPiece, UpperPiece, BottomPiece, LeftPiece, RightPiece, Return).
+
+parse_input(checkSurroundingPiecesSides(CurrPlayerPiece, UpperPiece, BottomPiece, RightPiece), Return):-
+		checkSurroundingPiecesSides(CurrPlayerPiece, UpperPiece, BottomPiece, RightPiece, Return).
+	
+parse_input(checkSurroundingPiecesCorner(CurrPlayerPiece, RightPiece, BottomPiece), Return):-
+	checkSurroundingPiecesCorner(CurrPlayerPiece, RightPiece, BottomPiece, Return).
+
+parse_input(checkEatingPiecesMiddle(Board, Row, Col, Piece, UpperPiece, BottomPiece, LeftPiece, RightPiece, PiecesEaten), BoardOut):-
+	checkEatingPiecesMiddle(Board, Row, Col, Piece, UpperPiece, BottomPiece, LeftPiece, RightPiece, BoardOut, PiecesEaten).
+
+parse_input(checkEatingPiecesSides(Board, Row, Col, Piece, LeftPiece, RightPiece, BottomPiece), PiecesEaten):-
+	checkEatingPiecesSides(Board, Row, Col, Piece, LeftPiece, RightPiece, BottomPiece, BoardOut, PiecesEaten).
+
+parse_input(checkEatingPiecesCorner(Board, Row, Col, Piece, RightPiece, BottomPiece), PiecesEaten):-
+	checkEatingPiecesCorner(Board, Row, Col, Piece, RightPiece, BottomPiece, BoardOut, PiecesEaten).
+	
+
 
 %gameLoop(Board, -1, [Name1, Pieces1, HengePieces1, human, Score1], [Name2, Pieces2, HengePieces2, PlayerType2, Score2])
 parse_input(checkGameOver(Board, -1, [Name1, Pieces1, HengePieces1, human, Score1], [Name2, Pieces2, HengePieces2, PlayerType2, Score2]), Return) :-
