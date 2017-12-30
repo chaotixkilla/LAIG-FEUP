@@ -46,6 +46,8 @@ class GoRoGo{
 
 		this.prologBoard = "default";
 		this.prologAnswer = null;
+
+		this.answerMatrix = [];
 	}
 
 	addPiecesToPlayers(){
@@ -166,6 +168,7 @@ class GoRoGo{
  		console.log("before: " + this.prologBoard);
  		this.prologBoard = this.boardToString(this.mainBoard);
  		console.log("after: " + this.prologBoard);
+		this.getAnswerArray(this.prologBoard, this.currentPlayer%2 + 1);
  	}
 
  	animatePlay(destination, piece){
@@ -192,8 +195,9 @@ class GoRoGo{
 		if(this.currentState == 1){
 			pickedTile.selected = true;
 			this.removeHighlights();
+			this.updatePrologBoard();
 			this.currentState++;
-            this.selectedPiece = this.allPieces[24];
+            //this.selectedPiece = this.allPieces[24];
             this.selectedDestination = pickedTile;
             this.bindPieceToTile(this.selectedDestination, this.selectedPiece);
             this.currentPlayer++;
@@ -212,7 +216,9 @@ class GoRoGo{
 
 		else if(this.currentState == 2){
 			if(this.currentPlayState == 0){
+                //this.answerMatrix = [];
 				this.selectedPiece = pickedTile.placedPiece;
+                //this.getAnswerArray(this.prologBoard, this.selectedPiece.type);
                 pickedTile.selected = true;
 				this.currentPlayState++;
                 console.log("Place the selected piece on the board");
@@ -233,35 +239,53 @@ class GoRoGo{
                     console.log("Player 2 playing");
                     this.makeSelectable(this.player2AuxBoard);
                 }
+                this.answerMatrix = [];
                 this.animatePlay(this.selectedDestination, this.selectedPiece);
                 this.removeHighlights();
 			}
 		}
   	}
 
+  	getAnswerArray(board, type){
+		//console.log("type: " + type);
+        for(var i = 0; i < this.mainBoard.boardMatrix.length; i++){
+            for(var j = 0; j < this.mainBoard.boardMatrix[i].length; j++){
+            	this.checkBoard(board, this.mainBoard.boardMatrix[i][j].x, this.mainBoard.boardMatrix[i][j].y, type);
+            }
+        }
+	}
+
   	highlightPossibleMoves(){
-  		if(this.currentState == 2){
+        //console.log(this.answerMatrix);
+        //this.getAnswerArray(this.prologBoard, this.mainBoard.boardMatrix[i][j].x, this.mainBoard.boardMatrix[i][j].y, this.selectedPiece.type);
+
+  		if(this.selectedPiece.type == 3){
   			for(var i = 0; i < this.mainBoard.boardMatrix.length; i++){
 				for(var j = 0; j < this.mainBoard.boardMatrix[i].length; j++){
-				/*if(!this.mainBoard.boardMatrix[i][j].occupied){
-					this.mainBoard.boardMatrix[i][j].highlighed = true;
-				}*/
-					this.checkBoard(this.prologBoard, this.mainBoard.boardMatrix[i][j].x, this.mainBoard.boardMatrix[i][j].y, this.selectedPiece.type);
-					console.log(this.prologAnswer);
-					if(this.prologAnswer != "0" && !this.mainBoard.boardMatrix[i][j].occupied){
+					if(!this.mainBoard.boardMatrix[i][j].occupied){
 						this.mainBoard.boardMatrix[i][j].highlighed = true;
 					}
  				}
   			}
   		}
+  		else{
+            for(var i = 0; i < this.mainBoard.boardMatrix.length; i++){
+                for(var j = 0; j < this.mainBoard.boardMatrix[i].length; j++){
+                	//console.log(this.answerMatrix[this.mainBoard.boardMatrix.length*i+j]);
+                    if(!this.mainBoard.boardMatrix[i][j].occupied && this.answerMatrix[this.mainBoard.boardMatrix.length*i+j] == 1){
+                        this.mainBoard.boardMatrix[i][j].highlighed = true;
+                    }
+                }
+            }
+		}
   	}
 
   	removeHighlights(){
   		for(var i = 0; i < this.mainBoard.boardMatrix.length; i++){
 			for(var j = 0; j < this.mainBoard.boardMatrix[i].length; j++){
-				if(this.mainBoard.boardMatrix[i][j].highlighed){
+				//if(this.mainBoard.boardMatrix[i][j].highlighed){
 					this.mainBoard.boardMatrix[i][j].highlighed = false;
-				}
+				//}
                 this.mainBoard.boardMatrix[i][j].selected = false;
  			}
   		}
@@ -280,6 +304,7 @@ class GoRoGo{
   	}
 
   	firstTurn(){
+        this.selectedPiece = this.allPieces[24];
   		this.highlightPossibleMoves();
  		this.makeSelectable(this.mainBoard);
  		this.currentState = 1;
@@ -288,6 +313,9 @@ class GoRoGo{
 
  	startGame(){
  		this.started = true;
+ 		this.answerMatrix = [];
+
+ 		//console.log(this.mainBoard);
 
 		this.getFreshBoard();
  		this.placeInitialPieces();
@@ -300,10 +328,6 @@ class GoRoGo{
 		this.player1AuxBoard.display();
 		this.player2Graveyard.display();
 		this.player2AuxBoard.display();
-	}
-
-	isOnCorner(row, col){
-		return (row == 0 && col == 0) || (row == 0 && col == 4) || (row == 4 && col == 0) || (row == 4 && col == 4);
 	}
 
 	addGameGUI(){
@@ -550,7 +574,9 @@ class GoRoGo{
 		}
 
 		if(requestString.substring(0, 10) == "checkBoard"){
-			this.prologAnswer = response;
+			game.prologAnswer = response;
+			game.answerMatrix.push(game.prologAnswer);
+			//console.log(game.answerMatrix);
 			console.log("checkBoard response: " + response);
 		}
 
