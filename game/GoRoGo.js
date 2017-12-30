@@ -135,6 +135,7 @@ class GoRoGo{
         //console.log("HERE");
         
         this.makePlay(destination, piece);
+        this.resolveBoard();
 	}
 
  	pickTile(index){
@@ -243,7 +244,6 @@ class GoRoGo{
 		alert("getPrologRequest: getFreshBoard");
 		this.getFreshBoard();
 		alert("getPrologRequest: startGame");
-		this.sta
 		
  		this.placeInitialPieces();
  		this.firstTurn();
@@ -257,6 +257,19 @@ class GoRoGo{
 		this.player2AuxBoard.display();
 	}
 
+	resolveBoard(){
+		for(var i = 0; i < this.mainBoard.boardMatrix.length; i++){
+			for(var j = 0; j < this.mainBoard.boardMatrix[i].length; j++){
+				if(this.mainBoard.boardMatrix[i][j].placedPiece != null){
+					var currentPiece = this.mainBoard.boardMatrix[i][j].placedPiece.type;
+				}
+				if(this.mainBoard.boardMatrix[i][j].placedPiece == null){
+					var currentPiece = 0;
+				}
+				console.log(currentPiece);
+			}
+		}
+	}
 
 	addGameGUI(){
 		var gameInterface = this.scene.interface;
