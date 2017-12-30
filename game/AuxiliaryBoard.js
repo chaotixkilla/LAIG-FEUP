@@ -3,6 +3,28 @@ class AuxiliaryBoard extends Board{
 		//4 auxiliary boards (1 -> player1 graveyard, 2->player1, 3->player2 graveyard, 4->player2)
 		super(scene, 2, 6);
 		this.player = player;
+		
+		for(var i = 0; i < this.boardMatrix.length; i++){
+			for(var j = 0; j < this.boardMatrix[i].length; j++){
+				switch(this.player){
+					case 1:
+                        break;
+					case 2:
+                        this.boardMatrix[i][j].realX = (1.17 - j*(this.distanceBetweenTiles/1.5));
+                        this.boardMatrix[i][j].realY = (2.67 - i*(this.distanceBetweenTiles/1.5));
+                        break;
+					case 3:
+                        break;
+					case 4:
+                        this.boardMatrix[i][j].realX = -(1.17 - j*(this.distanceBetweenTiles/1.5));
+                        this.boardMatrix[i][j].realY = -(2.67 - i*(this.distanceBetweenTiles/1.5));
+                        break;
+					default:
+						break;
+				}
+
+			}
+		}
 
 		this.auxTileID = this.currentTileID;
 	}

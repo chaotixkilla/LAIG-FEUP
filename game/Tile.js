@@ -11,6 +11,9 @@ class Tile{
 
 		this.selected = false;
 		this.highlighed = false;
+		
+		this.realX = null;
+		this.realY = null;
 
 		this.material = new CGFappearance(this.scene);
  	    this.material.setShininess(1);
