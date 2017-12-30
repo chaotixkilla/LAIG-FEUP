@@ -91,6 +91,7 @@ class PieceAnimation{
 		//this.piece.scene.pushMatrix();
 		this.piece.scene.translate(-this.xStart, moveY, -this.yStart);
 		this.piece.scene.translate(moveX, moveY, moveZ);
+		this.piece.scene.rotate(Math.PI/16, 1, 0, 0);
 		//this.piece.scene.popMatrix();
 	}
 }

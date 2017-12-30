@@ -56,7 +56,6 @@ class Board{
 				this.boardMatrix[i][j].display();
 				if(this.boardMatrix[i][j].occupied){
 					if(this.boardMatrix[i][j].placedPiece.moving){
-						console.log("ENTREI2");
 						this.boardMatrix[i][j].placedPiece.animation.apply();
 					}
 					this.boardMatrix[i][j].placedPiece.display();
