@@ -240,9 +240,10 @@ class GoRoGo{
  	startGame(){
  		this.started = true;
 		
-		alert("getPrologRequest test call, brace yourselves");
-		this.getPrologRequest("getFreshBoard");
-		alert("k done proceed");
+		alert("getPrologRequest: getFreshBoard");
+		this.getFreshBoard();
+		alert("getPrologRequest: startGame");
+		this.sta
 		
  		this.placeInitialPieces();
  		this.firstTurn();
@@ -309,6 +310,7 @@ class GoRoGo{
 		alert('Play Undoer Simulator');
 	}
 
+/*
 	parseBoard(plBoard){
 		console.log('Prolog Board: ' + plBoard);
 
@@ -325,18 +327,51 @@ class GoRoGo{
 
 		console.log('After parsing prolog board: ' + this.mainBoard);
 	}
+*/
+
+	parseBoard(plBoard){
+	  console.log('Board do prolog :' + plBoard);
+
+	  function replaceStr(str, find, replace) {
+	    for (var i = 0; i < find.length; i++) {
+	        str = str.replace(new RegExp(find[i], 'g'), replace[i]);
+	    }
+	    return str;
+	  }
+	  
+	  var find = ["0","1","2"];
+	  var replace = ["'0'","'1'","'2'"];
+	  this.prologBoard = replaceStr(plBoard, find, replace);
+
+	  console.log('After parsing prolog Board :' + this.prologBoard);
+	}
+//------------------------- PROLOG PREDICATES ----------------------------
+
+	getFreshBoard(){
+		this.getPrologRequest("getFreshBoard");
+	}
+
+
+	startGamePVP(){
+		this.getPrologRequest("startGamePVP");
+	}
 
 	checkGameOver(plBoard, Name1, Pieces1, HengePieces1, PlayerType1, Score1, Name2, Pieces2, HengePieces2, PlayerType2, Score2){
 
-	var requestString = 'checkGameOver(' + this.prologBoard + ',' + '-1,[' 
-		+ Name1 + ',' + Pieces1 + ',' + HengePieces1 + ',' + PlayerType1 + ',' + Score1 + '],['
-		+ Name2 + ',' + Pieces2 + ',' + HengePieces2 + ',' + PlayerType2 + ',' + Score2 + '])';
+		var requestString = 'checkGameOver(' + this.prologBoard + ',' + '-1,[' 
+			+ Name1 + ',' + Pieces1 + ',' + HengePieces1 + ',' + PlayerType1 + ',' + Score1 + '],['
+			+ Name2 + ',' + Pieces2 + ',' + HengePieces2 + ',' + PlayerType2 + ',' + Score2 + '])';
 
 	this.getPrologRequest(requestString);
 	}
 
+	askPlay(BoardIn, Name, Pieces, HengePieces, PlayerType, Score){
 
+		var requestString = 'askPlay(' + this.prologBoard + ',[' + Name + ',' + Pieces + ',' + HengePieces + ',' + PlayerType + ',' + Score + '])';	
+		this.getPrologRequest(requestString);
+	}
 
+//------------------------- PROLOG PREDICATES ----------------------------
 
 	getPrologRequest(requestString, onSuccess, onError, port){
 		
@@ -352,11 +387,22 @@ class GoRoGo{
 			this.parseBoard(this.prologBoard);
 		}
 
+		if(requestString == "startGamePVP"){
+			this.prologBoard = response;
+			this.parseBoard(this.prologBoard);
+		}
+
 		if(requestString.substring(0, 10) == "checkPlays"){
 			this.prologBoard = response;
 			console.log('Checking if game is over...');
 			this.parseBoard(this.prologBoard);
 		}
+
+		if(requestString.substring(0, 7) == "askPlay"){
+			this.prologBoard = response;
+			this.parseBoard(this.prologBoard);
+		}
+
 	  }
 
 	  request.onerror = onError || function(){console.log("Error waiting for response");};

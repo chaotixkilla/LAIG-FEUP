@@ -111,23 +111,15 @@ parse_input(quit, goodbye).
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
 
-%parse_input(getFreshBoard, Return) :-
-%	freshBoard(Return).
+parse_input(getFreshBoard, Return) :-
+	freshBoard(Return).
 
-%parse_input(startGamePVP, Return) :-
-%	startGamePVP.
+parse_input(startGamePVP, Return) :-
+	startGamePVP.
 
+parse_input(askPlay(BoardIn, [Name, Pieces, HengePieces, bot, Score]), BoardOut) :-
+	askPlay(BoardIn, [Name, Pieces, HengePieces, bot, Score], BoardOut, [NameOut, PiecesOut, HengePiecesOut, bot, ScoreOut]).
 
-% OI FAZER ISTO
-
-%parse_input(askPlay(BoardIn, [Name, Pieces, HengePieces, bot, Score]), BoardOut) :-
-%	askPlay(BoardIn, [Name, Pieces, HengePieces, bot, Score], BoardOut, [NameOut, PiecesOut, HengePiecesOut, bot, ScoreOut]).
-
-
-
-
-
-
-
-%gameLoop(Board, -1, [Name1, Pieces1, HengePieces1, human, Score1], [Name2, Pieces2, HengePieces2, PlayerType2, Score2]) :-
-%parse_input(checkGameOver(Board, -1, [Name1, Pieces1, HengePieces1, human, Score1], [Name2, Pieces2, HengePieces2, PlayerType2, Score2]), )
+%gameLoop(Board, -1, [Name1, Pieces1, HengePieces1, human, Score1], [Name2, Pieces2, HengePieces2, PlayerType2, Score2])
+parse_input(checkGameOver(Board, -1, [Name1, Pieces1, HengePieces1, human, Score1], [Name2, Pieces2, HengePieces2, PlayerType2, Score2]), Return) :-
+	gameLoop(Board, -1, [Name1, Pieces1, HengePieces1, human, Score1], [Name2, Pieces2, HengePieces2, PlayerType2, Score2]).

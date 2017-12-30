@@ -251,7 +251,7 @@ XMLscene.prototype.update = function(currTime){
 	}*/
 
 
-    console.log(this.gameAnimations);
+    //console.log(this.gameAnimations);
 
 
     for(var i = 0; i < this.gameAnimations.length; i++){
