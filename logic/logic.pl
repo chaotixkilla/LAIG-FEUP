@@ -165,7 +165,6 @@ readPieceType(_) :- write('Wrong piece type, please try again!'), nl, !, fail.
 checkBoard(Board, Row, Col, CurrPlayer, Return) :-
 	coords(Row), coords(Col), !,
 	checkBoardSpot(Board, Row, Col), !,
-	write(Board),
 	checkBoardSurroundings(Board, Row, Col, CurrPlayer, Return).
 	
 checkBoardSpot(Board, Row, Col) :-
