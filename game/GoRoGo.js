@@ -275,6 +275,10 @@ class GoRoGo{
 		this.checkEatingPiecesCorner('[[0,2,0,0,0],[2,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]',1,1,1,1,1);
 	//Board, Row, Col, Piece, RightPiece, BottomPiece){
 
+		alert("getPrologRequest: checkBoard");
+		this.checkBoard('[[0,2,0,0,0],[2,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]',1,1,1);
+//Board, Row, Col, CurrPlayer).
+
 
  		this.placeInitialPieces();
  		this.firstTurn();
@@ -463,6 +467,11 @@ class GoRoGo{
 			console.log("End of ~checkBoardSurroundings~");
 	}
 
+	checkBoard(Board, Row, Col, CurrPlayer){
+		var requestString = 'checkBoard(' + Board + ',' + Row + ',' + Col + ',' + CurrPlayer + ')';
+		this.getPrologRequest(requestString);
+	}
+
 
 
 //------------------------- PROLOG PREDICATES ----------------------------
@@ -530,6 +539,10 @@ class GoRoGo{
 
 		if(requestString.substring(0, 23) == "checkEatingPiecesCorner"){
 			console.log("checkEatingPiecesCorner response: " + response);
+		}
+
+		if(requestString.substring(0, ) == "checkBoard"){
+			console.log("checkBoard response: " + response);
 		}
 
 	  }

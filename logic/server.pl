@@ -144,6 +144,8 @@ parse_input(checkEatingPiecesSides(Board, Row, Col, Piece, LeftPiece, RightPiece
 parse_input(checkEatingPiecesCorner(Board, Row, Col, Piece, RightPiece, BottomPiece), PiecesEaten):-
 	checkEatingPiecesCorner(Board, Row, Col, Piece, RightPiece, BottomPiece, BoardOut, PiecesEaten).
 	
+parse_input(checkBoard(Board, Row, Col, CurrPlayer), Return) :-
+	checkBoard(Board, Row, Col, CurrPlayer, Return).
 
 
 %gameLoop(Board, -1, [Name1, Pieces1, HengePieces1, human, Score1], [Name2, Pieces2, HengePieces2, PlayerType2, Score2])
