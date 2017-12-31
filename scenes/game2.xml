@@ -847,7 +847,7 @@
         <MATERIAL id="defaultMaterial"/>
         <TEXTURE id="barrel"/>
 
-        <TRANSLATION x="0" y="6" z="0"/>
+        <TRANSLATION x="0" y="6.005" z="0"/>
 
         <DESCENDANTS>
             <NODEREF id="barrel1"/>
