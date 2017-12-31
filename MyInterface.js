@@ -28,8 +28,8 @@ MyInterface.prototype.init = function(application) {
     this.gui.scene = 'Traditional';
     this.gui.sceneList = this.scenes.add(this.gui, 'scene', ['Traditional', 'Detroit']);
     this.gui.sceneList.onFinishChange(function(){
-        while(this.lights.__controllers.length > 0)
-            this.lights.remove(this.lights.__controllers[0]);
+        //while(this.lights.__controllers.length > 0)
+            //this.lights.remove(this.lights.__controllers[0]);
         this.scene.changeGraph(this.gui.scene);
     }.bind(this))
     //this.lights = this.gui.addFolder("Lights");
@@ -54,8 +54,8 @@ MyInterface.prototype.addLightsGroup = function(lights) {
     for (var key in lights) {
         if (lights.hasOwnProperty(key)) {
             this.scene.lightValues[key] = lights[key][0];
-            //group.add(this.scene.lightValues, key);
-            this.lights.add(this.scene.lightValues, key);
+            group.add(this.scene.lightValues, key);
+            //this.lights.add(this.scene.lightValues, key);
         }
     }
 }
