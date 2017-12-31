@@ -6,7 +6,7 @@ class PieceAnimation{
 
 		this.piece.animation = this;
 
-		this.timeSpan = 5;
+		this.timeSpan = 3;
 		this.waitTime = 1;
 
 		this.animationTime = 0;
