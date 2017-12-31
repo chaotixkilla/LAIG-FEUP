@@ -33,6 +33,7 @@ XMLscene.prototype.init = function(application) {
 
     //ADDED for shaders
     this.game = new GoRoGo(this);
+    this.oldPerspectiveIndex = 0;
     this.perspectiveIndex = 0;
     this.perspectives = [];
     this.shader = new CGFshader(this.gl, "shaders/uScale.vert", "shaders/uScale.frag");
@@ -55,6 +56,7 @@ XMLscene.prototype.init = function(application) {
     this.setPickEnabled(true);
 
     this.gameAnimations = [];
+    this.cameraAnimation = null;
 }
 
 XMLscene.prototype.updateTimeFactor = function(date){
@@ -122,7 +124,7 @@ XMLscene.prototype.initCameras = function() {
     this.sceneryCamera = new CGFcamera(0.4,0.1,500,vec3.fromValues(26.1825, 16.547, 4.94),vec3.fromValues(2.712, 2.694, 5.041));
     this.perspectives.push(this.sceneryCamera);
 
-    this.camera = this.perspectives[this.perspectiveIndex];
+    this.camera = this.startCamera;
 }
 
 /* Handler called when the graph is finally loaded. 
@@ -284,7 +286,7 @@ XMLscene.prototype.update = function(currTime){
 	}
 
 
-    //console.log(this.gameAnimations);
+    console.log(this.cameraAnimation);
 
 
     for(var i = 0; i < this.gameAnimations.length; i++){
@@ -294,10 +296,21 @@ XMLscene.prototype.update = function(currTime){
         }
     }
 
+    if(this.cameraAnimation != null){
+        this.cameraAnimation.apply();
+        if(this.cameraAnimation.finished){
+            this.camera = this.perspectives[this.perspectiveIndex];
+            this.cameraAnimation = null;
+        }
+    }
+
+    if(this.oldPerspectiveIndex != this.perspectiveIndex){
+        var animation = new CameraAnimation(this, this.camera, this.perspectives[this.perspectiveIndex]);
+        console.log(animation);
+        this.cameraAnimation = animation;
+    }
+    this.oldPerspectiveIndex = this.perspectiveIndex;
     this.perspectiveIndex = this.game.currCamera;
-    this.camera = this.perspectives[this.perspectiveIndex];
-    console.log("Perspective Index: " + this.perspectiveIndex);
-    //this.game.updateScores();
     //this.camera.position = [this.camera.position[0]-0.01, this.camera.position[1], this.camera.position[2], 0];
 }
 

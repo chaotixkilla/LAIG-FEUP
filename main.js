@@ -17,7 +17,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
 			 'primitives/MySphere.js', 'primitives/MyCircle.js', 'primitives/MyCylinderAux.js', 'primitives/Patch.js',
 			 'animations/Animation.js', 'animations/LinearAnimation.js', 'animations/CircularAnimation.js',
 			 'animations/BezierAnimation.js', 'animations/ComboAnimation.js', 'animations/PieceAnimation.js',
-             'animations/PieceDieAnimation.js',
+             'animations/PieceDieAnimation.js', 'animations/CameraAnimation.js',
 			 'game/Tile.js', 'game/Board.js', 'game/AuxiliaryBoard.js', 'game/GoRoGo.js', 'game/Piece.js',
 
 main=function()
@@ -33,7 +33,7 @@ main=function()
     app.setInterface(myInterface);
 
     //Descomentar caso seja preciso mexer a camera (so mexe no default view)
-    myInterface.setActiveCamera(myScene.camera);
+    //myInterface.setActiveCamera(myScene.camera);
 
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
