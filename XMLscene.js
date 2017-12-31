@@ -35,7 +35,7 @@ XMLscene.prototype.init = function(application) {
     this.shader = new CGFshader(this.gl, "shaders/uScale.vert", "shaders/uScale.frag");
     this.shader.setUniformsValues({red: 0.0, green: 1.0, blue: 0.0}); //sends rgb values to the shader, for it to calculate the object color (changes with time)
     this.perspectives = [];
-    this.perspectiveIndex = 1;
+    this.perspectiveIndex = 0;
 
     this.initCameras();
 
@@ -292,6 +292,8 @@ XMLscene.prototype.update = function(currTime){
             this.gameAnimations.splice(i, 1);
         }
     }
+
+    //this.camera.position = [this.camera.position[0]-0.01, this.camera.position[1], this.camera.position[2], 0];
 }
 
 XMLscene.prototype.changeGraph = function(filename){
