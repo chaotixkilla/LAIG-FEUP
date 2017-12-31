@@ -272,3 +272,16 @@ XMLscene.prototype.update = function(currTime){
         }
     }
 }
+
+XMLscene.prototype.changeGraph = function(filename){
+
+    if(filename == "Traditional") filename = "game.xml"; 
+    else if(filename == "Detroit")  filename = "game2.xml";
+    
+    else{
+        filename = "game.xml";
+        alert("Error loading scene");
+    }
+
+    this.graph = new MySceneGraph(filename, this);
+}

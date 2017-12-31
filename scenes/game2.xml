@@ -95,16 +95,16 @@
         <amplif_factor s="0.25" t="0.25" />
     </TEXTURE>
 
-    <!-- Wooden Floor -->
-    <TEXTURE id="wood_floor">
-        <file path="images/wood_floor.jpg" />
-        <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
     <!-- Brick -->
     <TEXTURE id="brick">
         <file path="images/brick6.jpg" />
-        <amplif_factor s="5" t="5" />
+        <amplif_factor s="1.5" t="0.1" />
+    </TEXTURE>
+
+      <!-- Borders Bricks -->
+    <TEXTURE id="borders_bricks">
+        <file path="images/brick6.jpg" />
+        <amplif_factor s="1.5" t="5" />
     </TEXTURE>
 
     <!-- Box -->
@@ -145,8 +145,14 @@
 
     <!-- Background -->
     <TEXTURE id="background">
-        <file path="images/background3.jpg" />
-        <amplif_factor s="1" t="1" />
+        <file path="images/background11.jpg" />
+        <amplif_factor s="0.10" t="0.5" />
+    </TEXTURE>
+
+    <!-- Windows -->
+    <TEXTURE id="windows">
+        <file path="images/windows3.jpg" />
+        <amplif_factor s="1" t="0.25" />
     </TEXTURE>
 
 </TEXTURES>
@@ -462,7 +468,7 @@
 
      <NODE id="wall3">
         <MATERIAL id="defaultMaterial"/>
-        <TEXTURE id="null"/>
+        <TEXTURE id="windows"/>
 
         <TRANSLATION x="15" y="-300" z="0"/>
         <SCALE sx="1.5" sy="20" sz="1"/>
@@ -475,7 +481,7 @@
 
     <NODE id="wall4">
         <MATERIAL id="defaultMaterial"/>
-        <TEXTURE id="null"/>
+        <TEXTURE id="windows"/>
 
         <TRANSLATION x="15" y="-300" z="40"/>
         <SCALE sx="1.5" sy="20" sz="1"/>
@@ -499,7 +505,7 @@
 
     <NODE id="borders">
         <MATERIAL id="defaultMaterial"/>
-        <TEXTURE id="brick"/>
+        <TEXTURE id="borders_bricks"/>
 
         <DESCENDANTS>
             <NODEREF id="border1"/>
@@ -681,6 +687,7 @@
         <TEXTURE id="null"/>
 
         <ROTATION axis="x" angle="90"/>
+        <ROTATION axis="z" angle="140"/>
 
         <DESCENDANTS>
             <LEAF type="cylinder" args="8.5 1 1 20 20 0 0"/>
@@ -690,6 +697,8 @@
      <NODE id="machine_tube_sphere">
         <MATERIAL id="defaultMaterial"/>
         <TEXTURE id="null"/>
+
+        <ROTATION axis="x" angle="-90"/>
 
         <DESCENDANTS>
             <LEAF type="sphere" args="1 20 20" />
@@ -838,7 +847,7 @@
         <MATERIAL id="defaultMaterial"/>
         <TEXTURE id="barrel"/>
 
-        <TRANSLATION x="0" y="6" z="0"/>
+        <TRANSLATION x="0" y="6.005" z="0"/>
 
         <DESCENDANTS>
             <NODEREF id="barrel1"/>

@@ -33,7 +33,7 @@ class GoRoGo{
 		this.playTime = 0;
 		this.timeoutTime = 10;
 		this.timeout = false;
-		this.currScene = 0;
+		this.currScene = "Traditional";
 		this.gameMode = 0;
 		this.botDifficulty = 0;
 		this.timeElapsed = 0;
@@ -381,11 +381,13 @@ class GoRoGo{
 		gameInterface.game.startBtn = gameInterface.game.add(btn, 'Start Game');
 
 		//Scene Selection dropdown
+		/*
 		var sceneDropdown = gameInterface.game.add(this, 'currScene',
 		{'Traditional' : 0,
 		 'Other' 	   : 1,
 		}).name('Scene');
 		sceneDropdown.__select.selectedIndex = this.currScene;
+		*/
 
 		//Game Mode dropdown
 		var gameModeDropdown = gameInterface.game.add(this, 'gameMode',
