@@ -147,11 +147,17 @@ class GoRoGo{
 
 		for(var i = 0; i < this.mainBoard.boardMatrix.length; i++) {
             for (var j = 0; j < this.mainBoard.boardMatrix[i].length; j++) {
-            	console.log(this.answerMatrix[this.mainBoard.boardMatrix.length * i + j]);
+            	//console.log(this.answerMatrix[this.mainBoard.boardMatrix.length * i + j]);
 				if(this.answerMatrix[this.mainBoard.boardMatrix.length * i + j] == 2){
 					var eatenPiece = this.mainBoard.boardMatrix[i][j].placedPiece;
-					this.unbindPieceToTile(this.mainBoard.boardMatrix[i][j], eatenPiece);
-					this.bindPieceToTile(availableTile, eatenPiece);
+
+                    var animation = new PieceDieAnimation(eatenPiece, this.mainBoard.boardMatrix[i][j], availableTile);
+                    //var animation = new PieceAnimation(eatenPiece, availableTile, this.mainBoard.boardMatrix[i][j]);
+                    this.scene.gameAnimations.push(animation);
+                    eatenPiece.moving = true;
+
+                    this.unbindPieceToTile(this.mainBoard.boardMatrix[i][j], eatenPiece);
+                    this.bindPieceToTile(availableTile, eatenPiece);
 				}
             }
         }
@@ -218,7 +224,7 @@ class GoRoGo{
 
  	pickTile(index){
 
-		console.log(this.mainBoard);
+		console.log(this.player2Graveyard);
 
   		var pickedTileID = index-1;
 		for(var i = 0; i < this.currentPickableBoard.boardMatrix.length; i++){

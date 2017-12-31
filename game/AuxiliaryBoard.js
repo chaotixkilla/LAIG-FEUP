@@ -8,12 +8,16 @@ class AuxiliaryBoard extends Board{
 			for(var j = 0; j < this.boardMatrix[i].length; j++){
 				switch(this.player){
 					case 1:
+                        this.boardMatrix[i][j].realX = -(2.67 - i*(this.distanceBetweenTiles/1.5));
+                        this.boardMatrix[i][j].realY = (1.17 - j*(this.distanceBetweenTiles/1.5));
                         break;
 					case 2:
                         this.boardMatrix[i][j].realX = (1.17 - j*(this.distanceBetweenTiles/1.5));
                         this.boardMatrix[i][j].realY = (2.67 - i*(this.distanceBetweenTiles/1.5));
                         break;
 					case 3:
+                        this.boardMatrix[i][j].realX = (2.67 - i*(this.distanceBetweenTiles/1.5));
+                        this.boardMatrix[i][j].realY = -(1.17 - j*(this.distanceBetweenTiles/1.5));
                         break;
 					case 4:
                         this.boardMatrix[i][j].realX = -(1.17 - j*(this.distanceBetweenTiles/1.5));
@@ -46,10 +50,10 @@ class AuxiliaryBoard extends Board{
 				}
 				this.boardMatrix[i][j].display();
 				if(this.boardMatrix[i][j].occupied){
-					/*if(this.boardMatrix[i][j].placedPiece.moving){
-						console.log("ENTREI1");
+					if(this.boardMatrix[i][j].placedPiece.moving){
+						//console.log("ENTREI1");
 						this.boardMatrix[i][j].placedPiece.animation.apply();
-					}*/
+					}
 					this.boardMatrix[i][j].placedPiece.display();
 				}
 				this.scene.popMatrix();
