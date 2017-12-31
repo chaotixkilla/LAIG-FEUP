@@ -116,17 +116,52 @@ class GoRoGo{
  		this.currentPickableBoard = board;
  	}
 
- 	checkPieceOwner(piece){
- 		if(piece.id > 11){
- 			return 1;
- 		}
- 		return 0;
- 	}
+ 	getFirstGraveyardAvailableTile(){
+		for(var i = 0; i < this.player1Graveyard.boardMatrix.length; i++){
+			for(var j = 0; j < this.player1Graveyard.boardMatrix[i].length; j++){
+				if(!this.player1Graveyard.boardMatrix[i][j].occupied){
+					return this.player1Graveyard.boardMatrix[i][j];
+				}
+			}
+		}
+	}
+
+    getSecondGraveyardAvailableTile(){
+        for(var i = 0; i < this.player2Graveyard.boardMatrix.length; i++){
+            for(var j = 0; j < this.player2Graveyard.boardMatrix[i].length; j++){
+                if(!this.player2Graveyard.boardMatrix[i][j].occupied){
+                    return this.player2Graveyard.boardMatrix[i][j];
+                }
+            }
+        }
+    }
+
+    checkForEating(){
+		var availableTile;
+		if(this.currentPlayer % 2){
+			availableTile = this.getFirstGraveyardAvailableTile();
+		}
+		else{
+            availableTile = this.getSecondGraveyardAvailableTile();
+		}
+
+		for(var i = 0; i < this.mainBoard.boardMatrix.length; i++) {
+            for (var j = 0; j < this.mainBoard.boardMatrix[i].length; j++) {
+            	console.log(this.answerMatrix[this.mainBoard.boardMatrix.length * i + j]);
+				if(this.answerMatrix[this.mainBoard.boardMatrix.length * i + j] == 2){
+					var eatenPiece = this.mainBoard.boardMatrix[i][j].placedPiece;
+					this.unbindPieceToTile(this.mainBoard.boardMatrix[i][j], eatenPiece);
+					this.bindPieceToTile(availableTile, eatenPiece);
+				}
+            }
+        }
+	}
 
  	makePlay(tile, piece){
  		var startingPosition = piece.tile;
  		this.unbindPieceToTile(startingPosition, piece);
  		this.bindPieceToTile(tile, piece);
+        this.checkForEating();
  		this.updatePrologBoard();
  		//this.boardToString(this.mainBoard);
  	}
@@ -183,6 +218,8 @@ class GoRoGo{
 
  	pickTile(index){
 
+		console.log(this.mainBoard);
+
   		var pickedTileID = index-1;
 		for(var i = 0; i < this.currentPickableBoard.boardMatrix.length; i++){
 			for(var j = 0; j < this.currentPickableBoard.boardMatrix[i].length; j++){
@@ -218,6 +255,7 @@ class GoRoGo{
 			if(this.currentPlayState == 0){
                 //this.answerMatrix = [];
 				this.selectedPiece = pickedTile.placedPiece;
+				console.log("selected piece: " + this.selectedPiece);
                 //this.getAnswerArray(this.prologBoard, this.selectedPiece.type);
                 pickedTile.selected = true;
 				this.currentPlayState++;
@@ -239,8 +277,8 @@ class GoRoGo{
                     console.log("Player 2 playing");
                     this.makeSelectable(this.player2AuxBoard);
                 }
-                this.answerMatrix = [];
                 this.animatePlay(this.selectedDestination, this.selectedPiece);
+                this.answerMatrix = [];
                 this.removeHighlights();
 			}
 		}
