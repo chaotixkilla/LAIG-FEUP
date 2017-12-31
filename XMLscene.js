@@ -299,6 +299,7 @@ XMLscene.prototype.update = function(currTime){
     this.perspectiveIndex = this.game.currCamera;
     this.camera = this.perspectives[this.perspectiveIndex];
     console.log("Perspective Index: " + this.perspectiveIndex);
+    //this.game.updateScores();
     //this.camera.position = [this.camera.position[0]-0.01, this.camera.position[1], this.camera.position[2], 0];
 }
 

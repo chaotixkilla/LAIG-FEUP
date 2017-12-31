@@ -170,6 +170,13 @@ class GoRoGo{
         }
 	}
 
+/*
+	updateScores(){
+		this.player1Score = 12 - this.player2Pieces.length;
+		this.player2Score = 12 - this.player1Pieces.length;
+	}
+*/
+
  	makePlay(tile, piece){
  		var startingPosition = piece.tile;
  		this.unbindPieceToTile(startingPosition, piece);
@@ -461,6 +468,12 @@ class GoRoGo{
 		//Time Counter
 		gameInterface.game.add(this, 'timeElapsed').listen().name('Time Elapsed');
 
+		//White Score Counter
+		gameInterface.game.add(this, 'player1Score').name('White Score');
+
+		//Black Score Counter
+		gameInterface.game.add(this, 'player2Score').name('Black Score');
+
 		//Pause Game button
 		gameInterface.game.add(this, 'paused').name('Pause');
 
@@ -491,6 +504,7 @@ class GoRoGo{
 
 	  console.log('After parsing prolog Board :' + this.prologBoard);
 	}
+
 //------------------------- PROLOG PREDICATES ----------------------------
 
 	getFreshBoard(){
