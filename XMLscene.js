@@ -220,7 +220,7 @@ XMLscene.prototype.display = function() {
             }
         }
 
-//--------------------CENAS DO TIME COUNTER DA INTERFACE--------
+//-------------------- Interface Time Counter --------
        if(!this.game.paused){
 
         if(this.currTime == 0){
@@ -247,7 +247,7 @@ XMLscene.prototype.display = function() {
         this.updateTimeFactor(dT);
 
         }
-//--------------------CENAS DO TIME COUNTER DA INTERFACE--------
+//-------------------- End of Interface Time Counter --------
 
 
         //ADDED for shaders
@@ -269,13 +269,11 @@ XMLscene.prototype.display = function() {
 		this.axis.display();
 	}
     
-
     this.popMatrix();
 
     //console.log(this.camera);
     
     // ---- END Background, camera and axis setup
-    
 }
 
 XMLscene.prototype.update = function(currTime){
@@ -307,7 +305,6 @@ XMLscene.prototype.changeGraph = function(filename){
 
     if(filename == "Traditional") filename = "game.xml"; 
     else if(filename == "Detroit")  filename = "game2.xml";
-    
     else{
         filename = "game.xml";
         alert("Error loading scene");
