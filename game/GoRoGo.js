@@ -220,9 +220,7 @@ class GoRoGo{
         this.makePlay(destination, piece);
 	}
 
- 	pickTile(index){
-
-		console.log(this.player2Graveyard);
+ 	async pickTile(index){
 
   		var pickedTileID = index-1;
 		for(var i = 0; i < this.currentPickableBoard.boardMatrix.length; i++){
@@ -265,6 +263,7 @@ class GoRoGo{
 				this.currentPlayState++;
                 console.log("Place the selected piece on the board");
 				this.makeSelectable(this.mainBoard);
+				await sleep(1000);
 				this.highlightPossibleMoves();
 			}
 			else if(this.currentPlayState == 1){
@@ -632,6 +631,8 @@ class GoRoGo{
 	  request.send();
 	}
 
-	
+}
 
+function sleep(ms) {
+  	return new Promise(resolve => setTimeout(resolve, ms));
 }

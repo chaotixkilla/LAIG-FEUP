@@ -98,7 +98,18 @@ XMLscene.prototype.initLights = function() {
  */
 XMLscene.prototype.initCameras = function() {
     //this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
-    this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.82, 8.02, 4.7),vec3.fromValues(2.75, 0, 5.01));
+
+    //starting camera
+    this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(11.1825, 3.547, 4.94),vec3.fromValues(2.712, 2.694, 5.041));
+
+    //camera for top view
+    //this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.522, 6, 4.99),vec3.fromValues(2.707, 2.741, 4.99));
+
+    //camera for player 1
+    //this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.738, 3.316, 8.112),vec3.fromValues(2.715, 2.794, 6.33));
+
+    //camera for player 2
+    //this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.74, 3.74, 2.25),vec3.fromValues(2.72, 1.417, 5.96));
 }
 
 /* Handler called when the graph is finally loaded. 
@@ -247,6 +258,8 @@ XMLscene.prototype.display = function() {
     
 
     this.popMatrix();
+
+    console.log(this.camera);
 
     //console.log(this.camera);
     
