@@ -32,6 +32,9 @@ XMLscene.prototype.init = function(application) {
     CGFscene.prototype.init.call(this, application);
 
     //ADDED for shaders
+    this.game = new GoRoGo(this);
+    this.perspectiveIndex = 0;
+    this.perspectives = [];
     this.shader = new CGFshader(this.gl, "shaders/uScale.vert", "shaders/uScale.frag");
     this.shader.setUniformsValues({red: 0.0, green: 1.0, blue: 0.0}); //sends rgb values to the shader, for it to calculate the object color (changes with time)
 
@@ -51,7 +54,6 @@ XMLscene.prototype.init = function(application) {
 
     this.setPickEnabled(true);
 
-    this.game = new GoRoGo(this);
     this.gameAnimations = [];
 }
 
@@ -99,56 +101,28 @@ XMLscene.prototype.initLights = function() {
 XMLscene.prototype.initCameras = function() {
 
     //starting camera
-    
-/*
-    var switcheroo = this.game.currCamera;
-
-    if(switcheroo != null)
-
-        switch(this.game.currCamera){
-            
-            case null:
-                this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(11.1825, 3.547, 4.94),vec3.fromValues(2.712, 2.694, 5.041));
-                break;
-
-            case 0:
-                this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(11.1825, 3.547, 4.94),vec3.fromValues(2.712, 2.694, 5.041));
-                break;
-
-            case 1:
-                this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.522, 6, 4.99),vec3.fromValues(2.707, 2.741, 4.99));
-                break;
-            
-            case 2:
-                this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.738, 3.316, 8.112),vec3.fromValues(2.715, 2.794, 6.33));
-                break;
-
-            case 3:
-                this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.74, 3.74, 2.25),vec3.fromValues(2.72, 1.417, 5.96));
-                break;
-
-            default:
-                alert("Invalid Camera");
-                break;
-        }
-
-    else 
-
-        */
-
-        this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(11.1825, 3.547, 4.94),vec3.fromValues(2.712, 2.694, 5.041));
-
 
     //this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(11.1825, 3.547, 4.94),vec3.fromValues(2.712, 2.694, 5.041));
+    this.startCamera = new CGFcamera(0.4,0.1,500,vec3.fromValues(11.1825, 3.547, 4.94),vec3.fromValues(2.712, 2.694, 5.041));
+    this.perspectives.push(this.startCamera);
 
     //camera for top view
-    //this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.522, 6, 4.99),vec3.fromValues(2.707, 2.741, 4.99));
+    this.topCamera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.522, 6, 4.99),vec3.fromValues(2.707, 2.741, 4.99));
+    this.perspectives.push(this.topCamera);
 
     //camera for player 1
-    //this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.738, 3.316, 8.112),vec3.fromValues(2.715, 2.794, 6.33));
+    this.player1Camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.738, 3.316, 8.112),vec3.fromValues(2.715, 2.794, 6.33));
+    this.perspectives.push(this.player1Camera);
 
     //camera for player 2
-    //this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.74, 3.74, 2.25),vec3.fromValues(2.72, 1.417, 5.96));
+    this.player2Camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.74, 3.74, 2.25),vec3.fromValues(2.72, 1.417, 5.96));
+    this.perspectives.push(this.player2Camera);
+
+    //camera for scenery aesthetic contemplation
+    this.sceneryCamera = new CGFcamera(0.4,0.1,500,vec3.fromValues(26.1825, 16.547, 4.94),vec3.fromValues(2.712, 2.694, 5.041));
+    this.perspectives.push(this.sceneryCamera);
+
+    this.camera = this.perspectives[this.perspectiveIndex];
 }
 
 /* Handler called when the graph is finally loaded. 
@@ -298,8 +272,6 @@ XMLscene.prototype.display = function() {
 
     this.popMatrix();
 
-    console.log(this.camera);
-
     //console.log(this.camera);
     
     // ---- END Background, camera and axis setup
@@ -323,6 +295,11 @@ XMLscene.prototype.update = function(currTime){
             this.gameAnimations.splice(i, 1);
         }
     }
+
+    this.perspectiveIndex = this.game.currCamera;
+    this.camera = this.perspectives[this.perspectiveIndex];
+    console.log("Perspective Index: " + this.perspectiveIndex);
+    //this.camera.position = [this.camera.position[0]-0.01, this.camera.position[1], this.camera.position[2], 0];
 }
 
 XMLscene.prototype.changeGraph = function(filename){
