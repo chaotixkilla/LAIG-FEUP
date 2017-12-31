@@ -137,25 +137,23 @@ class GoRoGo{
     }
 
     checkForEating(){
-		var availableTile;
-		if(this.currentPlayer % 2){
-			availableTile = this.getFirstGraveyardAvailableTile();
-		}
-		else{
-            availableTile = this.getSecondGraveyardAvailableTile();
-		}
-
 		for(var i = 0; i < this.mainBoard.boardMatrix.length; i++) {
             for (var j = 0; j < this.mainBoard.boardMatrix[i].length; j++) {
-            	//console.log(this.answerMatrix[this.mainBoard.boardMatrix.length * i + j]);
+            	console.log(this.answerMatrix[this.mainBoard.boardMatrix.length * i + j]);
 				if(this.answerMatrix[this.mainBoard.boardMatrix.length * i + j] == 2){
-					var eatenPiece = this.mainBoard.boardMatrix[i][j].placedPiece;
+                    var availableTile;
+                    if(this.currentPlayer % 2){
+                        availableTile = this.getFirstGraveyardAvailableTile();
+                    }
+                    else{
+                        availableTile = this.getSecondGraveyardAvailableTile();
+                    }
 
+					var eatenPiece = this.mainBoard.boardMatrix[i][j].placedPiece;
                     var animation = new PieceDieAnimation(eatenPiece, this.mainBoard.boardMatrix[i][j], availableTile);
                     //var animation = new PieceAnimation(eatenPiece, availableTile, this.mainBoard.boardMatrix[i][j]);
                     this.scene.gameAnimations.push(animation);
                     eatenPiece.moving = true;
-
                     this.unbindPieceToTile(this.mainBoard.boardMatrix[i][j], eatenPiece);
                     this.bindPieceToTile(availableTile, eatenPiece);
 				}
@@ -621,7 +619,7 @@ class GoRoGo{
 			game.prologAnswer = response;
 			game.answerMatrix.push(game.prologAnswer);
 			//console.log(game.answerMatrix);
-			console.log("checkBoard response: " + response);
+			//console.log("checkBoard response: " + response);
 		}
 
 	  }
