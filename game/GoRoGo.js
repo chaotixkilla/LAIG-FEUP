@@ -14,8 +14,10 @@ class GoRoGo{
 
 		this.player1Pieces = [];
 		this.player1Score = 0;
+		this.player1NormalPiecesCount = 12;
 		this.player2Pieces = [];
 		this.player2Score = 0;
+		this.player2NormalPiecesCount = 12;
 
 		this.selectedPiece = null;
 		this.selectedDestination = null;
@@ -48,6 +50,8 @@ class GoRoGo{
 		this.prologAnswer = null;
 
 		this.answerMatrix = [];
+
+		this.possibleMoves = 0;
 	}
 
 	addPiecesToPlayers(){
@@ -78,6 +82,10 @@ class GoRoGo{
 
 	placeInitialPieces(){
 		this.clearEntireBoard();
+		this.player1NormalPiecesCount = 10;
+		this.player2NormalPiecesCount = 10;
+		this.player1Score = 0;
+		this.player2Score = 0;
 
 		for(var i = 0; i < this.player1AuxBoard.boardMatrix.length; i++){
 			for(var j = 0; j < this.player1AuxBoard.boardMatrix[i].length; j++){
@@ -139,7 +147,7 @@ class GoRoGo{
     checkForEating(){
 		for(var i = 0; i < this.mainBoard.boardMatrix.length; i++) {
             for (var j = 0; j < this.mainBoard.boardMatrix[i].length; j++) {
-            	console.log(this.answerMatrix[this.mainBoard.boardMatrix.length * i + j]);
+            	//console.log(this.answerMatrix[this.mainBoard.boardMatrix.length * i + j]);
 				if(this.answerMatrix[this.mainBoard.boardMatrix.length * i + j] == 2){
                     var availableTile;
                     if(this.currentPlayer % 2){
@@ -165,9 +173,37 @@ class GoRoGo{
  		var startingPosition = piece.tile;
  		this.unbindPieceToTile(startingPosition, piece);
  		this.bindPieceToTile(tile, piece);
+ 		this.removePieceFromPlayer(piece);
         this.checkForEating();
  		this.updatePrologBoard();
  		//this.boardToString(this.mainBoard);
+ 	}
+
+ 	isGameOver(){
+ 		if(this.currentPlayer % 2 == 0){
+ 			if(this.possibleMoves == 0 || this.player2NormalPiecesCount == 0){
+ 				console.log("Player 1 wins!");
+ 				return true;
+ 			}
+ 			return false;
+ 		}
+ 		else{
+ 			if(this.possibleMoves == 0 || this.player1NormalPiecesCount == 0){
+ 				console.log("Player 2 wins!");
+ 				return true;
+ 			}
+ 			return false;
+ 		}
+ 	}
+
+ 	removePieceFromPlayer(piece){
+ 		console.log(piece);
+ 		if(piece.type == 1){
+ 			this.player1NormalPiecesCount--;
+ 		}
+ 		else if(piece.type == 2){
+ 			this.player2NormalPiecesCount--;
+ 		}
  	}
 
  	boardToString(board){
@@ -222,69 +258,72 @@ class GoRoGo{
 
  	async pickTile(index){
 
-  		var pickedTileID = index-1;
-		for(var i = 0; i < this.currentPickableBoard.boardMatrix.length; i++){
-			for(var j = 0; j < this.currentPickableBoard.boardMatrix[i].length; j++){
-				if(this.currentPickableBoard.boardMatrix[i][j].id == pickedTileID){
-					var pickedTile = this.currentPickableBoard.boardMatrix[i][j];
+ 		console.log("player1 normal: " + this.player1NormalPiecesCount);
+ 		console.log("player2 normal: " + this.player2NormalPiecesCount);
+
+  		if(this.started){
+  			var pickedTileID = index-1;
+			for(var i = 0; i < this.currentPickableBoard.boardMatrix.length; i++){
+				for(var j = 0; j < this.currentPickableBoard.boardMatrix[i].length; j++){
+					if(this.currentPickableBoard.boardMatrix[i][j].id == pickedTileID){
+						var pickedTile = this.currentPickableBoard.boardMatrix[i][j];
+					}
 				}
 			}
-		}
 
-		if(this.currentState == 1){
-			pickedTile.selected = true;
-			this.removeHighlights();
-			this.updatePrologBoard();
-			this.currentState++;
-            //this.selectedPiece = this.allPieces[24];
-            this.selectedDestination = pickedTile;
-            this.bindPieceToTile(this.selectedDestination, this.selectedPiece);
-            this.currentPlayer++;
-            this.currentPlayState = 0;
-            if(this.currentPlayer % 2 == 0){
-                console.log("Player 1 playing");
-            	this.makeSelectable(this.player1AuxBoard);
+			if(this.currentState == 1){
+				pickedTile.selected = true;
+				this.removeHighlights();
+				this.updatePrologBoard();
+				this.currentState++;
+	            this.selectedDestination = pickedTile;
+    	        this.bindPieceToTile(this.selectedDestination, this.selectedPiece);
+        	    this.currentPlayer++;
+            	this.currentPlayState = 0;
+	            if(this.currentPlayer % 2 == 0){
+    	            console.log("Player 1 playing");
+        	    	this.makeSelectable(this.player1AuxBoard); 
+				}
+				else{
+            	    console.log("Player 2 playing");
+          		  	this.makeSelectable(this.player2AuxBoard);
+				}
 			}
-			else{
-                console.log("Player 2 playing");
-            	this.makeSelectable(this.player2AuxBoard);
-			}
-			//this.boardToString(this.mainBoard);
-			//this.updatePrologBoard();
-		}
 
-		else if(this.currentState == 2){
-			if(this.currentPlayState == 0){
-                //this.answerMatrix = [];
-				this.selectedPiece = pickedTile.placedPiece;
-				console.log("selected piece: " + this.selectedPiece);
-                //this.getAnswerArray(this.prologBoard, this.selectedPiece.type);
-                pickedTile.selected = true;
-				this.currentPlayState++;
-                console.log("Place the selected piece on the board");
-				this.makeSelectable(this.mainBoard);
-				await sleep(1000);
-				this.highlightPossibleMoves();
+			else if(this.currentState == 2){
+				if(this.currentPlayState == 0){
+					this.selectedPiece = pickedTile.placedPiece;
+                	pickedTile.selected = true;
+					this.currentPlayState++;
+                	console.log("Place the selected piece on the board");
+					this.makeSelectable(this.mainBoard);
+					await sleep(1000);
+					this.highlightPossibleMoves();
+				}
+				else if(this.currentPlayState == 1){
+					console.log("Doing play");
+                	this.selectedDestination = pickedTile;
+                	pickedTile.selected = true;
+                	this.currentPlayer++;
+                	this.currentPlayState = 0;
+                	if(this.currentPlayer % 2 == 0){
+                    	console.log("Player 1 playing");
+                    	this.makeSelectable(this.player1AuxBoard);
+                	}
+                	else{
+                    	console.log("Player 2 playing");
+                    	this.makeSelectable(this.player2AuxBoard);
+                	}
+                	this.animatePlay(this.selectedDestination, this.selectedPiece);
+                	if(this.isGameOver()){
+						this.started = false;
+					}
+                	this.answerMatrix = [];
+                	this.removeHighlights();
+				}
 			}
-			else if(this.currentPlayState == 1){
-				console.log("Doing play");
-                this.selectedDestination = pickedTile;
-                pickedTile.selected = true;
-                this.currentPlayer++;
-                this.currentPlayState = 0;
-                if(this.currentPlayer % 2 == 0){
-                    console.log("Player 1 playing");
-                    this.makeSelectable(this.player1AuxBoard);
-                }
-                else{
-                    console.log("Player 2 playing");
-                    this.makeSelectable(this.player2AuxBoard);
-                }
-                this.animatePlay(this.selectedDestination, this.selectedPiece);
-                this.answerMatrix = [];
-                this.removeHighlights();
-			}
-		}
+  		}
+  		return;
   	}
 
   	getAnswerArray(board, type){
@@ -305,6 +344,7 @@ class GoRoGo{
 				for(var j = 0; j < this.mainBoard.boardMatrix[i].length; j++){
 					if(!this.mainBoard.boardMatrix[i][j].occupied){
 						this.mainBoard.boardMatrix[i][j].highlighed = true;
+						this.possibleMoves++;
 					}
  				}
   			}
@@ -315,10 +355,12 @@ class GoRoGo{
                 	//console.log(this.answerMatrix[this.mainBoard.boardMatrix.length*i+j]);
                     if(!this.mainBoard.boardMatrix[i][j].occupied && this.answerMatrix[this.mainBoard.boardMatrix.length*i+j] == 1){
                         this.mainBoard.boardMatrix[i][j].highlighed = true;
+                        this.possibleMoves++;
                     }
                 }
             }
 		}
+		console.log(this.possibleMoves);
   	}
 
   	removeHighlights(){
@@ -342,6 +384,7 @@ class GoRoGo{
                 this.player2AuxBoard.boardMatrix[i][j].selected = false;
             }
         }
+        this.possibleMoves = 0;
   	}
 
   	firstTurn(){
