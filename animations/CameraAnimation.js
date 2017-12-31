@@ -22,7 +22,6 @@ class CameraAnimation{
 	}
 
 	apply(){
-		console.log(this.finished);
 		this.currentTime += this.iteration;
 
 		var ratio = this.currentTime / this.animationTime;
@@ -31,24 +30,13 @@ class CameraAnimation{
 			return;
 		}
 
-		console.log(this.deltaX);
-		console.log(this.deltaX * this.iteration);
+		this.startingCamera.position[0] += this.deltaX / (this.animationTime / this.iteration);
+		this.startingCamera.position[1] += this.deltaY / (this.animationTime / this.iteration);
+		this.startingCamera.position[2] += this.deltaZ / (this.animationTime / this.iteration);
 
-		/*var deltaX = this.finishingCamera.position[0] - this.startingCameraPosition[0];
-		var deltaY = this.finishingCamera.position[1] - this.startingCameraPosition[1];
-		var deltaZ = this.finishingCamera.position[2] - this.startingCameraPosition[2];
-
-		var targetDeltaX = this.finishingCamera.target[0] - this.startingCameraTarget[0];
-		var targetDeltaY = this.finishingCamera.target[1] - this.startingCameraTarget[1];
-		var targetDeltaZ = this.finishingCamera.target[2] - this.startingCameraTarget[2];*/
-
-		this.startingCamera.position[0] += this.deltaX * this.iteration;
-		this.startingCamera.position[1] += this.deltaY * this.iteration;
-		this.startingCamera.position[2] += this.deltaZ * this.iteration;
-
-		this.startingCamera.target[0] += this.targetDeltaX * this.iteration;
-		this.startingCamera.target[1] += this.targetDeltaY * this.iteration;
-		this.startingCamera.target[2] += this.targetDeltaZ * this.iteration;
+		this.startingCamera.target[0] += this.targetDeltaX / (this.animationTime / this.iteration);
+		this.startingCamera.target[1] += this.targetDeltaY / (this.animationTime / this.iteration);
+		this.startingCamera.target[2] += this.targetDeltaZ / (this.animationTime / this.iteration);
 	}
 
 

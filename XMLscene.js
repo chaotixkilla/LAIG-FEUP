@@ -109,7 +109,8 @@ XMLscene.prototype.initCameras = function() {
     this.perspectives.push(this.startCamera);
 
     //camera for top view
-    this.topCamera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.522, 6, 4.99),vec3.fromValues(2.707, 2.741, 4.99));
+    //this.topCamera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.522, 6, 4.99),vec3.fromValues(2.707, 2.741, 4.99));
+    this.topCamera = new CGFcamera(0.4,0.1,500,vec3.fromValues(5.122, 6, 4.99),vec3.fromValues(1.707, 0, 5.01));
     this.perspectives.push(this.topCamera);
 
     //camera for player 1
@@ -124,7 +125,7 @@ XMLscene.prototype.initCameras = function() {
     this.sceneryCamera = new CGFcamera(0.4,0.1,500,vec3.fromValues(26.1825, 16.547, 4.94),vec3.fromValues(2.712, 2.694, 5.041));
     this.perspectives.push(this.sceneryCamera);
 
-    this.camera = this.startCamera;
+    this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(11.1825, 3.547, 4.94),vec3.fromValues(2.712, 2.694, 5.041));
 }
 
 /* Handler called when the graph is finally loaded. 
@@ -165,7 +166,7 @@ XMLscene.prototype.logPicking = function ()
                 if (obj)
                 {
                     var customId = this.pickResults[i][1]; // o ID do objeto seleccionado
-                    console.log("Picked object: " + obj + ", with pick id " + customId);
+                    //console.log("Picked object: " + obj + ", with pick id " + customId);
                     this.game.pickTile(customId);
                 }
             }
@@ -286,9 +287,6 @@ XMLscene.prototype.update = function(currTime){
 	}
 
 
-    console.log(this.cameraAnimation);
-
-
     for(var i = 0; i < this.gameAnimations.length; i++){
         this.gameAnimations[i].apply();
         if(this.gameAnimations[i].isComplete()){
@@ -299,18 +297,21 @@ XMLscene.prototype.update = function(currTime){
     if(this.cameraAnimation != null){
         this.cameraAnimation.apply();
         if(this.cameraAnimation.finished){
-            this.camera = this.perspectives[this.perspectiveIndex];
+            //this.camera = this.perspectives[this.perspectiveIndex];
             this.cameraAnimation = null;
         }
     }
 
+    this.perspectiveIndex = this.game.currCamera;
     if(this.oldPerspectiveIndex != this.perspectiveIndex){
+        //console.log(this.perspectives[this.perspectiveIndex]);
         var animation = new CameraAnimation(this, this.camera, this.perspectives[this.perspectiveIndex]);
-        console.log(animation);
+        //console.log(animation);
         this.cameraAnimation = animation;
     }
     this.oldPerspectiveIndex = this.perspectiveIndex;
-    this.perspectiveIndex = this.game.currCamera;
+    
+    //console.log(this.perspectiveIndex);
     //this.camera.position = [this.camera.position[0]-0.01, this.camera.position[1], this.camera.position[2], 0];
 }
 
