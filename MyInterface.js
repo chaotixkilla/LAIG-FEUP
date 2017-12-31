@@ -24,6 +24,14 @@ MyInterface.prototype.init = function(application) {
     
     this.gui = new dat.GUI();
 
+    this.scenes = this.gui.addFolder("Scenes");
+    this.scenes.open();
+    this.gui.scene = 'Traditional';
+    this.gui.sceneList = this.scenes.add(this.gui, 'scene', ['Traditional', 'Detroit']);
+    this.gui.sceneList.onFinishChange(function(){
+        this.scene.changeGraph(this.gui.scene);
+    }.bind(this))
+
     // add a group of controls (and open/expand by defult)
     
     return true;
