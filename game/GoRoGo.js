@@ -26,6 +26,8 @@ class GoRoGo{
 
 		this.states = ['Waiting for a game to start', 'First play (the henge piece left)', 'Game being played', 'Game finished', 'Replaying a game'];
 		this.playPieceStates = ['Piece picked up', 'Piece waiting to be placed'];
+		this.gameStateString = 'Waiting for a game to start.';
+		this.playStateString = '';
 
 		this.currentState = 0;
 		this.currentPlayState = -1;
@@ -177,9 +179,11 @@ class GoRoGo{
                     var availableTile;
                     if(this.currentPlayer % 2){
                         availableTile = this.getFirstGraveyardAvailableTile();
+                        this.player2Score++;
                     }
                     else{
                         availableTile = this.getSecondGraveyardAvailableTile();
+                        this.player1Score++;
                     }
 
 					var eatenPiece = this.mainBoard.boardMatrix[i][j].placedPiece;
@@ -217,14 +221,26 @@ class GoRoGo{
  	isGameOver(){
  		if(this.currentPlayer % 2 == 0){
  			if(this.possibleMoves == 0 || this.player2NormalPiecesCount == 0){
- 				console.log("Player 1 wins!");
+ 				this.gameStateString = 'White player wins!';
+ 				if(this.possibleMoves == 0){
+ 					this.playStateString = 'Black player ran out of moves.';
+ 				}
+ 				else if(this.player2NormalPiecesCount == 0){
+ 					this.playStateString = 'Black player ran out of normal pieces.';
+ 				}
  				return true;
  			}
  			return false;
  		}
  		else{
  			if(this.possibleMoves == 0 || this.player1NormalPiecesCount == 0){
- 				console.log("Player 2 wins!");
+ 				this.gameStateString = 'Black player wins!';
+ 				if(this.possibleMoves == 0){
+ 					this.playStateString = 'White player ran out of moves.';
+ 				}
+ 				else if(this.player1NormalPiecesCount == 0){
+ 					this.playStateString = 'White player ran out of normal pieces.';
+ 				}
  				return true;
  			}
  			return false;
@@ -275,9 +291,9 @@ class GoRoGo{
  	}
 
  	updatePrologBoard(){
- 		console.log("before: " + this.prologBoard);
+ 		//console.log("before: " + this.prologBoard);
  		this.prologBoard = this.boardToString(this.mainBoard);
- 		console.log("after: " + this.prologBoard);
+ 		//console.log("after: " + this.prologBoard);
 		this.getAnswerArray(this.prologBoard, this.currentPlayer%2 + 1);
  	}
 
@@ -307,6 +323,7 @@ class GoRoGo{
 			}
 
 			if(this.currentState == 1){
+				this.gameStateString = 'Game being played.';
 				pickedTile.selected = true;
 				this.removeHighlights();
 				this.updatePrologBoard();
@@ -316,11 +333,11 @@ class GoRoGo{
         	    this.currentPlayer++;
             	this.currentPlayState = 0;
 	            if(this.currentPlayer % 2 == 0){
-    	            console.log("Player 1 playing");
+    	            this.playStateString = 'White player playing.';
         	    	this.makeSelectable(this.player1AuxBoard); 
 				}
 				else{
-            	    console.log("Player 2 playing");
+            	    this.playStateString = 'Black player playing.';
           		  	this.makeSelectable(this.player2AuxBoard);
 				}
 			}
@@ -330,7 +347,7 @@ class GoRoGo{
 					this.selectedPiece = pickedTile.placedPiece;
                 	pickedTile.selected = true;
 					this.currentPlayState++;
-                	console.log("Place the selected piece on the board");
+                	this.playStateString = 'Place the selected piece on the board';
 					this.makeSelectable(this.mainBoard);
 					await sleep(1000);
 					this.highlightPossibleMoves();
@@ -342,11 +359,11 @@ class GoRoGo{
                 	this.currentPlayer++;
                 	this.currentPlayState = 0;
                 	if(this.currentPlayer % 2 == 0){
-                    	console.log("Player 1 playing");
+                    	this.playStateString = 'White player playing.';
                     	this.makeSelectable(this.player1AuxBoard);
                 	}
                 	else{
-                    	console.log("Player 2 playing");
+                    	this.playStateString = 'Black player playing.';
                     	this.makeSelectable(this.player2AuxBoard);
                 	}
                 	this.animatePlay(this.selectedDestination, this.selectedPiece);
@@ -423,6 +440,8 @@ class GoRoGo{
   	}
 
   	firstTurn(){
+  		this.gameStateString = 'Game started.';
+  		this.playStateString = 'Last Henge piece being played by the white player.';
         this.selectedPiece = this.allPieces[24];
   		this.highlightPossibleMoves();
  		this.makeSelectable(this.mainBoard);
@@ -496,10 +515,16 @@ class GoRoGo{
 		gameInterface.game.add(this, 'timeElapsed').listen().name('Time Elapsed');
 
 		//White Score Counter
-		gameInterface.game.add(this, 'player1Score').name('White Score');
+		gameInterface.game.add(this, 'player1Score').listen().name('White Score');
 
 		//Black Score Counter
-		gameInterface.game.add(this, 'player2Score').name('Black Score');
+		gameInterface.game.add(this, 'player2Score').listen().name('Black Score');
+
+		//Game State
+		gameInterface.game.add(this, 'gameStateString').listen().name('Game State');
+
+		//Play State
+		gameInterface.game.add(this, 'playStateString').listen().name('Play State');
 
 		//Pause Game button
 		gameInterface.game.add(this, 'paused').name('Pause');
