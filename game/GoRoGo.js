@@ -53,6 +53,9 @@ class GoRoGo{
 		this.answerMatrix = [];
 
 		this.possibleMoves = 0;
+
+		this.playHistory = [];
+		this.boardHistory = [];
 	}
 
 	addPiecesToPlayers(){
@@ -87,6 +90,7 @@ class GoRoGo{
 		this.player2NormalPiecesCount = 10;
 		this.player1Score = 0;
 		this.player2Score = 0;
+		this.playHistory = [];
 
 		for(var i = 0; i < this.player1AuxBoard.boardMatrix.length; i++){
 			for(var j = 0; j < this.player1AuxBoard.boardMatrix[i].length; j++){
@@ -145,6 +149,26 @@ class GoRoGo{
         }
     }
 
+    getFirstPlayerAvailableTile(){
+		for(var i = 0; i < this.player1AuxBoard.boardMatrix.length; i++){
+			for(var j = 0; j < this.player1AuxBoard.boardMatrix[i].length; j++){
+				if(!this.player1AuxBoard.boardMatrix[i][j].occupied){
+					return this.player1AuxBoard.boardMatrix[i][j];
+				}
+			}
+		}
+	}
+
+	getSecondPlayerAvailableTile(){
+		for(var i = 0; i < this.player2AuxBoard.boardMatrix.length; i++){
+			for(var j = 0; j < this.player2AuxBoard.boardMatrix[i].length; j++){
+				if(!this.player2AuxBoard.boardMatrix[i][j].occupied){
+					return this.player2AuxBoard.boardMatrix[i][j];
+				}
+			}
+		}
+	}
+
     checkForEating(){
 		for(var i = 0; i < this.mainBoard.boardMatrix.length; i++) {
             for (var j = 0; j < this.mainBoard.boardMatrix[i].length; j++) {
@@ -178,12 +202,15 @@ class GoRoGo{
 */
 
  	makePlay(tile, piece){
+ 		var play = [tile, piece];
  		var startingPosition = piece.tile;
  		this.unbindPieceToTile(startingPosition, piece);
  		this.bindPieceToTile(tile, piece);
  		this.removePieceFromPlayer(piece);
         this.checkForEating();
  		this.updatePrologBoard();
+ 		this.playHistory.push(play);
+ 		this.boardHistory.push(this.mainBoard);
  		//this.boardToString(this.mainBoard);
  	}
 
@@ -485,7 +512,39 @@ class GoRoGo{
 	}
 
 	undo(){
-		alert('Play Undoer Simulator');
+		if(this.playHistory.length > 0 && this.boardHistory.length > 0 && this.currentState == 2 && this.currentPlayState != 1){
+			var lastPlay = this.playHistory[this.playHistory.length-1];
+			var lastBoard = this.boardHistory[this.boardHistory.length-1];
+			this.currentPlayer--;
+			console.log(this.selectedPiece);
+			console.log(this.selectedPiece.tile);
+			this.unbindPieceToTile(lastPlay[1].tile, lastPlay[1]);
+			console.log("HERE");
+			if(this.currentPlayer % 2 == 0){
+        	    console.log("Player 1 playing");
+        	  	this.makeSelectable(this.player1AuxBoard);
+        	  	var availableTile = this.getFirstPlayerAvailableTile();
+       		}
+        	else{
+        	 	console.log("Player 2 playing");
+        	  	this.makeSelectable(this.player2AuxBoard);
+        	  	var availableTile = this.getSecondPlayerAvailableTile();
+
+       		}
+       		this.bindPieceToTile(availableTile, lastPlay[1]);
+       		this.mainBoard = lastBoard;
+       		this.playHistory.pop();
+       		this.boardHistory.pop();
+		}
+		else if(this.currentState != 2){
+			alert('You cannot undo while the game hasn\'t started!');
+		}
+		else if(this.playHistory.length == 0 && this.boardHistory.length == 0){
+			alert('You cannot undo while there weren\'t made any plays!');
+		}
+		else if(this.currentPlayState == 1){
+			alert('You cannot undo in the middle of a play!');
+		}
 	}
 
 	parseBoard(plBoard){
