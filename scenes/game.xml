@@ -55,7 +55,7 @@
 
     <LIGHT id="light4">                                   
         <enable value ="1" />                              
-        <position x="26" y="4" z="36" w="1" />                 
+        <position x="2" y="4" z="36" w="1" />                 
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />             
         <diffuse r="1" g="0.8" b="0.6" a="1.0" />       
         <specular r="0.6" g="0.6" b="0.6" a="1.0" />      
@@ -173,6 +173,12 @@
         <amplif_factor s="5" t="5" />
     </TEXTURE>
 
+    <!-- Opening Doors -->
+    <TEXTURE id="door2">
+        <file path="images/door8.jpg" />
+        <amplif_factor s="5" t="5" />
+    </TEXTURE>
+
 
 </TEXTURES>
 
@@ -190,6 +196,16 @@
 </MATERIALS>
 
 <ANIMATIONS>
+
+    <ANIMATION id="left_door" speed="0.5" type="linear">
+        <controlpoint xx="0" yy="0" zz="0" />
+        <controlpoint xx="0" yy="0" zz="-10" />
+    </ANIMATION>
+
+     <ANIMATION id="right_door" speed="0.5" type="linear">
+        <controlpoint xx="0" yy="0" zz="0" />
+        <controlpoint xx="0" yy="0" zz="10" />
+    </ANIMATION>
 
 </ANIMATIONS>
 
@@ -456,7 +472,10 @@
             <NODEREF id="wall2"/> 
             <NODEREF id="wall3"/>
             <NODEREF id="wall4"/> 
+            <NODEREF id="wall5"/> 
             <NODEREF id="door_wall"/>
+            <NODEREF id="door_wall2"/>
+            <NODEREF id="door_wall3"/>
         </DESCENDANTS>
     </NODE>
 
@@ -477,8 +496,20 @@
         <MATERIAL id="defaultMaterial"/>
         <TEXTURE id="jap_wall"/>
 
-        <TRANSLATION x="30" y="-20" z="20" />
-        <SCALE sx="1" sy="1" sz="2"/>
+        <TRANSLATION x="30" y="0" z="35" />
+        <SCALE sx="1" sy="1" sz="0.5"/>
+
+        <DESCENDANTS>
+            <NODEREF id="wall"/>
+        </DESCENDANTS>
+    </NODE>
+
+     <NODE id="wall5">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="jap_wall"/>
+
+        <TRANSLATION x="30" y="0" z="5" />
+        <SCALE sx="1" sy="1" sz="0.5"/>
 
         <DESCENDANTS>
             <NODEREF id="wall"/>
@@ -517,6 +548,36 @@
 
         <TRANSLATION x="0.05" y="0" z="20"/>
         <SCALE sx="1.5" sy="0.9" sz="1"/>
+
+        <DESCENDANTS>
+            <NODEREF id="wall"/>
+        </DESCENDANTS>
+    </NODE>
+
+      <NODE id="door_wall2">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="door2"/>
+        <ANIMATIONREFS>
+            <ANIMATIONREF id="right_door" />
+        </ANIMATIONREFS>
+
+        <TRANSLATION x="30.2" y="0" z="25" />
+        <SCALE sx="1" sy="1" sz="0.5"/>
+
+        <DESCENDANTS>
+            <NODEREF id="wall"/>
+        </DESCENDANTS>
+    </NODE>
+
+      <NODE id="door_wall3">
+        <MATERIAL id="defaultMaterial"/>
+        <TEXTURE id="door2"/>
+        <ANIMATIONREFS>
+            <ANIMATIONREF id="left_door" />
+        </ANIMATIONREFS>
+
+        <TRANSLATION x="30.2" y="0" z="15" />
+        <SCALE sx="1" sy="1" sz="0.5"/>
 
         <DESCENDANTS>
             <NODEREF id="wall"/>
@@ -737,7 +798,7 @@
         <MATERIAL id="defaultMaterial"/>
         <TEXTURE id="null"/>
 
-        <TRANSLATION x="26" y="0" z="36"/>
+        <TRANSLATION x="2" y="0" z="36"/>
         <ROTATION axis="y" angle="25"/>
 
         <DESCENDANTS>

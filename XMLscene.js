@@ -278,9 +278,9 @@ XMLscene.prototype.display = function() {
 XMLscene.prototype.update = function(currTime){
 	var deltaTime = (currTime - this.lastUpdateTime) / 1000;
 	this.lastUpdateTime = currTime;
-	/*for(var node in this.graph.nodes){
+	for(var node in this.graph.nodes){
 		this.graph.nodes[node].updateAnimation(deltaTime);
-	}*/
+	}
 
 
     //console.log(this.gameAnimations);

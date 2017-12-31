@@ -459,7 +459,7 @@
         <TEXTURE id="null"/>
 
         <TRANSLATION x="30" y="-300" z="20" />
-        <SCALE sx="1" sy="20" sz="2"/>
+        <SCALE sx="100" sy="20" sz="2"/>
 
         <DESCENDANTS>
             <NODEREF id="wall"/>
@@ -468,7 +468,7 @@
 
      <NODE id="wall3">
         <MATERIAL id="defaultMaterial"/>
-        <TEXTURE id="windows"/>
+        <TEXTURE id="null"/>
 
         <TRANSLATION x="15" y="-300" z="0"/>
         <SCALE sx="1.5" sy="20" sz="1"/>
@@ -481,7 +481,7 @@
 
     <NODE id="wall4">
         <MATERIAL id="defaultMaterial"/>
-        <TEXTURE id="windows"/>
+        <TEXTURE id="null"/>
 
         <TRANSLATION x="15" y="-300" z="40"/>
         <SCALE sx="1.5" sy="20" sz="1"/>
