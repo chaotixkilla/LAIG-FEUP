@@ -167,13 +167,23 @@ checkBoard(Board, Row, Col, CurrPlayer, Return) :-
 	checkBoardSpot(Board, Row, Col, Return1), !,
 	checkBoardSurroundings(Board, Row, Col, CurrPlayer, Return2),
 	(
-		(Return1 == 1, Return2 == 1) -> Return is 1;
+		((Return1 == 1, Return2 == 1) -> Return is 1);
+		((Return1 == 2, Return2 == 0) -> Return is 2);
+		((Return1 == 3, Return2 == 0) -> Return is 2);
 		Return is 0
 	).
 	
 checkBoardSpot(Board, Row, Col, Return) :-
 	getPiece(Board, Row, Col, 0),
 	Return is 1.
+
+checkBoardSpot(Board, Row, Col, Return) :-
+	getPiece(Board, Row, Col, 1),
+	Return is 2.
+
+checkBoardSpot(Board, Row, Col, Return) :-
+	getPiece(Board, Row, Col, 2),
+	Return is 3.
 
 checkBoardSpot(_, _, _, 0)	:- write('That coordinate is already occupied by a piece, try again!'), nl.
 	
