@@ -97,10 +97,49 @@ XMLscene.prototype.initLights = function() {
  * Initializes the scene cameras.
  */
 XMLscene.prototype.initCameras = function() {
-    //this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
 
     //starting camera
-    this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(11.1825, 3.547, 4.94),vec3.fromValues(2.712, 2.694, 5.041));
+    
+/*
+    var switcheroo = this.game.currCamera;
+
+    if(switcheroo != null)
+
+        switch(this.game.currCamera){
+            
+            case null:
+                this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(11.1825, 3.547, 4.94),vec3.fromValues(2.712, 2.694, 5.041));
+                break;
+
+            case 0:
+                this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(11.1825, 3.547, 4.94),vec3.fromValues(2.712, 2.694, 5.041));
+                break;
+
+            case 1:
+                this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.522, 6, 4.99),vec3.fromValues(2.707, 2.741, 4.99));
+                break;
+            
+            case 2:
+                this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.738, 3.316, 8.112),vec3.fromValues(2.715, 2.794, 6.33));
+                break;
+
+            case 3:
+                this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.74, 3.74, 2.25),vec3.fromValues(2.72, 1.417, 5.96));
+                break;
+
+            default:
+                alert("Invalid Camera");
+                break;
+        }
+
+    else 
+
+        */
+
+        this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(11.1825, 3.547, 4.94),vec3.fromValues(2.712, 2.694, 5.041));
+
+
+    //this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(11.1825, 3.547, 4.94),vec3.fromValues(2.712, 2.694, 5.041));
 
     //camera for top view
     //this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(2.522, 6, 4.99),vec3.fromValues(2.707, 2.741, 4.99));

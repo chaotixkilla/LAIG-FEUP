@@ -34,6 +34,7 @@ class GoRoGo{
 		this.timeoutTime = 10;
 		this.timeout = false;
 		this.currScene = "Traditional";
+		this.currCamera = 0;
 		this.gameMode = 0;
 		this.botDifficulty = 0;
 		this.timeElapsed = 0;
@@ -356,8 +357,6 @@ class GoRoGo{
  		this.started = true;
  		this.answerMatrix = [];
 
- 		//console.log(this.mainBoard);
-
 		this.getFreshBoard();
  		this.placeInitialPieces();
  		this.firstTurn();
@@ -380,14 +379,14 @@ class GoRoGo{
 		var btn = {'Start Game':this.startGame.bind(this) };
 		gameInterface.game.startBtn = gameInterface.game.add(btn, 'Start Game');
 
-		//Scene Selection dropdown
-		/*
-		var sceneDropdown = gameInterface.game.add(this, 'currScene',
-		{'Traditional' : 0,
-		 'Other' 	   : 1,
-		}).name('Scene');
-		sceneDropdown.__select.selectedIndex = this.currScene;
-		*/
+		//Cameras dropdown
+		var cameraDropdown = gameInterface.game.add(this, 'currCamera',
+		{'Default View' : 0,
+		 'Top View'     : 1,
+		 'Black View'   : 2,
+		 'White View'   : 3
+		}).name('Camera');
+		cameraDropdown.__select.selectedIndex = this.currCamera;
 
 		//Game Mode dropdown
 		var gameModeDropdown = gameInterface.game.add(this, 'gameMode',
@@ -431,25 +430,6 @@ class GoRoGo{
 	undo(){
 		alert('Play Undoer Simulator');
 	}
-
-/*
-	parseBoard(plBoard){
-		console.log('Prolog Board: ' + plBoard);
-
-		function replaceStr(str, find, replace){
-			for(var i= 0; i < find.length; i++){
-				str = str.replace(new RegExp(find[i], 'g'), replace[i]);
-			}
-			return str;
-		}
-
-		var find = ["0", "1", "2"];
-		var replace = ["'0'", "'1'", "'2'"];
-		this.prologBoard = replace(plBoard, find, replace);
-
-		console.log('After parsing prolog board: ' + this.mainBoard);
-	}
-*/
 
 	parseBoard(plBoard){
 	  console.log('Board do prolog :' + plBoard);
